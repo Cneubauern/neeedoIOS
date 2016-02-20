@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "E09580A3F1385D6B923022679F86E8CBFDB67F7E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E09580A3F1385D6B923022679F86E8CBFDB67F7E" : 0,
+    "67620B5EFA902936DF04070AF595B76AB0333747" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E5E037E0-CAD9-49BC-A43D-F2C6B9616519",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E09580A3F1385D6B923022679F86E8CBFDB67F7E" : "neeedoIOS\/",
+    "67620B5EFA902936DF04070AF595B76AB0333747" : "neeedoIOS\/Alamofire\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "neeedoIOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "neeedoIOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67620B5EFA902936DF04070AF595B76AB0333747"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Cneubauern\/neeedoIOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E09580A3F1385D6B923022679F86E8CBFDB67F7E"
+    }
+  ]
+}

@@ -28,7 +28,36 @@ class ViewController: UIViewController {
     
     let staticUrl = "https://www.neeedoapi.cneubauern.de"
     
-    override func viewDidLoad() {
+    
+    override func viewWillAppear(animated: Bool) {
+        
+        if let user = NSUserDefaults.standardUserDefaults().objectForKey("userEmail") {
+            
+            print("\(user)")
+            
+            if let password = NSUserDefaults.standardUserDefaults().objectForKey("userPassword"){
+                
+                print("\(password)")
+
+              
+                Alamofire.request(.GET, "\(staticUrl)/users/mail/\(user)")
+                    .authenticate(user: "\(user)", password: "\(password)")
+                    .responseJSON { response in
+                        
+                        if response.result.isSuccess{
+                            
+                            print(response.result.value)
+                            
+                            self.performSegueWithIdentifier("login", sender: self)
+                            
+                        }
+                }
+            }
+        }
+    }
+        
+    
+        override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nil
         username.placeholder = "Your Name"
@@ -43,6 +72,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+        
     @IBAction func logIn(sender: AnyObject) {
         
         if signUpActive == true{
@@ -147,8 +177,40 @@ class ViewController: UIViewController {
                 
                 if response.result.isSuccess{
                     
-                    self.performSegueWithIdentifier("login", sender: self)
                     
+                    if let JSON = response.result.value {
+                        
+                        print("\(JSON)")
+                      
+                        if let user = JSON["user"] as? NSDictionary{
+                           
+                            print("\(user)")
+                            
+                            if let id = user["id"]{
+                                
+                                NSUserDefaults.standardUserDefaults().setObject("\(id)", forKey: "userID")
+                                
+                            }
+                            if let name = user["name"]{
+                                
+                                NSUserDefaults.standardUserDefaults().setObject("\(name)", forKey: "userName")
+                                
+                            }
+                            if let email = user["email"]{
+                                
+                                NSUserDefaults.standardUserDefaults().setObject("\(email)", forKey: "userEmail")
+                                
+                            }
+                           
+                        }
+                        
+                    }
+                    
+                    NSUserDefaults.standardUserDefaults().setObject("\(password)", forKey: "userPassword")
+
+                    
+                    self.performSegueWithIdentifier("login", sender: self)
+
                     self.activityIndicator.stopAnimating()
                     UIApplication.sharedApplication().endIgnoringInteractionEvents()
                     
@@ -177,15 +239,15 @@ class ViewController: UIViewController {
    
     func signUpWithUsernameInBackground(){
         
-        let name = username.text
-        let email = pass.text
-        let password = fieldThree.text
+        let userName = username.text! as String
+        let eMail = pass.text! as String
+        let passWord = fieldThree.text! as String
         
         let parameters = [
             
-            "name":"\(name)",
-            "email":"\(email)",
-            "password":"\(password)"
+            "name":"\(userName)",
+            "email":"\(eMail)",
+            "password":"\(passWord)"
             
         ]
         
@@ -193,6 +255,40 @@ class ViewController: UIViewController {
             
             if response.result.isSuccess{
                 
+                if let JSON = response.result.value {
+                    
+                    print("\(JSON)")
+                    
+                    if let user = JSON["user"] as? NSDictionary{
+                        
+                        print("\(user)")
+                        
+                        if let id = user["id"]{
+                            
+                            NSUserDefaults.standardUserDefaults().setObject("\(id)", forKey: "userID")
+                            
+                            
+                        }
+                        if let name = user["name"]{
+                            
+                            
+                            NSUserDefaults.standardUserDefaults().setObject("\(name)", forKey: "userName")
+
+                            
+                        }
+                        if let email = user["email"]{
+                        
+                            NSUserDefaults.standardUserDefaults().setObject("\(email)", forKey: "userEmail")
+
+                            
+                        }
+                        
+                    }
+                    
+                }
+
+                NSUserDefaults.standardUserDefaults().setObject("\(passWord)", forKey: "userPassword")
+
                 self.performSegueWithIdentifier("login", sender: self)
                 
                 self.activityIndicator.stopAnimating()
