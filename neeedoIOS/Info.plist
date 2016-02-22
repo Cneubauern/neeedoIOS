@@ -43,7 +43,7 @@
 		<string>MKDirectionsModeTrain</string>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Because I always wan to know where you are </string>
+	<string>Because I always want to know where you are </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Because I want to know where you are</string>
 	<key>UILaunchStoryboardName</key>
