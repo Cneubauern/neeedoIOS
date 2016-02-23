@@ -151,7 +151,7 @@
         <!--Item-->
         <scene sceneID="zc8-yn-iPp">
             <objects>
-                <viewController id="x5m-rq-vtW" sceneMemberID="viewController">
+                <viewController id="x5m-rq-vtW" customClass="CreateOfferViewController" customModule="neeedoIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EQm-vS-2RB"/>
                         <viewControllerLayoutGuide type="bottom" id="SXA-eo-Ird"/>
@@ -159,7 +159,17 @@
                     <view key="view" contentMode="scaleToFill" id="xZm-hA-BD7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRc-1Y-qhE">
+                                <rect key="frame" x="145" y="580" width="85" height="30"/>
+                                <state key="normal" title="Create Offer"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FRc-1Y-qhE" firstAttribute="centerX" secondItem="xZm-hA-BD7" secondAttribute="centerX" id="Ghc-fN-sJN"/>
+                            <constraint firstItem="SXA-eo-Ird" firstAttribute="top" secondItem="FRc-1Y-qhE" secondAttribute="bottom" constant="8" id="i0m-Ly-29k"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="CWg-OJ-J9X"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>

@@ -22,6 +22,7 @@
 		9D57307F1C3B1923001B452C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57307E1C3B1923001B452C /* MapKit.framework */; };
 		9D5730811C3B19B6001B452C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D5730801C3B19B6001B452C /* CoreLocation.framework */; };
 		9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */; };
+		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		9D57307E1C3B1923001B452C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9D5730801C3B19B6001B452C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neeedo_Logo.png; sourceTree = "<group>"; };
+		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				9D57304C1C3B1713001B452C /* neeedoIOS.xcdatamodeld */,
 				9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */,
 				9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */,
+				9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				9D5730481C3B1713001B452C /* ViewController.swift in Sources */,
 				9D57304E1C3B1713001B452C /* neeedoIOS.xcdatamodeld in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
+				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
