@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import Foundation
 
+let staticUrl = "https://www.neeedoapi.cneubauern.de"
+
+
 class ViewController: UIViewController {
 
     @IBOutlet var username: UITextField!
@@ -26,7 +29,7 @@ class ViewController: UIViewController {
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
     
-    let staticUrl = "https://www.neeedoapi.cneubauern.de"
+    
     
     
     override func viewWillAppear(animated: Bool) {
