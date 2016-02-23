@@ -49,7 +49,9 @@ class ViewController: UIViewController {
                         
                         if response.result.isSuccess{
                             
-                            print(response.result.value)
+                            if let JSON = response.result.value {
+                                print(JSON)
+                            }
                             
                             self.performSegueWithIdentifier("login", sender: self)
                             

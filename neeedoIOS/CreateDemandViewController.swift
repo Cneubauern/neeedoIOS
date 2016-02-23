@@ -16,8 +16,8 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     var userId:String = ""
     
-    var lat:CLLocationDegrees = 0.0
-    var lon:CLLocationDegrees = 0.0
+    var lat = 0.0
+    var lon = 0.0
     
     var locationManager = CLLocationManager()
     
@@ -50,7 +50,7 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         lat = latitude
         lon = longitude
         
-        print(lat, lon)
+        //print(lat, lon)
         
     }
 
@@ -59,35 +59,41 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     func createDemand(){
         
         
+        let distance = 30.0
+       // let minPrice = 25.0
+       // let maxPrice = 77.0
         
-        
-        let location = [
-            "lat" :lat ,
-            "lon" :lon
-        ]
-        
-        let price = [
-            "min":25.0,
-            "max":77.0
-        ]
+        let tag1 = "socken"
+        let tag2 = "bekleidung"
         
         let parameters = [
             
-            "userID" : userId,
-            "mustTags":["socken", "bekleidung", "wolle"],
-            "shouldTags":["rot", "weich", "warm"],
-            "location": location,
-            "distance":30,
-            "price": price
-            
-       
+            "userId" : userId,
+            "mustTags":[tag1, tag2],
+            "shouldTags":[tag1, tag2],
+            "location": [
+                "lat" :lat ,
+                "lon" :lon
+            ]
+,
+            "distance": distance ,
+            "price": [
+                "min": 25.0,
+                "max": 77.0
+            ]
         ]
-
-        
-        print("\(userId),\(lat),\(lon)")
         
         print(parameters)
 
+        
+        Alamofire.request(.POST, "\(staticUrl)/demands", parameters: parameters as! [String : AnyObject], encoding: .JSON).responseJSON{ response in
+         
+            
+            if let JSON = response.result.value {
+                print(JSON)
+            }
+            
+        }
         
     }
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
