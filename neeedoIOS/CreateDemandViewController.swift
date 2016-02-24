@@ -14,10 +14,27 @@ import CoreLocation
 
 class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
+    @IBOutlet var mustHaves: UITextField!
+    
+    @IBOutlet var shouldHaves: UITextField!
+    
+    @IBOutlet var minPrice: UITextField!
+    
+    @IBOutlet var maxPrice: UITextField!
+    
+    @IBOutlet var useCurrentLocationSwitch: UISwitch!
+    
+    @IBOutlet var chooseLocationBtn: UIButton!
+    
+    @IBOutlet var radiusSlider: UISlider!
+    
+    @IBOutlet var sliderValue: UILabel!
+    
     var userId:String = ""
     
     var lat = 0.0
     var lon = 0.0
+    var radius:Float32 = 0.0
     
     var locationManager = CLLocationManager()
     
@@ -33,6 +50,11 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        chooseLocationBtn.enabled = false
+        
+        radius = radiusSlider.value
+        sliderValue.text = "\(radius)"
 
     }
     
@@ -59,41 +81,48 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     func createDemand(){
         
         
-        let distance = 30.0
-       // let minPrice = 25.0
-       // let maxPrice = 77.0
-        
-        let tag1 = "socken"
-        let tag2 = "bekleidung"
-        
-        let parameters = [
-            
-            "userId" : userId,
-            "mustTags":[tag1, tag2],
-            "shouldTags":[tag1, tag2],
-            "location": [
-                "lat" :lat ,
-                "lon" :lon
-            ]
-,
-            "distance": distance ,
-            "price": [
-                "min": 25.0,
-                "max": 77.0
-            ]
-        ]
-        
-        print(parameters)
-
-        
-        Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
-         
-            
-            if let JSON = response.result.value {
-                print(JSON)
+        let distance = radius
+        if let priceMin = Double(minPrice.text!){
+            if let priceMax = Double(maxPrice.text!){
+                
+                let tag1 = "socken"
+                let tag2 = "bekleidung"
+                
+                let parameters = [
+                    
+                    "userId" : userId,
+                    "mustTags":[tag1, tag2],
+                    "shouldTags":[tag1, tag2],
+                    "location": [
+                        "lat" :lat ,
+                        "lon" :lon
+                    ]
+                    ,
+                    "distance": distance ,
+                    "price": [
+                        "min": priceMin,
+                        "max": priceMax
+                    ]
+                ]
+                
+                print(parameters)
+                
+                
+                Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                    
+                    
+                    if let JSON = response.result.value {
+                        print(JSON)
+                    }
+                    
+                }
+                
             }
-            
+
+        } else{
+            print("Missing Elements")
         }
+        
         
     }
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
@@ -101,4 +130,20 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         createDemand()
     }
         
+    @IBAction func useCurrentLocationSwitched(sender: AnyObject) {
+        
+        if useCurrentLocationSwitch.on {
+            chooseLocationBtn.enabled = false
+        }else {
+            chooseLocationBtn.enabled = true
+        }
+        
+    }
+    @IBAction func valueChanged(sender: AnyObject) {
+        radius = radiusSlider.value
+        sliderValue.text = "\(radius)"
+    }
+    @IBAction func chooseLocation(sender: AnyObject) {
+    }
+    
 }

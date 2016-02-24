@@ -18,6 +18,12 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate{
     var lat = 0.0
     var lon = 0.0
     
+    @IBOutlet var descriptionTextField: UITextField!
+    @IBOutlet var priceTextField: UITextField!
+    @IBOutlet var currentLocationSwitch: UISwitch!
+    @IBOutlet var chooseLocationBtn: UIButton!
+    
+    
     var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -32,6 +38,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate{
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        chooseLocationBtn.enabled = false
         
     }
     
@@ -48,42 +56,69 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate{
         
         lat = latitude
         lon = longitude
-                
+        
+    }
+    
+    @IBAction func createOfferBtnClicked(sender: AnyObject) {
+        createOffer()
     }
     
     
-    
-    func createDemand(){
+    func createOffer(){
         
-        let price = 25.0
-        
-        let parameters = [
+        if let price = Double(priceTextField.text!){
             
-            "userId": userId,
+            let parameters = [
+                
+                "userId": userId,
+                
+                "tags":["socken", "bekleidung", "wolle"],
+                
+                "location":[
+                    "lat": lat,
+                    "lon": lon
+                ],
+                "price":price,
+                
+                "images":[]
+            ]
             
-            "tags":["socken", "bekleidung", "wolle"],
-            
-            "location":[
-                "lat": lat,
-                "lon": lon
-            ],
-            "price":price,
-            
-            "images":[]
-        ]
-        
-        print(parameters)
-        
-        
-        Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+            print(parameters)
             
             
-            if let JSON = response.result.value {
-                print(JSON)
+            Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                
+                
+                if let JSON = response.result.value {
+                    print(JSON)
+                }
+                
             }
             
+        } else{
+            print("Missing Elements")
         }
         
     }
+    
+    @IBAction func addImages(sender: AnyObject) {
+    }
+    @IBAction func chooseLocation(sender: AnyObject) {
+    }
+    @IBAction func useCurrentLocation(sender: AnyObject) {
+        
+        if currentLocationSwitch.on {
+            
+            chooseLocationBtn.enabled = false
+            
+        } else {
+            chooseLocationBtn.enabled = true
+        }
+        
+    }
+    @IBAction func openScanner(sender: AnyObject) {
+    }
+    
+    
     
 }
