@@ -144,6 +144,9 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         sliderValue.text = "\(radius)"
     }
     @IBAction func chooseLocation(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("chooseLocation", sender: self)
+
     }
     
 }

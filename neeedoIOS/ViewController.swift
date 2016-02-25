@@ -206,7 +206,11 @@ class ViewController: UIViewController {
                                 NSUserDefaults.standardUserDefaults().setObject("\(email)", forKey: "userEmail")
                                 
                             }
-                           
+                            if let version = user["version"]{
+                                
+                                NSUserDefaults.standardUserDefaults().setObject("\(version)", forKey: "userVersion")
+                                
+                            }
                         }
                         
                     }

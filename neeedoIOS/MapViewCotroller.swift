@@ -15,6 +15,7 @@ import CoreLocation
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var map: MKMapView!
+    @IBOutlet var accountButton: UIButton!
     
     var locationManager = CLLocationManager()
     
@@ -30,6 +31,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         uilpgr.minimumPressDuration = 2
         
         map.addGestureRecognizer(uilpgr)
+        
+        if let username = NSUserDefaults.standardUserDefaults().objectForKey("userName") {
+            
+            accountButton.setTitle( username as? String , forState: UIControlState.Normal)
+
+        }
+        
         
     }
     
@@ -51,7 +59,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         let userLocation:CLLocation = locations[0]
         
         let latitude:CLLocationDegrees = userLocation.coordinate.latitude
+        
+        NSUserDefaults.standardUserDefaults().setObject(latitude, forKey: "userLat")
+        
         let longitude:CLLocationDegrees = userLocation.coordinate.longitude
+        
+        NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "userLon")
+        
         let latDelta:CLLocationDegrees = 0.05
         let lonDelta:CLLocationDegrees = 0.05
         
@@ -86,4 +100,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
+    @IBAction func showProfile(sender: AnyObject) {
+        self.performSegueWithIdentifier("profile", sender: self)
+    }
 }

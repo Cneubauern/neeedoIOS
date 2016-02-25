@@ -96,6 +96,9 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate{
             }
             
         } else{
+            
+            
+            
             print("Missing Elements")
         }
         
@@ -104,6 +107,9 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate{
     @IBAction func addImages(sender: AnyObject) {
     }
     @IBAction func chooseLocation(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("chooseLocation", sender: self)
+        
     }
     @IBAction func useCurrentLocation(sender: AnyObject) {
         

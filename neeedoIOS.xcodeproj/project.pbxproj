@@ -11,6 +11,8 @@
 		9D1042991C7B16A200F65E3E /* MapViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */; };
 		9D16054C1C63D25F00ED7285 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; };
 		9D16054D1C63D25F00ED7285 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */; };
+		9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */; };
 		9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730451C3B1713001B452C /* AppDelegate.swift */; };
 		9D5730481C3B1713001B452C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730471C3B1713001B452C /* ViewController.swift */; };
 		9D57304B1C3B1713001B452C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5730491C3B1713001B452C /* Main.storyboard */; };
@@ -116,6 +118,8 @@
 		9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDemandViewController.swift; sourceTree = "<group>"; };
 		9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCotroller.swift; sourceTree = "<group>"; };
 		9D1605341C63D10400ED7285 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
+		9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userAccountViewController.swift; sourceTree = "<group>"; };
+		9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chooseLocationViewController.swift; sourceTree = "<group>"; };
 		9D5730421C3B1713001B452C /* neeedoIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = neeedoIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5730451C3B1713001B452C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D5730471C3B1713001B452C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +219,8 @@
 				9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */,
 				9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */,
 				9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */,
+				9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */,
+				9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -450,7 +456,9 @@
 				9D5730481C3B1713001B452C /* ViewController.swift in Sources */,
 				9D57304E1C3B1713001B452C /* neeedoIOS.xcdatamodeld in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
+				9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */,
 				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,
+				9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
