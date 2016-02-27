@@ -51,13 +51,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NjW-56-gjW">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NjW-56-gjW">
                                 <rect key="frame" x="44" y="270" width="287" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="287" id="B40-YJ-i4f"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WSW-Bh-gTy">
                                 <rect key="frame" x="44" y="307" width="287" height="30"/>
@@ -137,17 +137,40 @@
                     <connections>
                         <outlet property="button1" destination="Rl2-3q-Rfp" id="yTc-i5-5TZ"/>
                         <outlet property="button2" destination="Mo5-56-Hg0" id="Qqh-ds-gcP"/>
-                        <outlet property="fieldFour" destination="ReN-gC-UxG" id="R1c-ni-w0x"/>
-                        <outlet property="fieldThree" destination="WSW-Bh-gTy" id="rKA-5z-wnh"/>
-                        <outlet property="pass" destination="NjW-56-gjW" id="oLR-Zg-bAJ"/>
+                        <outlet property="email" destination="NjW-56-gjW" id="uem-Qf-Iz3"/>
+                        <outlet property="passControl" destination="ReN-gC-UxG" id="kP1-Ii-25h"/>
+                        <outlet property="password" destination="WSW-Bh-gTy" id="Cv7-z7-aRZ"/>
                         <outlet property="questionText" destination="xrP-ad-Zge" id="p4e-Aw-zk4"/>
-                        <outlet property="username" destination="4fJ-ZE-HXe" id="woW-cW-Rsu"/>
-                        <segue destination="nBU-V5-Y9P" kind="show" identifier="login" id="viC-Oc-6CZ"/>
+                        <outlet property="username" destination="4fJ-ZE-HXe" id="ieR-Vq-7Rb"/>
+                        <segue destination="FoY-p2-uew" kind="show" identifier="login" id="HBM-vH-2Lu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-458.5" y="-204.5"/>
+            <point key="canvasLocation" x="-997.5" y="-247.5"/>
+        </scene>
+        <!--Connecting View Controller-->
+        <scene sceneID="6oU-xw-1U9">
+            <objects>
+                <viewController id="FoY-p2-uew" customClass="ConnectingViewController" customModule="neeedoIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E5T-T3-aJI"/>
+                        <viewControllerLayoutGuide type="bottom" id="iSv-xU-bSs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dcx-08-eiP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="nBU-V5-Y9P" kind="show" identifier="loggedIn" id="h9d-uC-2D9"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginError" id="Slt-MM-MhD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MQx-k0-KAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-468.5" y="-86.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="q8y-bI-k7d">
@@ -269,7 +292,7 @@
                                     <constraint firstAttribute="width" constant="91" id="SaB-rO-Vr5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijx-ec-oh7">
@@ -744,6 +767,7 @@
         <image name="neeedo_Logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Slt-MM-MhD"/>
         <segue reference="4uR-X5-7tW"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -25,6 +25,7 @@
 		9D5730811C3B19B6001B452C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D5730801C3B19B6001B452C /* CoreLocation.framework */; };
 		9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
+		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,7 @@
 		9D5730801C3B19B6001B452C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neeedo_Logo.png; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
+		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,6 +213,7 @@
 			children = (
 				9D5730451C3B1713001B452C /* AppDelegate.swift */,
 				9D5730471C3B1713001B452C /* ViewController.swift */,
+				9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */,
 				9D5730491C3B1713001B452C /* Main.storyboard */,
 				9D57304F1C3B1713001B452C /* Assets.xcassets */,
 				9D5730511C3B1713001B452C /* LaunchScreen.storyboard */,
@@ -453,6 +456,7 @@
 			files = (
 				9D1042991C7B16A200F65E3E /* MapViewCotroller.swift in Sources */,
 				9D0010061C7C5EFA0029FE48 /* CreateDemandViewController.swift in Sources */,
+				9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */,
 				9D5730481C3B1713001B452C /* ViewController.swift in Sources */,
 				9D57304E1C3B1713001B452C /* neeedoIOS.xcdatamodeld in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
