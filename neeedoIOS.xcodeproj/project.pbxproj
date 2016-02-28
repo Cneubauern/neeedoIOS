@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9D0010061C7C5EFA0029FE48 /* CreateDemandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */; };
 		9D0B89DC1C83986C00E9A3EA /* PersonalElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B89DB1C83986C00E9A3EA /* PersonalElementsViewController.swift */; };
+		9D0B89E51C839BEA00E9A3EA /* demands_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0B89E31C839BEA00E9A3EA /* demands_pin.png */; };
+		9D0B89E61C839BEA00E9A3EA /* offers_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0B89E41C839BEA00E9A3EA /* offers_pin.png */; };
 		9D1042991C7B16A200F65E3E /* MapViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */; };
 		9D16054C1C63D25F00ED7285 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; };
 		9D16054D1C63D25F00ED7285 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -119,6 +121,8 @@
 /* Begin PBXFileReference section */
 		9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDemandViewController.swift; sourceTree = "<group>"; };
 		9D0B89DB1C83986C00E9A3EA /* PersonalElementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalElementsViewController.swift; sourceTree = "<group>"; };
+		9D0B89E31C839BEA00E9A3EA /* demands_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demands_pin.png; path = "../neeedo-webapp/assets/images/icons/demands_pin.png"; sourceTree = "<group>"; };
+		9D0B89E41C839BEA00E9A3EA /* offers_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = offers_pin.png; path = "../neeedo-webapp/assets/images/icons/offers_pin.png"; sourceTree = "<group>"; };
 		9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCotroller.swift; sourceTree = "<group>"; };
 		9D1605341C63D10400ED7285 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userAccountViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 		9D97B89C1C3EF59500293E42 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				9D0B89E31C839BEA00E9A3EA /* demands_pin.png */,
+				9D0B89E41C839BEA00E9A3EA /* offers_pin.png */,
 				9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */,
 			);
 			name = Images;
@@ -431,8 +437,10 @@
 			files = (
 				9D5730531C3B1713001B452C /* LaunchScreen.storyboard in Resources */,
 				9D5730501C3B1713001B452C /* Assets.xcassets in Resources */,
+				9D0B89E61C839BEA00E9A3EA /* offers_pin.png in Resources */,
 				9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */,
 				9D57304B1C3B1713001B452C /* Main.storyboard in Resources */,
+				9D0B89E51C839BEA00E9A3EA /* demands_pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

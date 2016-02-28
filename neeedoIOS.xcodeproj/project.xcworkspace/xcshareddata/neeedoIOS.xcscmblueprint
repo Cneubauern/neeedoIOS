@@ -4,11 +4,13 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "94BD74F94706C87568A380488828F3653237640B" : 0,
     "E09580A3F1385D6B923022679F86E8CBFDB67F7E" : 0,
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E5E037E0-CAD9-49BC-A43D-F2C6B9616519",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "94BD74F94706C87568A380488828F3653237640B" : "neeedo-webapp\/",
     "E09580A3F1385D6B923022679F86E8CBFDB67F7E" : "neeedoIOS\/",
     "67620B5EFA902936DF04070AF595B76AB0333747" : "neeedoIOS\/Alamofire\/"
   },
@@ -20,6 +22,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Alamofire\/Alamofire.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "67620B5EFA902936DF04070AF595B76AB0333747"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/neeedo\/neeedo-webapp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "94BD74F94706C87568A380488828F3653237640B"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Cneubauern\/neeedoIOS.git",

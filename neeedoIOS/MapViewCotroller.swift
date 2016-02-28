@@ -16,7 +16,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     @IBOutlet var map: MKMapView!
     
+    @IBOutlet var zoomSlider: UISlider!
+    
     var locationManager = CLLocationManager()
+    
+    var zoom:Double = Double()
     
     override func viewDidLoad() {
         
@@ -60,8 +64,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "UserLon")
         
-        let latDelta:CLLocationDegrees = 0.05
-        let lonDelta:CLLocationDegrees = 0.05
+        let latDelta:CLLocationDegrees = zoom
+        let lonDelta:CLLocationDegrees = zoom
         
         let span:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
         
@@ -97,4 +101,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     @IBAction func showProfile(sender: AnyObject) {
         self.performSegueWithIdentifier("profile", sender: self)
     }
+    
+    func getAllNearItems(){
+        
+    }
+    @IBAction func zoom(sender: AnyObject) {
+        
+        resizeWindow(zoomSlider.value)
+        
+    }
+    
+    func resizeWindow(zoomFactor:Float32){
+        
+        zoom = Double(zoomFactor)
+    }
+    
+    
+    
 }
