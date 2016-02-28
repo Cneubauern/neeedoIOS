@@ -80,13 +80,18 @@ class ConnectingViewController: UIViewController {
     func userLoggedIn(){
         
         print("Login Success")
+        
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "UserLoggedIn")
 
-        
+
+        if signUpActive{
+            
+            finishedLogInAndLoading()
+            
+        }else{
+            
             self.loadUserData()
-        
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "UserLoggedIn")
-        
-        
+        }
         
     }
     

@@ -11,7 +11,13 @@ import Alamofire
 import UIKit
 
 class userAccoutViewController: UIViewController {
+    
+    @IBOutlet var account: UILabel!
+    
+    
     override func viewDidLoad() {
+        
+        account.text = NSUserDefaults.standardUserDefaults().stringForKey("UserName")
         
     }
     override func didReceiveMemoryWarning() {

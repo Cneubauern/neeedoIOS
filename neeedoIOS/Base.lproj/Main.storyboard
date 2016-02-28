@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -345,7 +344,7 @@
                             <constraint firstItem="YVV-nh-Pxi" firstAttribute="centerX" secondItem="xZm-hA-BD7" secondAttribute="centerX" id="zht-qs-6XX"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="CWg-OJ-J9X"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="CWg-OJ-J9X"/>
                     <navigationItem key="navigationItem" title="Create Offer" id="E2p-S0-ZSh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -541,7 +540,7 @@
                             <constraint firstItem="bJQ-H4-jgh" firstAttribute="centerX" secondItem="okf-AW-UpD" secondAttribute="centerX" id="w2p-vK-srM"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Bcr-hP-u13"/>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="Bcr-hP-u13"/>
                     <navigationItem key="navigationItem" title="Create Demand" id="PdE-11-Xve"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -636,7 +635,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XGL-D0-jlI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590.5" y="734.5"/>
+            <point key="canvasLocation" x="414.5" y="934.5"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="2m6-tR-ozP">
@@ -653,37 +652,71 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="a0G-Q6-k6k">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzQ-Xc-x0Y">
-                                <rect key="frame" x="320" y="20" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="17k-Wr-8Rc"/>
-                                    <constraint firstAttribute="width" constant="46" id="3Vy-XB-eAB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                <connections>
-                                    <action selector="showProfile:" destination="oVX-3w-KWD" eventType="touchUpInside" id="tcP-OW-sC6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZzQ-Xc-x0Y" firstAttribute="top" secondItem="2CY-I3-xIf" secondAttribute="bottom" id="EWu-9I-KxU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZzQ-Xc-x0Y" secondAttribute="trailing" constant="-11" id="mKQ-2h-jCf"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="EWz-EL-cSb"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="accountButton" destination="ZzQ-Xc-x0Y" id="juk-5X-yV0"/>
                         <outlet property="map" destination="a0G-Q6-k6k" id="zIp-xF-aSi"/>
-                        <segue destination="VXQ-1R-M9L" kind="show" identifier="profile" id="45c-oA-UQX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIt-kg-SdF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="582.5" y="-48.5"/>
+            <point key="canvasLocation" x="551.5" y="-170.5"/>
         </scene>
-        <!--User Accout View Controller-->
+        <!--Item-->
+        <scene sceneID="pDt-5J-Y4l">
+            <objects>
+                <viewController id="BkS-F6-1yV" customClass="PersonalElementsViewController" customModule="neeedoIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WKA-lF-lch"/>
+                        <viewControllerLayoutGuide type="bottom" id="zY7-Y4-Em5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IsU-Lu-lSQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RzV-1Z-fiq">
+                                <rect key="frame" x="45" y="20" width="285" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="285" id="TYi-VJ-P0m"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="My Favorites"/>
+                                    <segment title="My Offers"/>
+                                    <segment title="My Demands"/>
+                                </segments>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="05L-50-U5I">
+                                <rect key="frame" x="20" y="56" width="335" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="335" id="18G-NG-EUU"/>
+                                </constraints>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RzV-1Z-fiq" firstAttribute="centerX" secondItem="IsU-Lu-lSQ" secondAttribute="centerX" id="ASw-QV-xJn"/>
+                            <constraint firstItem="zY7-Y4-Em5" firstAttribute="top" secondItem="05L-50-U5I" secondAttribute="bottom" constant="8" id="Iwp-Oz-2Ea"/>
+                            <constraint firstItem="05L-50-U5I" firstAttribute="centerX" secondItem="IsU-Lu-lSQ" secondAttribute="centerX" id="LJY-0Y-ICr"/>
+                            <constraint firstItem="05L-50-U5I" firstAttribute="top" secondItem="RzV-1Z-fiq" secondAttribute="bottom" constant="8" id="dfK-G8-L6C"/>
+                            <constraint firstItem="RzV-1Z-fiq" firstAttribute="top" secondItem="WKA-lF-lch" secondAttribute="bottom" id="hso-C9-0Ka"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="WUo-nN-4Un"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="05L-50-U5I" id="9jD-oL-QOW"/>
+                        <outlet property="viewSwitch" destination="RzV-1Z-fiq" id="9at-1b-sbH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gvw-n6-4AQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1012.5" y="76.5"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="FZr-6Z-sLe">
             <objects>
                 <viewController id="VXQ-1R-M9L" customClass="userAccoutViewController" customModule="neeedoIOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -706,9 +739,12 @@
                                     <action selector="logOut:" destination="VXQ-1R-M9L" eventType="touchUpInside" id="Fh9-Bn-Ndp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unE-v4-men">
-                                <rect key="frame" x="166" y="28" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="unE-v4-men">
+                                <rect key="frame" x="20" y="28" width="335" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="335" id="Gw6-3e-8OI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -727,21 +763,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="unE-v4-men" firstAttribute="top" secondItem="aeP-zq-NN6" secondAttribute="bottom" constant="8" id="2cW-4E-Hjr"/>
                             <constraint firstItem="JXd-N4-1Cv" firstAttribute="centerX" secondItem="FGU-Hp-xkQ" secondAttribute="centerX" id="5hv-iC-7iI"/>
                             <constraint firstItem="ACx-cB-oMD" firstAttribute="top" secondItem="Twu-Jw-Une" secondAttribute="bottom" constant="8" id="8Hi-sq-OeL"/>
                             <constraint firstItem="JXd-N4-1Cv" firstAttribute="centerX" secondItem="FGU-Hp-xkQ" secondAttribute="centerX" id="ZiD-Dt-LGr"/>
                             <constraint firstItem="Twu-Jw-Une" firstAttribute="top" secondItem="JXd-N4-1Cv" secondAttribute="bottom" constant="37" id="nZI-vY-9aJ"/>
+                            <constraint firstItem="unE-v4-men" firstAttribute="centerX" secondItem="FGU-Hp-xkQ" secondAttribute="centerX" id="rW9-et-Q5a"/>
                             <constraint firstItem="Twu-Jw-Une" firstAttribute="centerX" secondItem="FGU-Hp-xkQ" secondAttribute="centerX" id="wHo-sD-584"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" systemItem="more" id="sGy-Ky-gnJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="account" destination="unE-v4-men" id="i21-E9-Wgp"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="logout" id="gmr-X6-HOD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G94-qC-z06" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1260.5" y="-400.5"/>
+            <point key="canvasLocation" x="98.5" y="-717.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3iB-hl-TCO">
@@ -757,6 +797,8 @@
                         <segue destination="oVX-3w-KWD" kind="relationship" relationship="viewControllers" id="Lw0-aO-USS"/>
                         <segue destination="gsk-o2-qQO" kind="relationship" relationship="viewControllers" id="5MY-hB-1i7"/>
                         <segue destination="b7M-bC-l16" kind="relationship" relationship="viewControllers" id="cNb-dE-9i5"/>
+                        <segue destination="VXQ-1R-M9L" kind="relationship" relationship="viewControllers" id="S4I-8Y-78b"/>
+                        <segue destination="BkS-F6-1yV" kind="relationship" relationship="viewControllers" id="yb6-Db-SVc"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSK-dd-gZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -769,7 +811,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="h9d-uC-2D9"/>
-        <segue reference="Slt-MM-MhD"/>
+        <segue reference="gmr-X6-HOD"/>
         <segue reference="4uR-X5-7tW"/>
     </inferredMetricsTieBreakers>
 </document>

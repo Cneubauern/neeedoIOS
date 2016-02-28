@@ -15,7 +15,6 @@ import CoreLocation
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var map: MKMapView!
-    @IBOutlet var accountButton: UIButton!
     
     var locationManager = CLLocationManager()
     
@@ -31,12 +30,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         uilpgr.minimumPressDuration = 2
         
         map.addGestureRecognizer(uilpgr)
-        
-        if let username = NSUserDefaults.standardUserDefaults().objectForKey("UserName") {
-            
-            accountButton.setTitle( username as? String , forState: UIControlState.Normal)
-
-        }
+       
         
         
     }
