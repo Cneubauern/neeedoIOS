@@ -33,11 +33,15 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         
-        if NSUserDefaults.standardUserDefaults().objectForKey("UserLoggedIn") as! String == "loggedIn"{
+        if NSUserDefaults.standardUserDefaults().boolForKey("UserLoggedIn"){
+            
+            print(NSUserDefaults.standardUserDefaults().stringForKey("UserName")!)
+            print(NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!)
+            print(NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!)
             
             signUpActive = false
             
-            self.performSegueWithIdentifier("login", sender: self)
+            self.performSegueWithIdentifier("userLoggedIn", sender: self)
         }
 
     }

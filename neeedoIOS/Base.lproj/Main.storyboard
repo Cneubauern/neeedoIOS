@@ -143,11 +143,12 @@
                         <outlet property="questionText" destination="xrP-ad-Zge" id="p4e-Aw-zk4"/>
                         <outlet property="username" destination="4fJ-ZE-HXe" id="ieR-Vq-7Rb"/>
                         <segue destination="FoY-p2-uew" kind="show" identifier="login" id="HBM-vH-2Lu"/>
+                        <segue destination="nBU-V5-Y9P" kind="show" identifier="userLoggedIn" id="Jja-oa-203"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-997.5" y="-247.5"/>
+            <point key="canvasLocation" x="-1334.5" y="-223.5"/>
         </scene>
         <!--Connecting View Controller-->
         <scene sceneID="6oU-xw-1U9">
@@ -170,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQx-k0-KAk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-468.5" y="-86.5"/>
+            <point key="canvasLocation" x="-781.5" y="13.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="q8y-bI-k7d">
@@ -760,13 +761,14 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YSK-dd-gZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="12.5" y="32.5"/>
+            <point key="canvasLocation" x="-153.5" y="99.5"/>
         </scene>
     </scenes>
     <resources>
         <image name="neeedo_Logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="h9d-uC-2D9"/>
         <segue reference="Slt-MM-MhD"/>
         <segue reference="4uR-X5-7tW"/>
     </inferredMetricsTieBreakers>

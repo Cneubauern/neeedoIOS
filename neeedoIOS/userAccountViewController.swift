@@ -20,11 +20,13 @@ class userAccoutViewController: UIViewController {
     
     func logoutUser(){
         
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "userName")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "userID")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "userPassword")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "userEmail")
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserName")
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserID")
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserPassword")
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserEmail")
+        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserVersion")
         
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "UserLoggedIn")
         
         self.performSegueWithIdentifier("logout", sender: self)
 
@@ -34,8 +36,8 @@ class userAccoutViewController: UIViewController {
     func deleteUserAccount(){
         NSLog("Delete Pressed")
         
-        if let id = NSUserDefaults.standardUserDefaults().objectForKey("userID"){
-            if let version = NSUserDefaults.standardUserDefaults().objectForKey("userVersion"){
+        if let id = NSUserDefaults.standardUserDefaults().objectForKey("UserID"){
+            if let version = NSUserDefaults.standardUserDefaults().objectForKey("UserVersion"){
                 
                 Alamofire.request(.DELETE, "\(staticUrl)/users/\(id)/\(version)").response { response in
                     debugPrint(response)

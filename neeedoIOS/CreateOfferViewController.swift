@@ -28,12 +28,12 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     
     override func viewDidLoad() {
         
-        if let id = NSUserDefaults.standardUserDefaults().objectForKey("userID"){
+        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
             
-            userId = "\(id)" as String
+            userId = id
             
         }
-        
+                
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()

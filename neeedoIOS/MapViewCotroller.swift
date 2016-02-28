@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         map.addGestureRecognizer(uilpgr)
         
-        if let username = NSUserDefaults.standardUserDefaults().objectForKey("userName") {
+        if let username = NSUserDefaults.standardUserDefaults().objectForKey("UserName") {
             
             accountButton.setTitle( username as? String , forState: UIControlState.Normal)
 
@@ -60,11 +60,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         let latitude:CLLocationDegrees = userLocation.coordinate.latitude
         
-        NSUserDefaults.standardUserDefaults().setObject(latitude, forKey: "userLat")
+        NSUserDefaults.standardUserDefaults().setObject(latitude, forKey: "UserLat")
         
         let longitude:CLLocationDegrees = userLocation.coordinate.longitude
         
-        NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "userLon")
+        NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "UserLon")
         
         let latDelta:CLLocationDegrees = 0.05
         let lonDelta:CLLocationDegrees = 0.05
