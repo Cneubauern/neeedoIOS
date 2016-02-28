@@ -26,24 +26,21 @@ class ViewController: UIViewController {
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+       // super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nil
-   /*     if let userloggedin = NSUserDefaults.standardUserDefaults().objectForKey("UserLoggedIn") {
-            
-            print("\(userloggedin)")
-            
-            if userloggedin as! String  == "loggedIn"{
-                
-                print("here we go")
-                
-                self.performSegueWithIdentifier("login", sender: self)
-                
-            }
-        }
-*/
-            
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("UserLoggedIn") as! String == "loggedIn"{
+            
+            signUpActive = false
+            
+            self.performSegueWithIdentifier("login", sender: self)
+        }
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,13 +54,13 @@ class ViewController: UIViewController {
             passControl.hidden = true
             
             button1.setTitle("Log In", forState: UIControlState.Normal)
-           
+            
             questionText.text = "Not yet registered?"
             
             button2.setTitle("Sign Up", forState: UIControlState.Normal)
             
             signUpActive = false
-       
+            
         } else{
             
             
@@ -73,7 +70,7 @@ class ViewController: UIViewController {
             questionText.text = "Already registered"
             
             button1.setTitle("Sign Up", forState: UIControlState.Normal)
-
+            
             
             username.hidden = false
             passControl.hidden = false
@@ -81,7 +78,6 @@ class ViewController: UIViewController {
             signUpActive = true
             
         }
-        
     }
     @IBAction func signUp(sender: AnyObject) {
         
@@ -129,16 +125,19 @@ class ViewController: UIViewController {
     }
     
     
-    
     func signUpWithUsernameInBackground(){
+        
+        print("loggingIn")
         
         let userName = username.text! as String
         let eMail = email.text! as String
         let passWord = password.text! as String
         
+        
         NSUserDefaults.standardUserDefaults().setObject(userName, forKey: "UserName")
         NSUserDefaults.standardUserDefaults().setObject(eMail, forKey: "UserEmail")
         NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: "UserPassword")
+        
         
         self.performSegueWithIdentifier("login", sender: self)
     }
