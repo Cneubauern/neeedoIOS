@@ -28,7 +28,10 @@ class userAccoutViewController: UIViewController {
         
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "UserLoggedIn")
         
+        signUpActive = true
+        
         self.performSegueWithIdentifier("logout", sender: self)
+        
 
         
     }

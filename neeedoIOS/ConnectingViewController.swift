@@ -212,8 +212,12 @@ class ConnectingViewController: UIViewController {
 
 
     func loadUserData(){
+        
         print("We will load the Data now")
         
+        let userId = NSUserDefaults.standardUserDefaults().stringForKey("UserID")!
+        
+        print(userId)
         
         let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -233,8 +237,9 @@ class ConnectingViewController: UIViewController {
         var addOffer  = true
         var addDemand = true
 
-       Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
-            
+       Alamofire.request(.GET, "\(staticUrl)/offers/users/\(userId)").responseJSON{ response in
+        
+        debugPrint(response)
             if response.result.isSuccess {
                 
                 if let JSON = response.result.value {
@@ -336,8 +341,10 @@ class ConnectingViewController: UIViewController {
         }
         
         
-        Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON{ response in
+        Alamofire.request(.GET, "\(staticUrl)/demands/users/\(userId)").responseJSON{ response in
             
+            debugPrint(response)
+
             if response.result.isSuccess{
                 
                 if let JSON = response.result.value{
