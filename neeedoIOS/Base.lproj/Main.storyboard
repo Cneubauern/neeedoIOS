@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -652,7 +653,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="a0G-Q6-k6k">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="sBH-rJ-OHS">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sBH-rJ-OHS">
                                 <rect key="frame" x="18" y="580" width="339" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="335" id="xZ2-3u-1JG"/>
@@ -661,9 +662,21 @@
                                     <action selector="zoom:" destination="oVX-3w-KWD" eventType="valueChanged" id="TTX-Qi-twx"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnz-Tp-7Y5">
+                                <rect key="frame" x="313" y="562" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="4Jn-dt-WHU"/>
+                                    <constraint firstAttribute="height" constant="21" id="UYo-YL-zq0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Vnz-Tp-7Y5" firstAttribute="trailing" secondItem="Yns-QX-1jw" secondAttribute="trailingMargin" id="NsF-GK-iVc"/>
+                            <constraint firstItem="pS5-rj-qhy" firstAttribute="top" secondItem="Vnz-Tp-7Y5" secondAttribute="bottom" constant="35" id="Vgx-OY-jQb"/>
                             <constraint firstItem="pS5-rj-qhy" firstAttribute="top" secondItem="sBH-rJ-OHS" secondAttribute="bottom" constant="8" id="to8-Qg-ENl"/>
                             <constraint firstItem="sBH-rJ-OHS" firstAttribute="centerX" secondItem="Yns-QX-1jw" secondAttribute="centerX" id="u2S-GG-T32"/>
                         </constraints>
@@ -673,6 +686,7 @@
                     <connections>
                         <outlet property="map" destination="a0G-Q6-k6k" id="zIp-xF-aSi"/>
                         <outlet property="zoomSlider" destination="sBH-rJ-OHS" id="w4r-2W-s9M"/>
+                        <outlet property="zoomlabel" destination="Vnz-Tp-7Y5" id="pey-Nf-ksh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIt-kg-SdF" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,32 +12,45 @@ import Alamofire
 import MapKit
 import CoreLocation
 
+
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var map: MKMapView!
     
     @IBOutlet var zoomSlider: UISlider!
+    @IBOutlet var zoomlabel: UILabel!
     
     var locationManager = CLLocationManager()
     
-    var zoom:Double = Double()
+    var zoom:CLLocationDegrees = CLLocationDegrees()
+    
+    var latitude:CLLocationDegrees = 52.496877
+    var longitude:CLLocationDegrees = 13.509821
+    
     
     override func viewDidLoad() {
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+       // locationManager.delegate = self
+       // locationManager.desiredAccuracy = kCLLocationAccuracyBest
+       // locationManager.requestWhenInUseAuthorization()
+       // locationManager.startUpdatingLocation()
         
-        let uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
+       // let uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
 
-        uilpgr.minimumPressDuration = 2
+       // uilpgr.minimumPressDuration = 2
         
-        map.addGestureRecognizer(uilpgr)
+       // map.addGestureRecognizer(uilpgr)
        
+        zoom = Double(zoomSlider.value)
+        
+        
+        relocate(latitude, longitude: longitude)
+        
+        self.getAnnotations()
         
         
     }
+    
     
     func action(gestureRecognizer: UIGestureRecognizer){
         
@@ -47,8 +60,23 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         let newCoordinate:CLLocationCoordinate2D = map.convertPoint(touchPoint, toCoordinateFromView: self.map)
         
-        placeAnnotation(newCoordinate, title: "You Touched Here", subtitle: "Why?")
+        placeAnnotation(newCoordinate, title: "You Touched Here", subtitle: "Why?", type: "normal" )
         
+        
+    }
+    
+    func relocate(latitude:CLLocationDegrees, longitude:CLLocationDegrees){
+        
+        print(zoom)
+        
+        let span:MKCoordinateSpan = MKCoordinateSpanMake(zoom, zoom)
+        
+        let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
+        
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+        
+        self.map.setRegion(region, animated: true)
+
         
     }
     
@@ -56,24 +84,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         let userLocation:CLLocation = locations[0]
         
-        let latitude:CLLocationDegrees = userLocation.coordinate.latitude
+         latitude = userLocation.coordinate.latitude
         
         NSUserDefaults.standardUserDefaults().setObject(latitude, forKey: "UserLat")
         
-        let longitude:CLLocationDegrees = userLocation.coordinate.longitude
+         longitude = userLocation.coordinate.longitude
         
         NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "UserLon")
         
-        let latDelta:CLLocationDegrees = zoom
-        let lonDelta:CLLocationDegrees = zoom
-        
-        let span:MKCoordinateSpan = MKCoordinateSpanMake(latDelta, lonDelta)
-        
-        let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-        
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(location, span)
-        
-        self.map.setRegion(region, animated: true)
+        relocate(latitude, longitude: longitude)
     
         
     }
@@ -84,7 +103,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
 
     
-    func placeAnnotation(location:CLLocationCoordinate2D, title: String, subtitle:String ){
+    func placeAnnotation(location:CLLocationCoordinate2D, title: String, subtitle:String, type:String){
+        
+      
+        
         
         let annotation = MKPointAnnotation()
 
@@ -93,6 +115,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         annotation.title = title
         
         annotation.subtitle = subtitle
+        
+        
+        switch type {
+            
+        case "offer" :
+            
+            print("offer")
+            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "offer")
+            
+            pinView.image = UIImage(named: "offers_pin.png")
+            
+            
+        case "demand":
+            
+            print("demand")
+            
+        default:
+            
+            print("normal")
+        }
         
         map.addAnnotation(annotation)
         
@@ -107,15 +149,87 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     @IBAction func zoom(sender: AnyObject) {
         
-        resizeWindow(zoomSlider.value)
+        zoom = Double(zoomSlider.value)
+        
+        
+        zoomlabel.text = "\(zoom)"
+        relocate(latitude, longitude: longitude)
+        
         
     }
     
-    func resizeWindow(zoomFactor:Float32){
+    
+    func getAnnotations(){
         
-        zoom = Double(zoomFactor)
+        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
+            
+            if response.result.isSuccess{
+                
+                if let JSON = response.result.value {
+                    
+                    if let offers = JSON["offers"] as? NSArray{
+                        
+                        for offer in offers {
+                            
+                            if let location = offer["location"] as? NSDictionary{
+                                
+                                
+                                if let lat = location["lat"] as? CLLocationDegrees{
+                                    print(lat)
+                                    
+                                    if let lon = location["lon"] as? CLLocationDegrees{
+                                        
+                                        print(lon)
+                                        
+                                        let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                                        
+                                        self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "offer")
+                                        
+                                    }
+                                    
+                                }
+                            
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON{ response in
+            
+            if response.result.isSuccess{
+                
+                if let JSON = response.result.value {
+                    
+                    if let demands = JSON["demands"] as? NSArray{
+                        
+                        for demand in demands {
+                            
+                            if let location = demand["location"] as? NSDictionary{
+                                
+                                
+                                if let lat = location["lat"] as? CLLocationDegrees{
+                                    print(lat)
+                                    
+                                    if let lon = location["lon"] as? CLLocationDegrees{
+                                        
+                                        print(lon)
+                                        
+                                        let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                                        
+                                        self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "demand")
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
-    
-    
     
 }
