@@ -12,6 +12,32 @@ import Alamofire
 import MapKit
 import CoreLocation
 
+class offerPin: NSObject, MKAnnotation {
+    
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
+    var subtitle: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+    }
+}
+
+class demandPin: NSObject, MKAnnotation {
+    
+    var coordinate: CLLocationCoordinate2D
+    var title: String?
+    var subtitle: String?
+    
+    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
+        self.coordinate = coordinate
+        self.title = title
+        self.subtitle = subtitle
+    }
+}
+
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
@@ -30,6 +56,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         
+        self.map.delegate = self
        // locationManager.delegate = self
        // locationManager.desiredAccuracy = kCLLocationAccuracyBest
        // locationManager.requestWhenInUseAuthorization()
@@ -47,6 +74,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         relocate(latitude, longitude: longitude)
         
         self.getAnnotations()
+        
+        
         
         
     }
@@ -102,42 +131,56 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Dispose of any resources that can be recreated.
     }
 
+
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+       
+        let identifier = "MyPin"
+        
+        if annotation.isKindOfClass(MKUserLocation){
+         return nil
+        }
+        // Reuse the annotation if possible
+        var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+        
+        if annotationView == nil
+        {
+            if annotation.isKindOfClass(offerPin){
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+                annotationView!.canShowCallout = true
+                annotationView!.image = UIImage(named: "offers_pin.png")
+            }else if annotation.isKindOfClass(demandPin){
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+                annotationView!.canShowCallout = true
+                annotationView!.image = UIImage(named: "demands_pin.png")
+            }
+        }
+        else
+        {
+            annotationView!.annotation = annotation
+        }
+        
+        return annotationView
+    }
     
     func placeAnnotation(location:CLLocationCoordinate2D, title: String, subtitle:String, type:String){
         
-      
-        
-        
-        let annotation = MKPointAnnotation()
 
-        annotation.coordinate = location
-        
-        annotation.title = title
-        
-        annotation.subtitle = subtitle
-        
-        
-        switch type {
-            
-        case "offer" :
-            
-            print("offer")
-            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "offer")
-            
-            pinView.image = UIImage(named: "offers_pin.png")
-            
-            
-        case "demand":
-            
-            print("demand")
-            
-        default:
-            
-            print("normal")
+        switch type{
+            case "offer":
+                let annotation = offerPin(coordinate: location, title: title, subtitle: subtitle)
+                map.addAnnotation(annotation)
+
+            case "demand":
+                let annotation = demandPin(coordinate: location, title: title, subtitle: subtitle)
+                map.addAnnotation(annotation)
+
+            default:
+                let annotation = MKPointAnnotation()
+                annotation.title = title
+                annotation.subtitle = subtitle
+                annotation.coordinate = location
+                map.addAnnotation(annotation)
         }
-        
-        map.addAnnotation(annotation)
-        
     }
     
     @IBAction func showProfile(sender: AnyObject) {
@@ -161,7 +204,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func getAnnotations(){
         
-        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
+     /*   Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
             
             if response.result.isSuccess{
                 
@@ -194,7 +237,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                 }
             }
-        }
+        }*/
         Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON{ response in
             
             if response.result.isSuccess{

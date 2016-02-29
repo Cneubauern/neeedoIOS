@@ -650,7 +650,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="a0G-Q6-k6k">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a0G-Q6-k6k">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.050000000000000003" minValue="0.0" maxValue="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sBH-rJ-OHS">
@@ -838,8 +838,8 @@
         <image name="neeedo_Logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h9d-uC-2D9"/>
         <segue reference="gmr-X6-HOD"/>
-        <segue reference="4uR-X5-7tW"/>
+        <segue reference="h9d-uC-2D9"/>
+        <segue reference="LI6-Wt-Jio"/>
     </inferredMetricsTieBreakers>
 </document>
