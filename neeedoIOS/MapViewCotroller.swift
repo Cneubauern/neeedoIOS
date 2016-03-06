@@ -204,7 +204,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func getAnnotations(){
         
-     /*   Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
+        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
             
             if response.result.isSuccess{
                 
@@ -237,7 +237,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                     }
                 }
             }
-        }*/
+        }
         Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON{ response in
             
             if response.result.isSuccess{

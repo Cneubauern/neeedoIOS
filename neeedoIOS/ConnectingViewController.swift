@@ -12,6 +12,9 @@ import Alamofire
 import CoreData
 
 let staticUrl = "https://www.neeedoapi.cneubauern.de"
+let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+let context:NSManagedObjectContext = appDel.managedObjectContext
+
 
 class ConnectingViewController: UIViewController {
     
@@ -224,9 +227,7 @@ class ConnectingViewController: UIViewController {
         
         print(userId)
         
-        let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        let context:NSManagedObjectContext = appDel.managedObjectContext
         
         var newDemand = NSEntityDescription.insertNewObjectForEntityForName("Demands", inManagedObjectContext: context)
 

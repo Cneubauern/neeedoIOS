@@ -311,9 +311,17 @@
                                     <action selector="takePhoto:" destination="x5m-rq-vtW" eventType="touchUpInside" id="brg-Nc-2CV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gp-Dy-C41">
+                                <rect key="frame" x="44" y="430" width="287" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="40L-mi-dnM"/>
+                                    <constraint firstAttribute="width" constant="287" id="rVS-iu-OHu"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="FRc-1Y-qhE" firstAttribute="top" secondItem="8gp-Dy-C41" secondAttribute="bottom" constant="23" id="1SB-bL-nzI"/>
                             <constraint firstItem="Quu-x8-xLF" firstAttribute="top" secondItem="2qK-K5-KUF" secondAttribute="bottom" constant="18" id="6Yc-pY-Gqz"/>
                             <constraint firstItem="rSl-HF-vyF" firstAttribute="leading" secondItem="2qK-K5-KUF" secondAttribute="leading" id="995-mA-Quw"/>
                             <constraint firstItem="cKd-kh-bAN" firstAttribute="centerX" secondItem="xZm-hA-BD7" secondAttribute="centerX" id="A67-qo-aVU"/>
@@ -336,6 +344,7 @@
                             <constraint firstItem="TD7-Ek-Sfg" firstAttribute="top" secondItem="YVV-nh-Pxi" secondAttribute="bottom" constant="8" id="gdx-lv-eoU"/>
                             <constraint firstItem="YVV-nh-Pxi" firstAttribute="top" secondItem="cKd-kh-bAN" secondAttribute="bottom" constant="8" id="heX-nv-lkX"/>
                             <constraint firstItem="SXA-eo-Ird" firstAttribute="top" secondItem="FRc-1Y-qhE" secondAttribute="bottom" constant="8" id="i0m-Ly-29k"/>
+                            <constraint firstItem="8gp-Dy-C41" firstAttribute="centerX" secondItem="xZm-hA-BD7" secondAttribute="centerX" id="jBa-iM-zSQ"/>
                             <constraint firstItem="oqp-nZ-XBV" firstAttribute="leading" secondItem="2qK-K5-KUF" secondAttribute="leading" id="mKz-0G-6CP"/>
                             <constraint firstItem="7TV-7s-qyT" firstAttribute="centerX" secondItem="xZm-hA-BD7" secondAttribute="centerX" id="nbE-p6-gj4"/>
                             <constraint firstItem="TD7-Ek-Sfg" firstAttribute="trailing" secondItem="Quu-x8-xLF" secondAttribute="trailing" id="rbV-ei-EdK"/>
@@ -352,6 +361,7 @@
                         <outlet property="chooseLocationBtn" destination="zhN-gT-hLL" id="qua-h8-9OU"/>
                         <outlet property="currentLocationSwitch" destination="oqp-nZ-XBV" id="Bhj-he-4tN"/>
                         <outlet property="descriptionTextField" destination="7TV-7s-qyT" id="wKS-KX-Hac"/>
+                        <outlet property="imageView" destination="8gp-Dy-C41" id="T9M-Pi-omA"/>
                         <outlet property="priceTextField" destination="YVV-nh-Pxi" id="e62-tR-wwK"/>
                         <segue destination="fnr-k0-e1e" kind="show" identifier="chooseLocation" id="4uR-X5-7tW"/>
                     </connections>
@@ -599,7 +609,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OR-dZ-G4F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="721.5" y="1598.5"/>
+            <point key="canvasLocation" x="816.5" y="1763.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ufa-DF-rlo">
@@ -669,7 +679,7 @@
                                     <constraint firstAttribute="height" constant="21" id="UYo-YL-zq0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -838,8 +848,8 @@
         <image name="neeedo_Logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gmr-X6-HOD"/>
         <segue reference="h9d-uC-2D9"/>
-        <segue reference="LI6-Wt-Jio"/>
+        <segue reference="gmr-X6-HOD"/>
+        <segue reference="4uR-X5-7tW"/>
     </inferredMetricsTieBreakers>
 </document>

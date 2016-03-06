@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 import CoreLocation
-
+import CoreData 
 
 class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -81,18 +81,21 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     func createDemand(){
         
         
+
+        
         let distance = radius
         if let priceMin = Double(minPrice.text!){
             if let priceMax = Double(maxPrice.text!){
                 
-                let tag1 = "socken"
-                let tag2 = "bekleidung"
+                let shouldTags = ["socken", "bekleidung"]
+
+                let mustTags = ["socken", "bekleidung"]
                 
                 let parameters = [
                     
                     "userId" : userId,
-                    "mustTags":[tag1, tag2],
-                    "shouldTags":[tag1, tag2],
+                    "mustTags":mustTags,
+                    "shouldTags":shouldTags,
                     "location": [
                         "lat" :lat ,
                         "lon" :lon
@@ -107,6 +110,7 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
                 
                 print(parameters)
                 
+                self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
                 
                 Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
                     
@@ -125,6 +129,46 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
+    
+    func saveNewDemand(minPrice:Double, maxPrice:Double, mustTags:[String], shouldTags:[String], distance:Float32){
+        
+        var newDemand = NSEntityDescription.insertNewObjectForEntityForName("Demands", inManagedObjectContext: context)
+        
+        let saveShouldTags = shouldTags.joinWithSeparator(",")
+        let saveMustTags = mustTags.joinWithSeparator(",")
+        
+        newDemand.setValue(userId, forKey: "id")
+        newDemand.setValue(saveMustTags, forKey: "mustTags")
+        newDemand.setValue(saveShouldTags, forKey: "shouldTags")
+        newDemand.setValue(lat, forKey: "lat")
+        newDemand.setValue(lon, forKey: "lon")
+        newDemand.setValue(distance, forKey: "distance")
+        newDemand.setValue(minPrice , forKey: "price")
+        newDemand.setValue(maxPrice , forKey: "price")
+        
+        do{
+            try context.save()
+        }catch{
+            print("Error Saving offer")
+        }
+        
+        let requestDemands = NSFetchRequest(entityName: "Demands")
+        
+        requestDemands.returnsObjectsAsFaults = false
+        
+        do{
+            let search = try context.executeFetchRequest(requestDemands)
+            
+            print(search)
+            
+        } catch {
+            
+            
+        }
+        
+    }
+    
+    
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
    
         createDemand()

@@ -12,6 +12,7 @@ import Foundation
 var signUpActive = true
 
 
+
 class ViewController: UIViewController {
 
     @IBOutlet var username: UITextField!

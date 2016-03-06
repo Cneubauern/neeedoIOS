@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 import CoreLocation
+import CoreData 
 
 class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
    
@@ -18,13 +19,18 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     var lat = 0.0
     var lon = 0.0
     
+    var imageURL = NSURL()
+    
     @IBOutlet var descriptionTextField: UITextField!
     @IBOutlet var priceTextField: UITextField!
     @IBOutlet var currentLocationSwitch: UISwitch!
     @IBOutlet var chooseLocationBtn: UIButton!
+    @IBOutlet var imageView: UIImageView!
     
     
     var locationManager = CLLocationManager()
+    let imagePicker = UIImagePickerController()
+    
     
     override func viewDidLoad() {
         
@@ -40,6 +46,9 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
         locationManager.startUpdatingLocation()
         
         chooseLocationBtn.enabled = false
+        
+        imagePicker.delegate = self
+
         
     }
     
@@ -66,13 +75,16 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     
     func createOffer(){
         
+
+        var tags = ["socken", "bekleidung", "wolle"]
+        
         if let price = Double(priceTextField.text!){
             
             let parameters = [
                 
                 "userId": userId,
                 
-                "tags":["socken", "bekleidung", "wolle"],
+                "tags": tags,
                 
                 "location":[
                     "lat": lat,
@@ -84,6 +96,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             ]
             
             print(parameters)
+            
+            self.saveNewOffer(price, tags: tags)
             
             
             Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
@@ -97,20 +111,54 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             
         } else{
             
-            
-            
             print("Missing Elements")
         }
         
     }
     
-    @IBAction func addImages(sender: AnyObject) {
+    func saveNewOffer(price:Double, tags:[String]){
+        
+        var newOffer = NSEntityDescription.insertNewObjectForEntityForName("Offers", inManagedObjectContext: context)
+
+        let saveTags = tags.joinWithSeparator(",")
+        
+        print(saveTags)
+        
+        newOffer.setValue(userId, forKey: "id")
+        newOffer.setValue(saveTags, forKey: "tags")
+        newOffer.setValue(lat, forKey: "lat")
+        newOffer.setValue(lon, forKey: "lon")
+        newOffer.setValue(price , forKey: "price")
+        
+        do{
+            try context.save()
+        }catch{
+            print("Error Saving offer")
+        }
+        
+        let requestOffers = NSFetchRequest(entityName: "Offers")
+        
+        requestOffers.returnsObjectsAsFaults = false
+        
+        do{
+            let search = try context.executeFetchRequest(requestOffers)
+        
+                print(search)
+            
+        } catch {
+            
+            
+        }
+
     }
+   
     @IBAction func chooseLocation(sender: AnyObject) {
         
         self.performSegueWithIdentifier("chooseLocation", sender: self)
         
     }
+    
+    
     @IBAction func useCurrentLocation(sender: AnyObject) {
         
         if currentLocationSwitch.on {
@@ -125,6 +173,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     @IBAction func openScanner(sender: AnyObject) {
     }
     
+    // Opens the Camera and allows the User to take a Photo
+    
     @IBAction func takePhoto(sender: AnyObject) {
         
         let image = UIImagePickerController()
@@ -137,23 +187,55 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
 
         
     }
+    
+    //Opens the Gallery and allows the User to choose an Image to upload
     @IBAction func chooseImage(sender: AnyObject) {
         
-        let image = UIImagePickerController()
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.allowsEditing = false
         
-        image.delegate = self
-        image.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        image.allowsEditing = false
         
-        self.presentViewController(image, animated: true, completion: nil)
+        self.presentViewController(imagePicker, animated: true, completion: nil)
         
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    //This function is called everytime the user is done picking or taking images
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         print("Image Selected")
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageView.contentMode = .ScaleAspectFit
+            imageView.image = pickedImage
+        }
+        if let pickedImageURL = info[UIImagePickerControllerReferenceURL] as? NSURL{
+            
+            if let pickedImageName = pickedImageURL.lastPathComponent{
+                
+                print(pickedImageURL.path)
+
+                print(pickedImageName)
+                
+                imageURL = pickedImageURL
+                
+
+            }
+            
+        }
         
+        
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //This funtion sends the image to the needo API and makes sure they can be accessed in the createOffer - Method
+    func uploadImage(image:[UIImage]){
+            
     }
     
     
