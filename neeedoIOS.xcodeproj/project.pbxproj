@@ -26,6 +26,7 @@
 		9D5730691C3B1713001B452C /* neeedoIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730681C3B1713001B452C /* neeedoIOSUITests.swift */; };
 		9D57307F1C3B1923001B452C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57307E1C3B1923001B452C /* MapKit.framework */; };
 		9D5730811C3B19B6001B452C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D5730801C3B19B6001B452C /* CoreLocation.framework */; };
+		9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */; };
 		9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
@@ -143,6 +144,7 @@
 		9D57306A1C3B1713001B452C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D57307E1C3B1923001B452C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9D5730801C3B19B6001B452C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
 		9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neeedo_Logo.png; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				9D5730471C3B1713001B452C /* ViewController.swift */,
 				9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */,
 				9D5730491C3B1713001B452C /* Main.storyboard */,
+				9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */,
 				9D57304F1C3B1713001B452C /* Assets.xcassets */,
 				9D5730511C3B1713001B452C /* LaunchScreen.storyboard */,
 				9D5730541C3B1713001B452C /* Info.plist */,
@@ -471,6 +474,7 @@
 				9D5730481C3B1713001B452C /* ViewController.swift in Sources */,
 				9D57304E1C3B1713001B452C /* neeedoIOS.xcdatamodeld in Sources */,
 				9D0B89DC1C83986C00E9A3EA /* PersonalElementsViewController.swift in Sources */,
+				9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
 				9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */,
 				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,

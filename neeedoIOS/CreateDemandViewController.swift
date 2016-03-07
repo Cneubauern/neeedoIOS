@@ -38,6 +38,8 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     
+    var demandParameters = NSDictionary()
+    
     override func viewDidLoad() {
         
         if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
@@ -80,8 +82,8 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     func createDemand(){
         
-        
-
+        let user = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")
+        let pass = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")
         
         let distance = radius
         if let priceMin = Double(minPrice.text!){
@@ -92,6 +94,7 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
                 let mustTags = ["socken", "bekleidung"]
                 
                 let parameters = [
+                    
                     
                     "userId" : userId,
                     "mustTags":mustTags,
@@ -110,13 +113,29 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
                 
                 print(parameters)
                 
-                self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
+               // self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
                 
-                Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).authenticate(user: user!, password: pass!).responseJSON{ response in
                     
-                    
-                    if let JSON = response.result.value {
-                        print(JSON)
+                    if response.result.isSuccess{
+                        
+                        if let JSON = response.result.value {
+                            
+                            print("Success")
+                            print(JSON)
+                            
+                            if let demand = JSON["demand"] as? NSDictionary{
+                                
+                                print(demand)
+                                
+                                self.demandParameters = demand
+                                
+                                self.performSegueWithIdentifier("matching", sender: self)
+                                
+                            }
+                            
+                        }
+
                     }
                     
                 }
@@ -129,6 +148,32 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        print("preparing for segue")
+        
+        if let identifier = segue.identifier{
+           
+            print(identifier)
+
+            if identifier == "matching"{
+                
+                print("going to match")
+               
+                if let matchingViewController =  segue.destinationViewController as? MatchingViewController{
+                    
+                    print("I am matching")
+                    matchingViewController.demandParameters = self.demandParameters
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     
     func saveNewDemand(minPrice:Double, maxPrice:Double, mustTags:[String], shouldTags:[String], distance:Float32){
         
