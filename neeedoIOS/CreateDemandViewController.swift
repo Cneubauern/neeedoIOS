@@ -84,68 +84,73 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         
         let user = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")
         let pass = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")
-        
+    
         let distance = radius
+    
         if let priceMin = Double(minPrice.text!){
+        
             if let priceMax = Double(maxPrice.text!){
                 
-                let shouldTags = ["socken", "bekleidung"]
-
-                let mustTags = ["socken", "bekleidung"]
-                
-                let parameters = [
+                if let shouldHavesString = shouldHaves.text {
                     
+                    let shouldTags = shouldHavesString.componentsSeparatedByString(",")
                     
-                    "userId" : userId,
-                    "mustTags":mustTags,
-                    "shouldTags":shouldTags,
-                    "location": [
-                        "lat" :lat ,
-                        "lon" :lon
-                    ]
-                    ,
-                    "distance": distance ,
-                    "price": [
-                        "min": priceMin,
-                        "max": priceMax
-                    ]
-                ]
-                
-                print(parameters)
-                
-               // self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
-                
-                Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).authenticate(user: user!, password: pass!).responseJSON{ response in
-                    
-                    if response.result.isSuccess{
+                    if let mustHavesString = mustHaves.text{
                         
-                        if let JSON = response.result.value {
-                            
-                            print("Success")
-                            print(JSON)
-                            
-                            if let demand = JSON["demand"] as? NSDictionary{
-                                
-                                print(demand)
-                                
-                                self.demandParameters = demand
-                                
-                                self.performSegueWithIdentifier("matching", sender: self)
-                                
-                            }
-                            
-                        }
-
-                    }
-                    
-                }
+                        let mustTags = mustHavesString.componentsSeparatedByString(",")
                 
-            }
+                        let parameters = [
+                            "userId" : userId,
+                            "mustTags":mustTags,
+                            "shouldTags":shouldTags,
+                            "location": [
+                                "lat" :lat ,
+                                "lon" :lon
+                            ],
+                            "distance": distance ,
+                            "price": [
+                                "min": priceMin,
+                                "max": priceMax
+                            ]
+                        ]
+                
+                        print(parameters)
+                
+                        self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
+                
+                        Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).authenticate(user: user!, password: pass!).responseJSON{ response in
+                    
+                            debugPrint(response)
+                    
+                            if response.result.isSuccess{
+                        
+                                if let JSON = response.result.value {
+                            
+                                    print("Success")
+                                    print(JSON)
+                            
+                                    if let demand = JSON["demand"] as? NSDictionary{
+                                
+                                        print(demand)
+                                
+                                        self.demandParameters = demand
+                                
+                                        self.performSegueWithIdentifier("matching", sender: self)
+                                
+                                    }
+                            
+                                }
 
+                            }
+                    
+                        }
+                    }
+                }
+            }
         } else{
+            
             print("Missing Elements")
         }
-        
         
     }
     
@@ -215,8 +220,18 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
+        
+        if shouldHaves.text != "" && mustHaves.text != "" && minPrice != "" && maxPrice != "" {
+            
+            createDemand()
+            
+        } else {
+            let alert = UIAlertController(title: "Missing Data", message: "Please fill in all Values", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(action)-> Void in alert.dismissViewControllerAnimated(true, completion: nil)}))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
    
-        createDemand()
     }
         
     @IBAction func useCurrentLocationSwitched(sender: AnyObject) {

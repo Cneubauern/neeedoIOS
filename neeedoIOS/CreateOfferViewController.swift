@@ -69,44 +69,58 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     }
     
     @IBAction func createOfferBtnClicked(sender: AnyObject) {
-        createOffer()
+        
+        if descriptionTextField.text != "" && priceTextField.text != "" {
+
+            createOffer()
+
+        } else {
+            let alert = UIAlertController(title: "Missing Data", message: "Please Fill in the Blanks", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(action)-> Void in alert.dismissViewControllerAnimated(true, completion: nil)}))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     
     func createOffer(){
         
-
-        var tags = ["socken", "bekleidung", "wolle"]
-        
         if let price = Double(priceTextField.text!){
             
-            let parameters = [
+            if let tagsString = descriptionTextField.text {
                 
-                "userId": userId,
-                
-                "tags": tags,
-                
-                "location":[
-                    "lat": lat,
-                    "lon": lon
-                ],
-                "price":price,
-                
-                "images":[]
-            ]
+                let tags = tagsString.componentsSeparatedByString(",")
             
-            print(parameters)
-            
-            self.saveNewOffer(price, tags: tags)
-            
-            
-            Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                let parameters = [
                 
+                    "userId": userId,
                 
-                if let JSON = response.result.value {
-                    print(JSON)
+                    "tags": tags,
+                
+                    "location":[
+                        "lat": lat,
+                        "lon": lon
+                    ],
+                    "price":price,
+                
+                    "images":[]
+                ]
+            
+                print(parameters)
+            
+                self.saveNewOffer(price, tags: tags)
+            
+            
+                Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                
+                    debugPrint(response)
+                    if let JSON = response.result.value {
+                        print(JSON)
+                    }
+                
                 }
-                
+            
             }
             
         } else{
