@@ -136,9 +136,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
        
         let identifier = "MyPin"
         
-        if annotation.isKindOfClass(MKUserLocation){
-         return nil
-        }
+        
+        
         // Reuse the annotation if possible
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
         
@@ -147,12 +146,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             if annotation.isKindOfClass(offerPin){
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
                 annotationView!.canShowCallout = true
-                annotationView!.image = UIImage(named: "offers_pin.png")
+                annotationView!.image = UIImage(named: "offerPin")
             }else if annotation.isKindOfClass(demandPin){
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
                 annotationView!.canShowCallout = true
-                annotationView!.image = UIImage(named: "demands_pin.png")
+                annotationView!.image = UIImage(named: "demandPin")
+            } else if annotation.isKindOfClass(MKUserLocation){
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+                annotationView!.canShowCallout = true
+                annotationView!.image = UIImage(named: "userPin")
             }
+            
         }
         else
         {
@@ -166,6 +170,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
 
         switch type{
+            
             case "offer":
                 let annotation = offerPin(coordinate: location, title: title, subtitle: subtitle)
                 map.addAnnotation(annotation)

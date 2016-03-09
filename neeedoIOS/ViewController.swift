@@ -13,7 +13,7 @@ var signUpActive = true
 
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var username: UITextField!
     @IBOutlet var email: UITextField!
@@ -29,6 +29,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
        // super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nil
+        
+        self.username.delegate = self
+        self.email.delegate = self
+        self.password.delegate = self
+        self.passControl.delegate = self
         
     }
     
@@ -145,6 +150,17 @@ class ViewController: UIViewController {
         
         
         self.performSegueWithIdentifier("login", sender: self)
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) ->Bool{
+        
+        textField.resignFirstResponder()
+        
+        return true
     }
 
 }

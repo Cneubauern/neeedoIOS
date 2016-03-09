@@ -9,13 +9,24 @@
 /* Begin PBXBuildFile section */
 		9D0010061C7C5EFA0029FE48 /* CreateDemandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */; };
 		9D0B89DC1C83986C00E9A3EA /* PersonalElementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B89DB1C83986C00E9A3EA /* PersonalElementsViewController.swift */; };
-		9D0B89E51C839BEA00E9A3EA /* demands_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0B89E31C839BEA00E9A3EA /* demands_pin.png */; };
-		9D0B89E61C839BEA00E9A3EA /* offers_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D0B89E41C839BEA00E9A3EA /* offers_pin.png */; };
 		9D1042991C7B16A200F65E3E /* MapViewCotroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */; };
 		9D16054C1C63D25F00ED7285 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; };
 		9D16054D1C63D25F00ED7285 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D16053F1C63D10500ED7285 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */; };
 		9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */; };
+		9D4AAF491C90465300A8787C /* appIcon-appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF431C90465300A8787C /* appIcon-appstore.png */; };
+		9D4AAF4A1C90465300A8787C /* appIcon-ipad@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF441C90465300A8787C /* appIcon-ipad@1x.png */; };
+		9D4AAF4B1C90465300A8787C /* appIcon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF451C90465300A8787C /* appIcon-ipad@2x.png */; };
+		9D4AAF4C1C90465300A8787C /* appIcon-ipadPro@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF461C90465300A8787C /* appIcon-ipadPro@2x.png */; };
+		9D4AAF4D1C90465300A8787C /* appIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF471C90465300A8787C /* appIcon@2x.png */; };
+		9D4AAF4E1C90465300A8787C /* appIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF481C90465300A8787C /* appIcon@3x.png */; };
+		9D4AAF561C9047F200A8787C /* appIcon-settings@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF4F1C9047F200A8787C /* appIcon-settings@1x.png */; };
+		9D4AAF571C9047F200A8787C /* appIcon-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF501C9047F200A8787C /* appIcon-settings@2x.png */; };
+		9D4AAF581C9047F200A8787C /* appIcon-settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF511C9047F200A8787C /* appIcon-settings@3x.png */; };
+		9D4AAF591C9047F200A8787C /* appIcon-spotlight@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF521C9047F200A8787C /* appIcon-spotlight@1x.png */; };
+		9D4AAF5A1C9047F200A8787C /* appIcon-spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF531C9047F200A8787C /* appIcon-spotlight@2x.png */; };
+		9D4AAF5B1C9047F200A8787C /* appIcon-spotlight@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF541C9047F200A8787C /* appIcon-spotlight@3x.png */; };
+		9D4AAF5C1C9047F200A8787C /* appIcon-spotlightipad@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D4AAF551C9047F200A8787C /* appIcon-spotlightipad@1x.png */; };
 		9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730451C3B1713001B452C /* AppDelegate.swift */; };
 		9D5730481C3B1713001B452C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730471C3B1713001B452C /* ViewController.swift */; };
 		9D57304B1C3B1713001B452C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D5730491C3B1713001B452C /* Main.storyboard */; };
@@ -26,8 +37,13 @@
 		9D5730691C3B1713001B452C /* neeedoIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5730681C3B1713001B452C /* neeedoIOSUITests.swift */; };
 		9D57307F1C3B1923001B452C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D57307E1C3B1923001B452C /* MapKit.framework */; };
 		9D5730811C3B19B6001B452C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D5730801C3B19B6001B452C /* CoreLocation.framework */; };
+		9D7B7BE01C903521003BCD5A /* demandPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDA1C903521003BCD5A /* demandPin@2x.png */; };
+		9D7B7BE11C903521003BCD5A /* demandPin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDB1C903521003BCD5A /* demandPin@3x.png */; };
+		9D7B7BE21C903521003BCD5A /* offerPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDC1C903521003BCD5A /* offerPin@2x.png */; };
+		9D7B7BE31C903521003BCD5A /* offerPin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDD1C903521003BCD5A /* offerPin@3x.png */; };
+		9D7B7BE41C903521003BCD5A /* userPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDE1C903521003BCD5A /* userPin@2x.png */; };
+		9D7B7BE51C903521003BCD5A /* userPin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDF1C903521003BCD5A /* userPin@3x.png */; };
 		9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */; };
-		9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
 /* End PBXBuildFile section */
@@ -122,12 +138,23 @@
 /* Begin PBXFileReference section */
 		9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDemandViewController.swift; sourceTree = "<group>"; };
 		9D0B89DB1C83986C00E9A3EA /* PersonalElementsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalElementsViewController.swift; sourceTree = "<group>"; };
-		9D0B89E31C839BEA00E9A3EA /* demands_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = demands_pin.png; path = "../neeedo-webapp/assets/images/icons/demands_pin.png"; sourceTree = "<group>"; };
-		9D0B89E41C839BEA00E9A3EA /* offers_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = offers_pin.png; path = "../neeedo-webapp/assets/images/icons/offers_pin.png"; sourceTree = "<group>"; };
 		9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewCotroller.swift; sourceTree = "<group>"; };
 		9D1605341C63D10400ED7285 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = userAccountViewController.swift; sourceTree = "<group>"; };
 		9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chooseLocationViewController.swift; sourceTree = "<group>"; };
+		9D4AAF431C90465300A8787C /* appIcon-appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-appstore.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-appstore.png"; sourceTree = "<group>"; };
+		9D4AAF441C90465300A8787C /* appIcon-ipad@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-ipad@1x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-ipad@1x.png"; sourceTree = "<group>"; };
+		9D4AAF451C90465300A8787C /* appIcon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-ipad@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-ipad@2x.png"; sourceTree = "<group>"; };
+		9D4AAF461C90465300A8787C /* appIcon-ipadPro@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-ipadPro@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-ipadPro@2x.png"; sourceTree = "<group>"; };
+		9D4AAF471C90465300A8787C /* appIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon@2x.png"; sourceTree = "<group>"; };
+		9D4AAF481C90465300A8787C /* appIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon@3x.png"; sourceTree = "<group>"; };
+		9D4AAF4F1C9047F200A8787C /* appIcon-settings@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-settings@1x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-settings@1x.png"; sourceTree = "<group>"; };
+		9D4AAF501C9047F200A8787C /* appIcon-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-settings@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-settings@2x.png"; sourceTree = "<group>"; };
+		9D4AAF511C9047F200A8787C /* appIcon-settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-settings@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-settings@3x.png"; sourceTree = "<group>"; };
+		9D4AAF521C9047F200A8787C /* appIcon-spotlight@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-spotlight@1x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-spotlight@1x.png"; sourceTree = "<group>"; };
+		9D4AAF531C9047F200A8787C /* appIcon-spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-spotlight@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-spotlight@2x.png"; sourceTree = "<group>"; };
+		9D4AAF541C9047F200A8787C /* appIcon-spotlight@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-spotlight@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-spotlight@3x.png"; sourceTree = "<group>"; };
+		9D4AAF551C9047F200A8787C /* appIcon-spotlightipad@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appIcon-spotlightipad@1x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/appIcon-spotlightipad@1x.png"; sourceTree = "<group>"; };
 		9D5730421C3B1713001B452C /* neeedoIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = neeedoIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5730451C3B1713001B452C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D5730471C3B1713001B452C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -144,8 +171,13 @@
 		9D57306A1C3B1713001B452C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D57307E1C3B1923001B452C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9D5730801C3B19B6001B452C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		9D7B7BDA1C903521003BCD5A /* demandPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demandPin@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/demandPin@2x.png"; sourceTree = "<group>"; };
+		9D7B7BDB1C903521003BCD5A /* demandPin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "demandPin@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/demandPin@3x.png"; sourceTree = "<group>"; };
+		9D7B7BDC1C903521003BCD5A /* offerPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "offerPin@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/offerPin@2x.png"; sourceTree = "<group>"; };
+		9D7B7BDD1C903521003BCD5A /* offerPin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "offerPin@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/offerPin@3x.png"; sourceTree = "<group>"; };
+		9D7B7BDE1C903521003BCD5A /* userPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userPin@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/userPin@2x.png"; sourceTree = "<group>"; };
+		9D7B7BDF1C903521003BCD5A /* userPin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userPin@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/userPin@3x.png"; sourceTree = "<group>"; };
 		9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
-		9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neeedo_Logo.png; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -259,9 +291,25 @@
 		9D97B89C1C3EF59500293E42 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				9D0B89E31C839BEA00E9A3EA /* demands_pin.png */,
-				9D0B89E41C839BEA00E9A3EA /* offers_pin.png */,
-				9D97B89F1C3F2C0100293E42 /* neeedo_Logo.png */,
+				9D4AAF4F1C9047F200A8787C /* appIcon-settings@1x.png */,
+				9D4AAF501C9047F200A8787C /* appIcon-settings@2x.png */,
+				9D4AAF511C9047F200A8787C /* appIcon-settings@3x.png */,
+				9D4AAF521C9047F200A8787C /* appIcon-spotlight@1x.png */,
+				9D4AAF531C9047F200A8787C /* appIcon-spotlight@2x.png */,
+				9D4AAF541C9047F200A8787C /* appIcon-spotlight@3x.png */,
+				9D4AAF551C9047F200A8787C /* appIcon-spotlightipad@1x.png */,
+				9D4AAF431C90465300A8787C /* appIcon-appstore.png */,
+				9D4AAF441C90465300A8787C /* appIcon-ipad@1x.png */,
+				9D4AAF451C90465300A8787C /* appIcon-ipad@2x.png */,
+				9D4AAF471C90465300A8787C /* appIcon@2x.png */,
+				9D4AAF461C90465300A8787C /* appIcon-ipadPro@2x.png */,
+				9D4AAF481C90465300A8787C /* appIcon@3x.png */,
+				9D7B7BDA1C903521003BCD5A /* demandPin@2x.png */,
+				9D7B7BDB1C903521003BCD5A /* demandPin@3x.png */,
+				9D7B7BDC1C903521003BCD5A /* offerPin@2x.png */,
+				9D7B7BDD1C903521003BCD5A /* offerPin@3x.png */,
+				9D7B7BDE1C903521003BCD5A /* userPin@2x.png */,
+				9D7B7BDF1C903521003BCD5A /* userPin@3x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -438,12 +486,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D4AAF491C90465300A8787C /* appIcon-appstore.png in Resources */,
+				9D4AAF4D1C90465300A8787C /* appIcon@2x.png in Resources */,
+				9D4AAF4B1C90465300A8787C /* appIcon-ipad@2x.png in Resources */,
+				9D4AAF5C1C9047F200A8787C /* appIcon-spotlightipad@1x.png in Resources */,
 				9D5730531C3B1713001B452C /* LaunchScreen.storyboard in Resources */,
+				9D4AAF4C1C90465300A8787C /* appIcon-ipadPro@2x.png in Resources */,
+				9D4AAF581C9047F200A8787C /* appIcon-settings@3x.png in Resources */,
+				9D7B7BE41C903521003BCD5A /* userPin@2x.png in Resources */,
+				9D7B7BE31C903521003BCD5A /* offerPin@3x.png in Resources */,
+				9D4AAF591C9047F200A8787C /* appIcon-spotlight@1x.png in Resources */,
+				9D4AAF4E1C90465300A8787C /* appIcon@3x.png in Resources */,
+				9D7B7BE21C903521003BCD5A /* offerPin@2x.png in Resources */,
+				9D7B7BE01C903521003BCD5A /* demandPin@2x.png in Resources */,
+				9D4AAF5B1C9047F200A8787C /* appIcon-spotlight@3x.png in Resources */,
+				9D4AAF571C9047F200A8787C /* appIcon-settings@2x.png in Resources */,
 				9D5730501C3B1713001B452C /* Assets.xcassets in Resources */,
-				9D0B89E61C839BEA00E9A3EA /* offers_pin.png in Resources */,
-				9D97B8A01C3F2C0100293E42 /* neeedo_Logo.png in Resources */,
+				9D4AAF5A1C9047F200A8787C /* appIcon-spotlight@2x.png in Resources */,
+				9D4AAF561C9047F200A8787C /* appIcon-settings@1x.png in Resources */,
+				9D7B7BE11C903521003BCD5A /* demandPin@3x.png in Resources */,
 				9D57304B1C3B1713001B452C /* Main.storyboard in Resources */,
-				9D0B89E51C839BEA00E9A3EA /* demands_pin.png in Resources */,
+				9D4AAF4A1C90465300A8787C /* appIcon-ipad@1x.png in Resources */,
+				9D7B7BE51C903521003BCD5A /* userPin@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,11 +689,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = neeedoIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.cneubauern.neeedo.neeedoIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -637,11 +703,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = neeedoIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = de.cneubauern.neeedo.neeedoIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
