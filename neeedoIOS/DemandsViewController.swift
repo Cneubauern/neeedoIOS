@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import UIKit
+import CoreLocation
 
 class Demands: UIViewController {
  
@@ -31,6 +32,56 @@ class Demands: UIViewController {
         
     }
 
+ 
+    
+
+}
+
+class Demand {
+    
+    var demandID = String()
+    var version = Int()
+    var userID = String()
+    var userName = String()
+    var latitude = CLLocationDegrees()
+    var longitude = CLLocationDegrees()
+    var distance = Float32()
+    var minPrice = Float32()
+    var maxPrice = Float32()
+    var mustTags = [String]()
+    var shouldTags = [String]()
+    
+    init(userID: String, mustTags:[String], shouldTags:[String], location: CLLocationCoordinate2D, distance:Float32, minPrice: Float32, maxPrice: Float32){
+        self.userID = userID
+        self.mustTags = mustTags
+        self.shouldTags = shouldTags
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+        self.distance = distance
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
+    }
+    
+    func generateParameters()->[String:AnyObject]{
+        
+        let parameters:[String:AnyObject] = [
+            
+            "userId": self.userID,
+            "mustTags":self.mustTags,
+            "shouldTags":self.shouldTags,
+            "location":[
+                "lat":self.latitude,
+                "lon":self.longitude
+            ],
+            "distance":self.distance,
+            "price":[
+                "min":self.minPrice,
+                "max":self.maxPrice
+            ]
+        ]
+        return parameters
+    }
+    
     func updateDemand(demandID:String, version: Int, parameters: [String : AnyObject]){
         
         Alamofire.request(.PUT, "\(staticUrl)/demands/\(demandID)/\(version)", parameters: parameters, encoding: .JSON).responseJSON{
@@ -40,7 +91,7 @@ class Demands: UIViewController {
         }
         
     }
-
+    
     func deleteDemand(demandID:String, version: Int){
         
         Alamofire.request(.DELETE, "\(staticUrl)/\(demandID)/\(version)").responseJSON{
@@ -50,5 +101,4 @@ class Demands: UIViewController {
         }
     }
     
-
 }

@@ -20,9 +20,6 @@ class Offers {
         
     }
     
-    
-    
-
 }
 
 class Offer {
@@ -35,6 +32,33 @@ class Offer {
     var latitude = CLLocationDegrees()
     var longitude = CLLocationDegrees()
     var price = Float32()
+    var images = [String]()
+    
+    init(userID: String, tags:[String], location: CLLocationCoordinate2D, price: Float32, images:[String]){
+      
+        self.userID = userID
+        self.tags = tags
+        self.latitude = location.latitude
+        self.longitude = location.longitude
+        self.price = price
+        self.images = images
+    }
+    
+    func generateParameters()->[String:AnyObject]{
+        
+        let parameters:[String:AnyObject] = [
+            
+            "userId": self.userID,
+            "tags":self.tags,
+            "images":self.images,
+            "location":[
+                "lat":self.latitude,
+                "lon":self.longitude
+            ],
+            "price": self.price
+        ]
+        return parameters
+    }
     
     func updateOffer(offerID: String, version: Int, parameters: [String : AnyObject]){
         

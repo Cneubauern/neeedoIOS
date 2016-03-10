@@ -83,7 +83,6 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
         }
     }
     
-    
     func createOffer(){
         
         if let price = Double(priceTextField.text!){
@@ -91,36 +90,36 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             if let tagsString = descriptionTextField.text {
                 
                 let tags = tagsString.componentsSeparatedByString(",")
-            
+                
                 let parameters = [
-                
+                    
                     "userId": userId,
-                
+                    
                     "tags": tags,
-                
+                    
                     "location":[
                         "lat": lat,
                         "lon": lon
                     ],
                     "price":price,
-                
+                    
                     "images":[]
                 ]
-            
-                print(parameters)
-            
-                self.saveNewOffer(price, tags: tags)
-            
-            
-                Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
                 
+                print(parameters)
+                
+                self.saveNewOffer(price, tags: tags)
+                
+                
+                Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
+                    
                     debugPrint(response)
                     if let JSON = response.result.value {
                         print(JSON)
                     }
-                
+                    
                 }
-            
+                
             }
             
         } else{
@@ -129,7 +128,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
         }
         
     }
-    
+
+        
     func saveNewOffer(price:Double, tags:[String]){
         
         var newOffer = NSEntityDescription.insertNewObjectForEntityForName("Offers", inManagedObjectContext: context)
@@ -236,8 +236,6 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             }
             
         }
-        
-        
         
         self.dismissViewControllerAnimated(true, completion: nil)
 
