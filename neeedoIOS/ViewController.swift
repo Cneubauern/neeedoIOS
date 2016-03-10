@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Alamofire
 
 var signUpActive = true
 
@@ -41,16 +42,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         if NSUserDefaults.standardUserDefaults().boolForKey("UserLoggedIn"){
             
-            print(NSUserDefaults.standardUserDefaults().stringForKey("UserName")!)
-            print(NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!)
-            print(NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!)
+                    
+                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserName")!)
+                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!)
+                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!)
+                    
+                    signUpActive = false
+                    
+                    self.performSegueWithIdentifier("userLoggedIn", sender: self)
             
-            signUpActive = false
-            
-            self.performSegueWithIdentifier("userLoggedIn", sender: self)
+            }
         }
 
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -57,10 +57,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         
         self.map.delegate = self
-       // locationManager.delegate = self
-       // locationManager.desiredAccuracy = kCLLocationAccuracyBest
-       // locationManager.requestWhenInUseAuthorization()
-       // locationManager.startUpdatingLocation()
+       
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
         
        // let uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
 
