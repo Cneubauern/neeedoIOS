@@ -92,6 +92,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
         }
     }
+    
     @IBAction func signUp(sender: AnyObject) {
         
         

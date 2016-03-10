@@ -20,6 +20,7 @@ class Offers {
         
     }
     
+    
 }
 
 class Offer {

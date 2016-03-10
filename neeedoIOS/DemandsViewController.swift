@@ -11,15 +11,7 @@ import Alamofire
 import UIKit
 import CoreLocation
 
-class Demands: UIViewController {
- 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+class Demands{
     
     func querySingleDemand(demandID:String){
         
@@ -29,12 +21,7 @@ class Demands: UIViewController {
             
             debugPrint(response)
         }
-        
     }
-
- 
-    
-
 }
 
 class Demand {
