@@ -7,13 +7,20 @@
 //
 
 import Foundation
-
 import Alamofire
 
 
 class User{
     
-    func createUser(username: String, email: String, passwd: String){
+    var userName = String()
+    var userID = String()
+    var userEmail = String()
+    var userPassword = String()
+    var userVersion = Int()
+    
+    class func createUser(username: String, email: String, passwd: String, completionhandler:()->Void){
+        
+        print("Creating new User")
         
         let parameters:[String:AnyObject]  = [
             
@@ -22,89 +29,68 @@ class User{
             "password":passwd
         ]
         
-        Alamofire.request(.POST, "\(staticUrl)/user", parameters: parameters, encoding: .JSON).responseJSON{
+        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON{
             response in
             
             debugPrint(response)
-        }
-    }
-    
-    func deleteUser(id:String, version: Int){
-        
-        Alamofire.request(.DELETE, "\(staticUrl)/users/\(id)/\(version)").responseJSON{
-            
-            response in
-            
-            debugPrint(response)
-        }
-        
-    }
-    
-}
-
-
-
-class UserbyPassword: User {
-   
-    var username = String()
-    var userEmail = String()
-    var userPassword = String()
-
-    init(name: String, email: String, pass:String){
-        self.username = name
-        self.userEmail = email
-        self.userPassword = pass
-
-    }
-
-    func querySingleUserByEmail(email:String)->UserById{
-        
-        var queryId = String()
-        var queryEmail = String()
-        var queryVersion = Int()
-        
-        
-        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(email)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON{
-            response in
-            
             if response.result.isSuccess{
+                completionhandler()
+            }
+        }
+    }
+    
+    class func deleteUser(user:User, completionhander:()->Void){
+        
+        print("Deleting User")
+        
+        if user.userVersion != 0 && user.userID != ""{
+            
+        
+        Alamofire.request(.DELETE, "\(staticUrl)/users/\(user.userID)/\(user.userVersion)").responseJSON{
+            
+            response in
+            
+            debugPrint(response)
+            
+            completionhander()
+            }
+        }
+        
+    }
+    
+    func completeUser(completionhandler:(String?,String?,Int? )->Void){
+        
+        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON { (Response) -> Void in
+            
+            if Response.result.isSuccess{
                 
-                if let JSON = response.result.value{
+                if let JSON = Response.result.value{
                     if let user = JSON["user"] as? NSDictionary{
-                        if let id = user["id"] as? String{
-                            queryId = id
-                        }
-                        if let mail = user["email"] as? String{
-                            queryEmail = mail
-                        }
-                        if let version = user["version"] as? Int {
-                            queryVersion = version
+                        if let name = user["name"] as? String{
+                            if let id = user["id"] as? String {
+                                if let version = user["version"] as? Int{
+                                    
+                                    completionhandler(name, id, version)
+                                    
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        
-        
-        let queryUser = UserById(email: queryEmail, id: queryId, version: queryVersion)
-        return queryUser
     }
-
-}
-
-class UserById: User{
-
-    var username = String()
-    var userID = String()
-    var userEmail = String()
-    var userPassword = String()
-    var version = Int()
-
-    init(email: String, id: String, version: Int) {
+    
+    func checkUser(completionhandler: (Bool?) ->Void){
         
-        self.userID = id
-        self.userEmail = email
-        self.version = version
+    
+        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON { (Response) -> Void in
+            
+            if Response.result.isSuccess{
+               completionhandler(true)
+            }
+        }
+        
     }
     
 }

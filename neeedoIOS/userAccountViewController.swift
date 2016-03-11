@@ -34,12 +34,31 @@ class userAccoutViewController: UIViewController {
         
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "UserLoggedIn")
         
-        signUpActive = true
-        
         self.performSegueWithIdentifier("logout", sender: self)
         
-
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     
+        if let identifier = segue.identifier{
+            
+            print(identifier)
+            
+            if identifier == "logout"{
+                
+                print("going to logout")
+                
+                if let vc =  segue.destinationViewController as? ViewController{
+                    
+                    print("I am loggingout")
+                    vc.signUpActive = true
+                }
+                
+            }
+            
+        }
+
     }
     
     func deleteUserAccount(){

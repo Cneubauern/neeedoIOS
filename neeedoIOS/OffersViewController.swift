@@ -16,8 +16,20 @@ class Offers {
   
     func querySingleOffer(offerID:String){
         
-        Alamofire.request(.GET, "\(staticUrl)/offers/\(offerID)")
-        
+        Alamofire.request(.GET, "\(staticUrl)/offers/\(offerID)").responseJSON{
+            response in
+            
+            if response.result.isSuccess{
+                
+                if let JSON = response.result.value{
+                    
+                
+                    
+                }
+                
+            }
+            
+        }
     }
     
     

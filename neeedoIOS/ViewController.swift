@@ -10,7 +10,6 @@ import UIKit
 import Foundation
 import Alamofire
 
-var signUpActive = true
 
 
 
@@ -26,9 +25,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var questionText: UILabel!
     
+    var signUpActive = true
+
+    var newUser:User = User()
     
     override func viewDidLoad() {
-       // super.viewDidLoad()
+        super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nil
         
         self.username.delegate = self
@@ -147,20 +149,50 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let eMail = email.text! as String
         let passWord = password.text! as String
         
+        newUser.userName = userName
+        newUser.userEmail = eMail
+        newUser.userPassword = passWord
         
-        NSUserDefaults.standardUserDefaults().setObject(userName, forKey: "UserName")
-        NSUserDefaults.standardUserDefaults().setObject(eMail, forKey: "UserEmail")
-        NSUserDefaults.standardUserDefaults().setObject(passWord, forKey: "UserPassword")
-        
-        
+        newUser.completeUser(){ name, id, version in
+            
+            self.newUser.userName = name!
+            self.newUser.userID = id!
+            self.newUser.userVersion = version!
+            
+        }
+
         self.performSegueWithIdentifier("login", sender: self)
+
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+       
+        if let identifier = segue.identifier{
+            
+            print(identifier)
+            
+            if identifier == "login"{
+                
+                print("going to login")
+                
+                if let loginViewController =  segue.destinationViewController as? ConnectingViewController{
+                    
+                    print("I am loggingIn")
+                    loginViewController.myUser = self.newUser
+                    loginViewController.signUpActive = self.signUpActive
+                }
+                
+            }
+            
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    func textFieldShouldReturn(textField: UITextField!) ->Bool{
+    
+    func textFieldShouldReturn(textField: UITextField) ->Bool{
         
         textField.resignFirstResponder()
         

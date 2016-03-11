@@ -21,28 +21,26 @@ class ConnectingViewController: UIViewController {
     var username:String = String()
     var email:String = String()
     var password:String = String()
+    var userId:String = String()
+    var version:Int = Int()
     
     var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
 
+    var signUpActive = Bool()
+    var myUser:User = User()
 
     
     override func viewDidLoad() {
+       
         print("Connecting")
         
+        username = myUser.userName
+        email  = myUser.userEmail
+        password = myUser.userPassword
+        userId = myUser.userID
+        version = myUser.userVersion
         
-        if  let user = NSUserDefaults.standardUserDefaults().stringForKey("UserName") {
-            username = user
-        }
-        if  let mail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail") {
-                email  = mail
-        }
-        if let  pass = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword"){
-            password = pass
-            
-        }
-
-        print(username, email, password)
-        
+        print(username, email, password, userId, version)
         
         activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,50,50))
         
@@ -67,6 +65,16 @@ class ConnectingViewController: UIViewController {
     }
     
     
+    func fillUserDefaults(){
+        
+        NSUserDefaults.standardUserDefaults().setObject(myUser.userName, forKey: "UserName")
+        NSUserDefaults.standardUserDefaults().setObject(myUser.userEmail, forKey: "UserEmail")
+        NSUserDefaults.standardUserDefaults().setObject(myUser.userPassword, forKey: "UserPassword")
+        NSUserDefaults.standardUserDefaults().setObject(myUser.userID, forKey: "UserID")
+        NSUserDefaults.standardUserDefaults().setObject(myUser.userVersion, forKey: "UserVersion")
+
+    }
+    
     func loginUser(){
         
         if signUpActive {
@@ -84,6 +92,8 @@ class ConnectingViewController: UIViewController {
         
         print("Login Success")
         
+        self.fillUserDefaults()
+        
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "UserLoggedIn")
 
 
@@ -93,7 +103,7 @@ class ConnectingViewController: UIViewController {
             
         }else{
             
-            self.loadUserData()
+           // self.loadUserData()
         }
         
     }
@@ -102,107 +112,28 @@ class ConnectingViewController: UIViewController {
         
         print("signUp")
         
-        let parameters = [
-            
-            "name":username,
-            "email":email,
-            "password":password
-            
-        ]
         
-        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON { response in
-            
-            if response.result.isSuccess{
-                
-                if let JSON = response.result.value {
-                    
-                    print("\(JSON)")
-                    
-                    if let user = JSON["user"] as? NSDictionary{
-                        
-                        print("\(user)")
-                        
-                        
-                        if let id = user["id"]  as? String{
-                            
-                            NSUserDefaults.standardUserDefaults().setObject("\(id)", forKey: "UserID")
-                        
-                        
-                    }
-                        if let version = user["version"] as? Int{
-                            
-                            NSUserDefaults.standardUserDefaults().setObject("\(version)", forKey: "UserVersion")
-                            
-                        }
-
-                    
-                }
-                
+        User.createUser(myUser.userName, email: myUser.userEmail, passwd: myUser.userPassword,completionhandler:{
                     self.userLoggedIn()
-                
-            } else {
-                    
-                    self.errorAlert()
-                
-            }
-            
-        }
+            })
+
+      
+
         
-    }
     }
     
     func LogInWithUsername(){
         
-        print("logIn")
-        
-        
-        let user = email
-        let pass = password
-        
-        print(email , pass)
-        
-        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(email)").authenticate(user: user, password: pass).responseJSON{response in
-
-            if response.result.isSuccess{
-                if let JSON = response.result.value {
-                
-                    print("\(JSON)")
-                    
-                    if let user = JSON["user"] as? NSDictionary{
-                        
-                        print("\(user)")
-                        
-                        if let name = user["name"] as? String{
-                            
-                            NSUserDefaults.standardUserDefaults().setObject("\(name)", forKey: "UserName")
-                            
-                        }
-                        
-                        
-                        if let id = user["id"] as? String{
-                            
-                            NSUserDefaults.standardUserDefaults().setObject("\(id)", forKey: "UserID")
-                            
-                            
-                        }
-                        if let version = user["version"] as? String{
-                            
-                            NSUserDefaults.standardUserDefaults().setObject("\(version)", forKey: "userVersion")
-                            
-                        }
-                        
-                    }
-                }
-
-                self.userLoggedIn()
-                
-            } else {
-                self.errorAlert()
-            }
+        myUser.checkUser(){ success in
+            
+            self.userLoggedIn()
+            
         }
     }
-
+    
     func errorAlert(){
+        
+        print("loginError")
         
         let alert = UIAlertController(title: "Sorry", message:  "An Error occured while Logging You in ", preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -221,15 +152,13 @@ class ConnectingViewController: UIViewController {
     
 
 
-    func loadUserData(){
+  /*  func loadUserData(){
         
         print("We will load the Data now")
         
         let userId = NSUserDefaults.standardUserDefaults().stringForKey("UserID")!
         
         print(userId)
-        
-        
         
         var newDemand = NSEntityDescription.insertNewObjectForEntityForName("Demands", inManagedObjectContext: context)
 
@@ -459,7 +388,7 @@ class ConnectingViewController: UIViewController {
             }
         }
         self.finishedLogInAndLoading()
-    }
+    }*/
     
     func finishedLogInAndLoading(){
         activityIndicator.stopAnimating()
