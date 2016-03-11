@@ -67,6 +67,12 @@ class ConnectingViewController: UIViewController {
     
     func fillUserDefaults(){
         
+        myUser.completeUser(){ name, id, version in
+            
+            self.myUser.userID = id!
+            self.myUser.userVersion = version!
+        }
+        
         NSUserDefaults.standardUserDefaults().setObject(myUser.userName, forKey: "UserName")
         NSUserDefaults.standardUserDefaults().setObject(myUser.userEmail, forKey: "UserEmail")
         NSUserDefaults.standardUserDefaults().setObject(myUser.userPassword, forKey: "UserPassword")
@@ -79,11 +85,34 @@ class ConnectingViewController: UIViewController {
         
         if signUpActive {
             
-           signUpWithUsername()
+            print("signUp")
+            
+            
+            User.createUser(myUser.userName, email: myUser.userEmail, passwd: myUser.userPassword,completionhandler:{ success in
+              
+                if success == true{
 
+                    self.userLoggedIn()
+
+                } else {
+                    
+                    self.errorAlert()
+                }
+            })
         
         } else{
-            LogInWithUsername()
+
+            myUser.checkUser(){ success in
+                
+                if success == true {
+               
+                    self.userLoggedIn()
+                
+                } else {
+                
+                    self.errorAlert()
+                }
+            }
         }
         
     }
@@ -106,29 +135,6 @@ class ConnectingViewController: UIViewController {
            // self.loadUserData()
         }
         
-    }
-    
-    func signUpWithUsername(){
-        
-        print("signUp")
-        
-        
-        User.createUser(myUser.userName, email: myUser.userEmail, passwd: myUser.userPassword,completionhandler:{
-                    self.userLoggedIn()
-            })
-
-      
-
-        
-    }
-    
-    func LogInWithUsername(){
-        
-        myUser.checkUser(){ success in
-            
-            self.userLoggedIn()
-            
-        }
     }
     
     func errorAlert(){

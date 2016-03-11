@@ -18,7 +18,7 @@ class User{
     var userPassword = String()
     var userVersion = Int()
     
-    class func createUser(username: String, email: String, passwd: String, completionhandler:()->Void){
+    class func createUser(username: String, email: String, passwd: String, completionhandler:(Bool?)->Void){
         
         print("Creating new User")
         
@@ -34,7 +34,7 @@ class User{
             
             debugPrint(response)
             if response.result.isSuccess{
-                completionhandler()
+                completionhandler(true)
             }
         }
     }
