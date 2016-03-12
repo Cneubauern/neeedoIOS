@@ -18,15 +18,15 @@ class User{
     var userPassword = String()
     var userVersion = Int()
     
-    class func createUser(username: String, email: String, passwd: String, completionhandler:(Bool?)->Void){
+    class func createUser(user:User, completionhandler:(Bool?)->Void){
         
         print("Creating new User")
         
         let parameters:[String:AnyObject]  = [
             
-            "name": username,
-            "email": email,
-            "password":passwd
+            "name": user.userName,
+            "email": user.userEmail,
+            "password":user.userPassword
         ]
         
         Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON{

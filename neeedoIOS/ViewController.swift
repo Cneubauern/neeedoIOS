@@ -33,6 +33,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nil
         
+        print("Funktion: ViewController.viewDidLoad")
+
         self.username.delegate = self
         self.email.delegate = self
         self.password.delegate = self
@@ -42,19 +44,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         
+        print("Funktion: ViewController.viewDidAppear")
+
+        
         if NSUserDefaults.standardUserDefaults().boolForKey("UserLoggedIn"){
             
+            signUpActive = false
                     
-                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserName")!)
-                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!)
-                    print(NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!)
-                    
-                    signUpActive = false
-                    
-                    self.performSegueWithIdentifier("userLoggedIn", sender: self)
-            
-            }
+            self.performSegueWithIdentifier("userLoggedIn", sender: self)
         }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,11 +62,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
     @IBAction func logIn(sender: AnyObject) {
         
+        print("Funktion: logIn")
+        
         if signUpActive == true{
             
             username.hidden = true
+        
             passControl.hidden = true
-            
+        
             button1.setTitle("Log In", forState: UIControlState.Normal)
             
             questionText.text = "Not yet registered?"
@@ -78,27 +80,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
         } else{
             
-            
-            
             button2.setTitle("Log In", forState: UIControlState.Normal)
             
             questionText.text = "Already registered"
             
             button1.setTitle("Sign Up", forState: UIControlState.Normal)
             
-            
             username.hidden = false
+            
             passControl.hidden = false
             
             signUpActive = true
-            
         }
     }
     
     @IBAction func signUp(sender: AnyObject) {
         
-        
-        print("\(signUpActive)")
+        print("Funktion: signUp")
+        print("SignUpActive: \(signUpActive)")
         
         if signUpActive{
             
@@ -120,7 +119,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.presentViewController(alert, animated: true, completion: nil)
                 
             } else {
-                self.signUpWithUsernameInBackground()
+                
+                self.signUpWithUsername()
             }
         
         }  else if !signUpActive{
@@ -133,17 +133,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 
                 self.presentViewController(alert, animated: true, completion: nil)
 
-            
             } else {
-                self.signUpWithUsernameInBackground()
+                
+                self.signUpWithUsername()
             }
         }
     }
     
     
-    func signUpWithUsernameInBackground(){
+    func signUpWithUsername(){
         
-        print("loggingIn")
+        print("Funktion: signUpWithUsername")
         
         let userName = username.text! as String
         let eMail = email.text! as String
@@ -169,7 +169,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
        
         if let identifier = segue.identifier{
             
-            print(identifier)
+            print("Seque:", identifier)
             
             if identifier == "login"{
                 
@@ -181,9 +181,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
                     loginViewController.myUser = self.newUser
                     loginViewController.signUpActive = self.signUpActive
                 }
+            }
+            if identifier == "userLoggedIn"{
+                
                 
             }
-            
         }
     }
     

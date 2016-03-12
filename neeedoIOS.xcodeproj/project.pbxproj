@@ -51,6 +51,7 @@
 		9D9F75371C91BEC900690DD7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F75361C91BEC900690DD7 /* Users.swift */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
+		9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD48AA41C9466E700E6C32F /* coreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +191,7 @@
 		9D9F75361C91BEC900690DD7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
+		9DD48AA41C9466E700E6C32F /* coreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coreData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +283,7 @@
 				9D0F1EAC1C917FE600FBE8F4 /* Demands.swift */,
 				9D0F1EAE1C9182D500FBE8F4 /* Offers.swift */,
 				9D9F75361C91BEC900690DD7 /* Users.swift */,
+				9DD48AA41C9466E700E6C32F /* coreData.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
 				9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */,
+				9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */,
 				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,
 				9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */,
 				9D0F1EAB1C917C9300FBE8F4 /* FavoritesViewController.swift in Sources */,
