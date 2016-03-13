@@ -12,7 +12,7 @@ import UIKit
 import CoreLocation
 import CoreData 
 
-class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
    
     var myUser:User = User()
     var myNewOffer = Offers()
@@ -45,7 +45,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
         
         imagePicker.delegate = self
 
-        
+        descriptionTextField.delegate = self
+        priceTextField.delegate = self
     }
     
     func initUser(){
@@ -167,7 +168,17 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
+    
+    func textFieldShouldReturn(textField: UITextField) ->Bool{
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
     
     @IBAction func chooseLocation(sender: AnyObject) {
         

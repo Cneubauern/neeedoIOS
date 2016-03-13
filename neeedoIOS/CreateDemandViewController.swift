@@ -12,7 +12,7 @@ import UIKit
 import CoreLocation
 import CoreData 
 
-class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
+class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mustHaves: UITextField!
     
@@ -37,14 +37,9 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     var location = CLLocationCoordinate2D()
     
-    
-    var userId:String = ""
-    
     var radius:Float32 = 0.0
     
     var locationManager = CLLocationManager()
-    
-    var demandParameters = NSDictionary()
     
     override func viewDidLoad() {
         
@@ -60,6 +55,11 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         radius = radiusSlider.value
         sliderValue.text = "\(radius)"
 
+        self.mustHaves.delegate = self
+        self.shouldHaves.delegate = self
+        self.minPrice.delegate = self
+        self.maxPrice.delegate = self
+        
     }
     
     func initUser(){
@@ -69,7 +69,7 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         
         if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
             
-            userId = id
+            self.myUser.userID = id
         }
     }
     
@@ -178,6 +178,20 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     */
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        self.view.endEditing(true)
+    }
+    
+    
+    func textFieldShouldReturn(textField: UITextField) ->Bool{
+        
+        textField.resignFirstResponder()
+        
+        return true
+    }
+
     
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
         

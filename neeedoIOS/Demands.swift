@@ -30,21 +30,32 @@ class Demands{
         
         let parameters:[String:AnyObject] = demand.generateParameters()
         
-        Alamofire.request(.GET, "\(staticUrl)/demands", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON { (Response) -> Void in
+        print(parameters)
+        
+        print(user.userEmail, user.userPassword)
+        
+        Alamofire.request(.POST, "\(staticUrl)/demands", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
             
             if Response.result.isSuccess{
             
                 completionhandler(true)
+                
             }else{
+                
                 completionhandler(false)
             }
-        }
+        })
     }
     
     class func queryDemandsByUser(user:User, completionhandler:(NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/demands/users/\(user.userID)").responseJSON { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/demands/users/\(user.userID)").responseJSON(completionHandler: { (Response) -> Void in
+            
             if Response.result.isSuccess{
+                
+                debugPrint(Response)
                 
                 if let JSON = Response.result.value{
                  
@@ -54,12 +65,15 @@ class Demands{
                     }
                 }
             }
-        }
+        })
     }
     
     class func queryAllDemands(completionhandler: (NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
+
             if Response.result.isSuccess{
                 if let JSON = Response.result.value{
                     if let demands = JSON["demands"] as? NSArray{
@@ -68,12 +82,14 @@ class Demands{
                     }
                 }
             }
-        }
+        })
     }
     
     func querySingleDemand(demandID:String, completionhandler:(NSDictionary?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/demands/\(demandID)").responseJSON { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/demands/\(demandID)").responseJSON(completionHandler: { (Response) -> Void in
+        
+            debugPrint(Response)
            
             if Response.result.isSuccess{
                 
@@ -85,7 +101,7 @@ class Demands{
                     }
                 }
             }
-        }
+        })
     }
 
     
@@ -112,33 +128,43 @@ class Demands{
 
     class func updateDemand(demand:Demands, parameters: [String : AnyObject], completionhandler:(Bool?)->Void){
         
-        Alamofire.request(.PUT, "\(staticUrl)/demands/\(demand.demandID)/\(demand.version)", parameters: parameters, encoding: .JSON).responseJSON { (Response) -> Void in
+        Alamofire.request(.PUT, "\(staticUrl)/demands/\(demand.demandID)/\(demand.version)", parameters: parameters, encoding: .JSON).responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
+
             if Response.result.isSuccess{
                 completionhandler(true)
             }else{
                 completionhandler(false)
             }
-        }
+        })
     }
     
     class func deleteDemand(demand:Demands, completionhandler:(Bool?)->Void){
         
-        Alamofire.request(.DELETE, "\(staticUrl)/\(demand.demandID)/\(demand.version)").responseJSON{
-            response in
+        Alamofire.request(.DELETE, "\(staticUrl)/\(demand.demandID)/\(demand.version)").responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
         
-            if response.result.isSuccess{
+            if Response.result.isSuccess{
+                
                 completionhandler(true)
+            
             } else {
+            
                 completionhandler(false)
+            
             }
-        }
+        })
     }
 
-    class func demandGetMatchingOffers(demand:Demand, completionhandler:(NSArray?)->Void){
+    class func demandGetMatchingOffers(user:User, demand:Demand, completionhandler:(NSArray?)->Void){
         
         let parameters = demand.generateParameters()
         
-        Alamofire.request(.POST, "\(staticUrl)/matching/demand", parameters: parameters, encoding: .JSON).responseJSON { (Response) -> Void in
+        Alamofire.request(.POST, "\(staticUrl)/matching/demand", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
             
             if Response.result.isSuccess{
             
@@ -150,11 +176,9 @@ class Demands{
                     }
                 }
             }
-        }
+        })
     }
-
-
-
+    
 }
 
 class Demand: Demands {

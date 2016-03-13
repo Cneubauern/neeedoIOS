@@ -29,14 +29,19 @@ class User{
             "password":user.userPassword
         ]
         
-        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON{
-            response in
+        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON(completionHandler: { (Response) -> Void in
+            debugPrint(Response)
             
-            debugPrint(response)
-            if response.result.isSuccess{
+            if Response.result.isSuccess{
+                
                 completionhandler(true)
+                
+            } else{
+                
+                completionhandler(false)
             }
-        }
+
+            })
     }
     
     class func deleteUser(user:User, completionhander:(Bool?)->Void){
@@ -48,18 +53,26 @@ class User{
         
             Alamofire.request(.DELETE, "\(staticUrl)/users/\(user.userID)/\(user.userVersion)").responseJSON(completionHandler: { (Response) -> Void in
                 
+                debugPrint(Response)
+
                 if Response.result.isSuccess{
+
                     completionhander(true)
+                
+                } else {
+                    
+                    completionhander(false)
+                    
                 }
             })
         }
         
     }
     
-    func completeUser(completionhandler:(String?,String?,Int? )->Void){
+    func completeUser(completionhandler:(String?,String?,Int?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON { (Response) -> Void in
-            
+        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON(completionHandler: { (Response) -> Void in
+        
             if Response.result.isSuccess{
                 
                 if let JSON = Response.result.value{
@@ -76,18 +89,22 @@ class User{
                     }
                 }
             }
-        }
+        })
     }
     
     func checkUser(completionhandler: (Bool?) ->Void){
-        
     
-        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON { (Response) -> Void in
-            
+        Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON(completionHandler: { (Response) -> Void in
+         
             if Response.result.isSuccess{
-               completionhandler(true)
+            
+                completionhandler(true)
+            
+            }else{
+            
+                completionhandler(false)
             }
-        }
+        })
         
     }
     

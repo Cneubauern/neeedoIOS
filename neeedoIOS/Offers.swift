@@ -29,46 +29,61 @@ class Offers {
         
         let parameters:[String:AnyObject] = offer.generateParameters()
         
-        Alamofire.request(.POST, "\(staticUrl)/offers", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON { (Response) -> Void in
+        Alamofire.request(.POST, "\(staticUrl)/offers", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON(completionHandler: { (Response) -> Void in
             
-            if Response.result.isSuccess{
+                debugPrint(Response)
+            
+                if Response.result.isSuccess{
                 
-                completionhandler(true)
-            } else{
-                completionhandler(false)
+                    completionhandler(true)
+            
+                } else{
+                
+                    completionhandler(false)
             }
-    
-        }
-        
+        })
     }
 
     class func updateOffer(offer: Offer, parameters: [String : AnyObject], completionhandler:(Bool?)->Void){
         
-        Alamofire.request(.PUT, "\(staticUrl)/offers/\(offer.offerID)/\(offer.version)", parameters: parameters, encoding: .JSON).responseJSON { (Response) -> Void in
+        Alamofire.request(.PUT, "\(staticUrl)/offers/\(offer.offerID)/\(offer.version)", parameters: parameters, encoding: .JSON).responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
+
             if Response.result.isSuccess{
+
                 completionhandler(true)
+            
             } else{
+            
                 completionhandler(false)
             }
-        }
+        })
     }
     
     class func deleteOffer(offer:Offer, completionHandler:(Bool?)->Void){
-        Alamofire.request(.DELETE, "\(staticUrl)/offers/\(offer.offerID)/\(offer.version)").responseJSON { (Response) -> Void in
-           
+        Alamofire.request(.DELETE, "\(staticUrl)/offers/\(offer.offerID)/\(offer.version)").responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
+
             if Response.result.isSuccess{
             
                 completionHandler(true)
+
             } else {
+            
                 completionHandler(false)
+            
             }
-        }
+        })
     }
 
     class func queryAllOffers(completionhandler:(NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON(completionHandler: { (Response) -> Void in
             
+            debugPrint(Response)
+
             if Response.result.isSuccess{
                 
                 if let JSON = Response.result.value{
@@ -79,13 +94,15 @@ class Offers {
                     }
                 }
             }
-        }
+        })
     }
     
     class func queryAllOffersByUser(user:User, completionhandler:(NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/users/\(user.userID)").responseJSON { (
-            Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/users/\(user.userID)").responseJSON(completionHandler: { (Response) -> Void in
+            
+            debugPrint(Response)
+
             if Response.result.isSuccess{
                 
                 if let JSON = Response.result.value{
@@ -96,17 +113,18 @@ class Offers {
                     }
                 }
             }
-        }
+        })
     }
     
     class func querySingleOfferById(offerID:String, completionhandler:(NSDictionary?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/offers/\(offerID)").responseJSON{
-            response in
+        Alamofire.request(.GET, "\(staticUrl)/offers/\(offerID)").responseJSON(completionHandler: { (Response) -> Void in
             
-            if response.result.isSuccess{
+            debugPrint(Response)
+
+            if Response.result.isSuccess{
                 
-                if let JSON = response.result.value{
+                if let JSON = Response.result.value{
                     
                     if let offer = JSON["offer"] as? NSDictionary{
                         
@@ -114,7 +132,7 @@ class Offers {
                     }
                 }
             }
-        }
+        })
     }
     
     
@@ -133,11 +151,6 @@ class Offers {
         ]
         return parameters
     }
-    
-    
-
-    
-    
 }
 
 class Offer: Offers {
