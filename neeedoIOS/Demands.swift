@@ -26,18 +26,19 @@ class Demands{
     var shouldTags = [String]()
     
     
-    class func createDemand(user:User, demand:Demand){
+    class func createDemand(user:User, demand:Demand, completionhandler:(Bool?)->Void){
         
         let parameters:[String:AnyObject] = demand.generateParameters()
         
         Alamofire.request(.GET, "\(staticUrl)/demands", parameters: parameters, encoding: .JSON).authenticate(user: user.userEmail, password: user.userPassword).responseJSON { (Response) -> Void in
             
             if Response.result.isSuccess{
-               
-                debugPrint(Response)
+            
+                completionhandler(true)
+            }else{
+                completionhandler(false)
             }
         }
-        
     }
     
     class func queryDemandsByUser(user:User, completionhandler:(NSArray?)->Void){
@@ -45,10 +46,12 @@ class Demands{
         Alamofire.request(.GET, "\(staticUrl)/demands/users/\(user.userID)").responseJSON { (Response) -> Void in
             if Response.result.isSuccess{
                 
-                if let JSON = Response.result.value as? NSArray{
+                if let JSON = Response.result.value{
                  
-                    completionhandler(JSON)
-                    
+                    if let demands = JSON["demands"] as? NSArray{
+
+                        completionhandler(demands)
+                    }
                 }
             }
         }
@@ -58,16 +61,17 @@ class Demands{
         
         Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON { (Response) -> Void in
             if Response.result.isSuccess{
-                if let JSON = Response.result.value as? NSArray{
-                
-                    completionhandler(JSON)
-                    
+                if let JSON = Response.result.value{
+                    if let demands = JSON["demands"] as? NSArray{
+                      
+                        completionhandler(demands)
+                    }
                 }
             }
         }
     }
     
-    func querySingleDemand(demandID:String, completionhandler:(Demands?)->Void){
+    func querySingleDemand(demandID:String, completionhandler:(NSDictionary?)->Void){
         
         Alamofire.request(.GET, "\(staticUrl)/demands/\(demandID)").responseJSON { (Response) -> Void in
            
@@ -76,63 +80,8 @@ class Demands{
                 if let JSON = Response.result.value{
                     
                     if let demand = JSON["demand"] as? NSDictionary{
-                        
-                        let newDemand = Demands()
-                        
-                        if let id = demand["id"] as? String{
-                        
-                            newDemand.demandID = id
-                        }
-                        if let version =  demand["version"] as? Int{
-                            
-                            newDemand.version = version
-                        }
-                        if let user = demand["user"] as? NSDictionary{
-                            
-                            if let userId = user["id"] as? String{
-                                
-                                newDemand.userID = userId
-                            }
-                            if let username = user["name"] as? String{
-                             
-                                newDemand.userName = username
-                            }
-                        }
-                        if let must = demand["mustTags"] as? [String]{
-                            
-                            newDemand.mustTags = must
-                        }
-                        if let should = demand["shouldTags"] as? [String]{
-                            
-                            newDemand.shouldTags = should
-                        }
-                        if let location = demand["location"] as? NSDictionary{
-                            
-                            if let lat = location["lat"] as? CLLocationDegrees{
-                                
-                                newDemand.latitude = lat
-                            }
-                            if let lon = location["lon"] as? CLLocationDegrees{
-                                newDemand.longitude = lon
-                            }
-                        }
-                        if let distance = demand["distance"] as? Float32{
-                            
-                            newDemand.distance = distance
-                        }
-                        if let price = demand["price"] as? NSDictionary{
-                            
-                            if let min = price["min"] as? Float32{
-                                
-                                newDemand.minPrice = min
-                            }
-                            if let max = price["max"] as? Float32{
-                                
-                                newDemand.maxPrice  = max
-                            }
-                        }
                     
-                        completionhandler(newDemand)
+                        completionhandler(demand)
                     }
                 }
             }
@@ -160,8 +109,6 @@ class Demands{
         return parameters
     }
 
-    
-  
 
     class func updateDemand(demand:Demands, parameters: [String : AnyObject], completionhandler:(Bool?)->Void){
         
@@ -187,15 +134,36 @@ class Demands{
         }
     }
 
+    class func demandGetMatchingOffers(demand:Demand, completionhandler:(NSArray?)->Void){
+        
+        let parameters = demand.generateParameters()
+        
+        Alamofire.request(.POST, "\(staticUrl)/matching/demand", parameters: parameters, encoding: .JSON).responseJSON { (Response) -> Void in
+            
+            if Response.result.isSuccess{
+            
+                if let JSON = Response.result.value{
+                    
+                    if let offers = JSON["offers"] as? NSArray{
+                        
+                        completionhandler(offers)
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }
 
 class Demand: Demands {
     
-    init(userID: String,userName:String, mustTags:[String], shouldTags:[String], location: CLLocationCoordinate2D, distance:Float32, minPrice: Float32, maxPrice: Float32){
+    init(user:User, mustTags:[String], shouldTags:[String], location: CLLocationCoordinate2D, distance:Float32, minPrice: Float32, maxPrice: Float32){
       
         super.init()
-        self.userID = userID
-        self.userName = userName
+        self.userID = user.userID
+        self.userName = user.userName
         self.mustTags = mustTags
         self.shouldTags = shouldTags
         self.latitude = location.latitude
@@ -205,3 +173,61 @@ class Demand: Demands {
         self.maxPrice = maxPrice
     }
 }
+
+
+
+/*
+    let newDemand = Demands()
+    
+    if let id = demand["id"] as? String{
+        
+        newDemand.demandID = id
+    }
+    if let version =  demand["version"] as? Int{
+        
+        newDemand.version = version
+    }
+    if let user = demand["user"] as? NSDictionary{
+        
+        if let userId = user["id"] as? String{
+            
+            newDemand.userID = userId
+        }
+        if let username = user["name"] as? String{
+            
+            newDemand.userName = username
+        }
+    }
+    if let must = demand["mustTags"] as? [String]{
+        
+        newDemand.mustTags = must
+    }
+    if let should = demand["shouldTags"] as? [String]{
+        
+        newDemand.shouldTags = should
+    }
+    if let location = demand["location"] as? NSDictionary{
+        
+        if let lat = location["lat"] as? CLLocationDegrees{
+            
+            newDemand.latitude = lat
+        }
+        if let lon = location["lon"] as? CLLocationDegrees{
+            newDemand.longitude = lon
+        }
+    }
+    if let distance = demand["distance"] as? Float32{
+        
+        newDemand.distance = distance
+    }
+    if let price = demand["price"] as? NSDictionary{
+        
+        if let min = price["min"] as? Float32{
+            
+            newDemand.minPrice = min
+        }
+        if let max = price["max"] as? Float32{
+            
+            newDemand.maxPrice  = max
+        }
+}*/

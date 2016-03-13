@@ -683,7 +683,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIt-kg-SdF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="551.5" y="-170.5"/>
+            <point key="canvasLocation" x="1127.5" y="-370.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="pDt-5J-Y4l">
@@ -734,7 +734,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvw-n6-4AQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1012.5" y="76.5"/>
+            <point key="canvasLocation" x="1216.5" y="374.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="FZr-6Z-sLe">
@@ -777,7 +777,7 @@
                                     <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="deleteAccoutn:" destination="VXQ-1R-M9L" eventType="touchUpInside" id="ryO-6s-88e"/>
+                                    <action selector="deleteAccount:" destination="VXQ-1R-M9L" eventType="touchUpInside" id="jxr-tG-RU9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -801,7 +801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G94-qC-z06" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="98.5" y="-717.5"/>
+            <point key="canvasLocation" x="518.5" y="-849.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3iB-hl-TCO">
@@ -830,8 +830,8 @@
         <image name="neeedo_Logo.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gmr-X6-HOD"/>
         <segue reference="h9d-uC-2D9"/>
-        <segue reference="LI6-Wt-Jio"/>
+        <segue reference="gmr-X6-HOD"/>
+        <segue reference="4uR-X5-7tW"/>
     </inferredMetricsTieBreakers>
 </document>

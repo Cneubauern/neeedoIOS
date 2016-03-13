@@ -71,15 +71,15 @@ class Offers {
             
             if Response.result.isSuccess{
                 
-                if let JSON = Response.result.value as? NSArray{
+                if let JSON = Response.result.value{
                     
-                    completionhandler(JSON)
-                    
+                    if let offers = JSON["offers"] as? NSArray{
+                        
+                        completionhandler(offers)
+                    }
                 }
-                
             }
         }
-        
     }
     
     class func queryAllOffersByUser(user:User, completionhandler:(NSArray?)->Void){
@@ -87,29 +87,33 @@ class Offers {
         Alamofire.request(.GET, "\(staticUrl)/users/\(user.userID)").responseJSON { (
             Response) -> Void in
             if Response.result.isSuccess{
-                if let JSON = Response.result.value as? NSArray{
-                    completionhandler(JSON)
+                
+                if let JSON = Response.result.value{
+                 
+                    if let offers = JSON["offers"] as? NSArray{
+                    
+                        completionhandler(offers)
+                    }
                 }
             }
         }
-        
     }
     
-    class func querySingleOfferById(offerID:String, completionhandler:(NSArray?)->Void){
+    class func querySingleOfferById(offerID:String, completionhandler:(NSDictionary?)->Void){
         
         Alamofire.request(.GET, "\(staticUrl)/offers/\(offerID)").responseJSON{
             response in
             
             if response.result.isSuccess{
                 
-                if let JSON = response.result.value as? NSArray{
+                if let JSON = response.result.value{
                     
-                    completionhandler(JSON)
-                    
+                    if let offer = JSON["offer"] as? NSDictionary{
+                        
+                        completionhandler(offer)
+                    }
                 }
-                
             }
-            
         }
     }
     

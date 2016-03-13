@@ -14,10 +14,10 @@ import CoreData
 
 class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
    
-    var userId:String = ""
+    var myUser:User = User()
+    var myNewOffer = Offers()
     
-    var lat = 0.0
-    var lon = 0.0
+    var location = CLLocationCoordinate2D()
     
     var imageURL = NSURL()
     
@@ -34,12 +34,8 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
     
     override func viewDidLoad() {
         
-        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
-            
-            userId = id
-            
-        }
-                
+        self.initUser()
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -52,85 +48,52 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func initUser(){
+        
+        self.myUser.userEmail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!
+        self.myUser.userPassword = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!
+        
+        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
+            
+            self.myUser.userID = id
+        }
     }
+    
+    
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation:CLLocation = locations[0]
         
-        let latitude:CLLocationDegrees = userLocation.coordinate.latitude
-        let longitude:CLLocationDegrees = userLocation.coordinate.longitude
+        location = userLocation.coordinate
         
-        lat = latitude
-        lon = longitude
-        
-    }
-    
-    @IBAction func createOfferBtnClicked(sender: AnyObject) {
-        
-        if descriptionTextField.text != "" && priceTextField.text != "" {
-
-            createOffer()
-
-        } else {
-            let alert = UIAlertController(title: "Missing Data", message: "Please Fill in the Blanks", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(action)-> Void in alert.dismissViewControllerAnimated(true, completion: nil)}))
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
     }
     
     func createOffer(){
         
-        if let price = Double(priceTextField.text!){
+        if let price = Float32(priceTextField.text!){
             
             if let tagsString = descriptionTextField.text {
                 
                 let tags = tagsString.componentsSeparatedByString(",")
                 
-                let parameters = [
-                    
-                    "userId": userId,
-                    
-                    "tags": tags,
-                    
-                    "location":[
-                        "lat": lat,
-                        "lon": lon
-                    ],
-                    "price":price,
-                    
-                    "images":[]
-                ]
                 
-                print(parameters)
-                
-                self.saveNewOffer(price, tags: tags)
-                
-                
-                Alamofire.request(.POST, "\(staticUrl)/offers", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).responseJSON{ response in
-                    
-                    debugPrint(response)
-                    if let JSON = response.result.value {
-                        print(JSON)
+                Offers.createOffer(myUser, offer: Offer(userID: myUser.userID, tags: tags, location: self.location, price: price, images: []), completionhandler: { (success) -> Void in
+                   
+                    if success == true {
+                        print("created")
                     }
-                    
-                }
-                
+                })
             }
-            
-        } else{
+        }else{
             
             print("Missing Elements")
-        }
         
+        }
     }
 
         
-    func saveNewOffer(price:Double, tags:[String]){
+/*    func saveNewOffer(price:Double, tags:[String]){
         
         var newOffer = NSEntityDescription.insertNewObjectForEntityForName("Offers", inManagedObjectContext: context)
 
@@ -164,58 +127,13 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             
         }
 
-    }
-   
-    @IBAction func chooseLocation(sender: AnyObject) {
-        
-        self.performSegueWithIdentifier("chooseLocation", sender: self)
-        
-    }
-    
-    
-    @IBAction func useCurrentLocation(sender: AnyObject) {
-        
-        if currentLocationSwitch.on {
-            
-            chooseLocationBtn.enabled = false
-            
-        } else {
-            chooseLocationBtn.enabled = true
-        }
-        
-    }
-    @IBAction func openScanner(sender: AnyObject) {
-    }
-    
-    // Opens the Camera and allows the User to take a Photo
-    
-    @IBAction func takePhoto(sender: AnyObject) {
-        
-        let image = UIImagePickerController()
-        
-        image.delegate = self
-        image.sourceType = UIImagePickerControllerSourceType.Camera
-        image.allowsEditing = false
-        
-        self.presentViewController(image, animated: true, completion: nil)
+    }*/
 
-        
-    }
-    
-    //Opens the Gallery and allows the User to choose an Image to upload
-    @IBAction func chooseImage(sender: AnyObject) {
-        
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        imagePicker.allowsEditing = false
-        
-        
-        self.presentViewController(imagePicker, animated: true, completion: nil)
-        
-    }
     
     //This function is called everytime the user is done picking or taking images
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+       
         print("Image Selected")
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -232,7 +150,6 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
                 
                 imageURL = pickedImageURL
                 
-
             }
             
         }
@@ -250,5 +167,71 @@ class CreateOfferViewController: UIViewController,  CLLocationManagerDelegate, U
             
     }
     
+    
+    
+    @IBAction func chooseLocation(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("chooseLocation", sender: self)
+        
+    }
+    
+    @IBAction func useCurrentLocation(sender: AnyObject) {
+        
+        if currentLocationSwitch.on {
+            
+            chooseLocationBtn.enabled = false
+            
+        } else {
+            chooseLocationBtn.enabled = true
+        }
+    }
+    
+    @IBAction func openScanner(sender: AnyObject) {
+    }
+    
+    // Opens the Camera and allows the User to take a Photo
+    
+    @IBAction func takePhoto(sender: AnyObject) {
+        
+        let image = UIImagePickerController()
+        
+        image.delegate = self
+        image.sourceType = UIImagePickerControllerSourceType.Camera
+        image.allowsEditing = false
+        
+        self.presentViewController(image, animated: true, completion: nil)
+    }
+    
+    //Opens the Gallery and allows the User to choose an Image to upload
+    @IBAction func chooseImage(sender: AnyObject) {
+        
+        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.allowsEditing = false
+        
+        
+        self.presentViewController(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func createOfferBtnClicked(sender: AnyObject) {
+        
+        if descriptionTextField.text != "" && priceTextField.text != "" {
+            
+            self.createOffer()
+            
+        } else {
+            
+            let alert = UIAlertController(title: "Missing Data", message: "Please Fill in the Blanks", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(action)-> Void in alert.dismissViewControllerAnimated(true, completion: nil)}))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
 }

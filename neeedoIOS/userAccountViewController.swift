@@ -14,29 +14,28 @@ class userAccoutViewController: UIViewController {
     
     @IBOutlet var account: UILabel!
     
+    var myUser = User()
     
     override func viewDidLoad() {
+        
+        myUser.userID = NSUserDefaults.standardUserDefaults().stringForKey("UserID")!
+        myUser.userVersion = NSUserDefaults.standardUserDefaults().integerForKey("UserVersion")
         
         account.text = NSUserDefaults.standardUserDefaults().stringForKey("UserName")
         
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     func logoutUser(){
         
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserName")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserID")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserPassword")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserEmail")
-        NSUserDefaults.standardUserDefaults().setObject("", forKey: "UserVersion")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserName")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserID")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserPassword")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserEmail")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("UserVersion")
         
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "UserLoggedIn")
         
         self.performSegueWithIdentifier("logout", sender: self)
-        
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -54,31 +53,24 @@ class userAccoutViewController: UIViewController {
                     print("I am loggingout")
                     vc.signUpActive = true
                 }
-                
             }
-            
         }
-
     }
     
     func deleteUserAccount(){
+        
         NSLog("Delete Pressed")
         
-        if let id = NSUserDefaults.standardUserDefaults().objectForKey("UserID"){
-            if let version = NSUserDefaults.standardUserDefaults().objectForKey("UserVersion"){
+        User.deleteUser(myUser) { (success) -> Void in
+            
+            if success == true {
                 
-                Alamofire.request(.DELETE, "\(staticUrl)/users/\(id)/\(version)").response { response in
-                    debugPrint(response)
-                }
-                
+                self.logoutUser()
             }
         }
-        
-        logoutUser()
-
     }
     
-    @IBAction func deleteAccoutn(sender: AnyObject) {
+    @IBAction func deleteAccount(sender: AnyObject) {
         
         let alert = UIAlertController(title: "Warning", message: "This can not be undone", preferredStyle: UIAlertControllerStyle.Alert)
         
@@ -89,14 +81,16 @@ class userAccoutViewController: UIViewController {
         alert.addAction(okAction)
         
         self.presentViewController(alert, animated: true, completion: nil)
-
-        
-        
     }
     
     @IBAction func logOut(sender: AnyObject) {
         
         self.logoutUser()
         
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 }

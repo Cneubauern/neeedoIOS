@@ -30,10 +30,16 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var sliderValue: UILabel!
     
+    
+    var myUser = User()
+
+    var myNewDemand = Demands()
+    
+    var location = CLLocationCoordinate2D()
+    
+    
     var userId:String = ""
     
-    var lat = 0.0
-    var lon = 0.0
     var radius:Float32 = 0.0
     
     var locationManager = CLLocationManager()
@@ -42,11 +48,7 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         
-        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
-            
-            userId = id
-        
-        }
+        self.initUser()
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -60,36 +62,31 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
 
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func initUser(){
+        
+        self.myUser.userEmail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!
+        self.myUser.userPassword = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!
+        
+        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
+            
+            userId = id
+        }
     }
+    
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation:CLLocation = locations[0]
         
-        let latitude:CLLocationDegrees = userLocation.coordinate.latitude
-        let longitude:CLLocationDegrees = userLocation.coordinate.longitude
-        
-        lat = latitude
-        lon = longitude
-        
-        //print(lat, lon)
-        
-    }
+        location = userLocation.coordinate
+        }
 
-    
     
     func createDemand(){
         
-        let user = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")
-        let pass = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")
-    
-        let distance = radius
-    
-        if let priceMin = Double(minPrice.text!){
+        if let priceMin = Float32(minPrice.text!){
         
-            if let priceMax = Double(maxPrice.text!){
+            if let priceMax = Float32(maxPrice.text!){
                 
                 if let shouldHavesString = shouldHaves.text {
                     
@@ -99,59 +96,25 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
                         
                         let mustTags = mustHavesString.componentsSeparatedByString(",")
                 
-                        let parameters = [
-                            "userId" : userId,
-                            "mustTags":mustTags,
-                            "shouldTags":shouldTags,
-                            "location": [
-                                "lat" :lat ,
-                                "lon" :lon
-                            ],
-                            "distance": distance ,
-                            "price": [
-                                "min": priceMin,
-                                "max": priceMax
-                            ]
-                        ]
-                
-                        print(parameters)
-                
-                        self.saveNewDemand(priceMin, maxPrice: priceMax, mustTags: mustTags, shouldTags: shouldTags, distance: distance)
-                
-                        Alamofire.request(.POST, "\(staticUrl)/demands", parameters: (parameters as! [String : AnyObject]), encoding: .JSON).authenticate(user: user!, password: pass!).responseJSON{ response in
+                        let newDemand = Demand(user: myUser, mustTags: mustTags, shouldTags: shouldTags, location: location, distance: radius, minPrice: priceMin, maxPrice: priceMax)
                     
-                            debugPrint(response)
-                    
-                            if response.result.isSuccess{
-                        
-                                if let JSON = response.result.value {
+                        Demands.createDemand(myUser, demand: newDemand, completionhandler: { (success) -> Void in
                             
-                                    print("Success")
-                                    print(JSON)
-                            
-                                    if let demand = JSON["demand"] as? NSDictionary{
+                            if success == true {
                                 
-                                        print(demand)
+                                self.myNewDemand = newDemand as Demands
                                 
-                                        self.demandParameters = demand
+                                self.performSegueWithIdentifier("matching", sender: self)
                                 
-                                        self.performSegueWithIdentifier("matching", sender: self)
-                                
-                                    }
-                            
-                                }
-
                             }
-                    
-                        }
+                        })
                     }
                 }
             }
-        } else{
+        } else {
             
             print("Missing Elements")
         }
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -169,18 +132,15 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
                 if let matchingViewController =  segue.destinationViewController as? MatchingViewController{
                     
                     print("I am matching")
-                    matchingViewController.demandParameters = self.demandParameters
+                    matchingViewController.demand = self.myNewDemand
                     
                 }
-                
             }
-            
         }
-        
     }
     
     
-    func saveNewDemand(minPrice:Double, maxPrice:Double, mustTags:[String], shouldTags:[String], distance:Float32){
+/*    func saveNewDemand(minPrice:Double, maxPrice:Double, mustTags:[String], shouldTags:[String], distance:Float32){
         
         var newDemand = NSEntityDescription.insertNewObjectForEntityForName("Demands", inManagedObjectContext: context)
         
@@ -190,8 +150,8 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         newDemand.setValue(userId, forKey: "id")
         newDemand.setValue(saveMustTags, forKey: "mustTags")
         newDemand.setValue(saveShouldTags, forKey: "shouldTags")
-        newDemand.setValue(lat, forKey: "lat")
-        newDemand.setValue(lon, forKey: "lon")
+        newDemand.setValue(location.latitude, forKey: "lat")
+        newDemand.setValue(location.longitude, forKey: "lon")
         newDemand.setValue(distance, forKey: "distance")
         newDemand.setValue(minPrice , forKey: "price")
         newDemand.setValue(maxPrice , forKey: "price")
@@ -217,13 +177,13 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
         }
         
     }
-    
+    */
     
     @IBAction func createDemandButtonClicked(sender: AnyObject) {
         
         if shouldHaves.text != "" && mustHaves.text != "" && minPrice != "" && maxPrice != "" {
             
-            createDemand()
+            self.createDemand()
             
         } else {
             let alert = UIAlertController(title: "Missing Data", message: "Please fill in all Values", preferredStyle: UIAlertControllerStyle.Alert)
@@ -237,15 +197,20 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func useCurrentLocationSwitched(sender: AnyObject) {
         
         if useCurrentLocationSwitch.on {
+    
             chooseLocationBtn.enabled = false
+        
         }else {
+        
             chooseLocationBtn.enabled = true
         }
         
     }
     @IBAction func valueChanged(sender: AnyObject) {
+        
         radius = radiusSlider.value
         sliderValue.text = "\(radius)"
+    
     }
     @IBAction func chooseLocation(sender: AnyObject) {
         
@@ -253,4 +218,8 @@ class CreateDemandViewController: UIViewController, CLLocationManagerDelegate {
 
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
 }

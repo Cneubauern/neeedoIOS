@@ -13,13 +13,11 @@ import CoreData
 
 class MatchingViewController: UIViewController {
     
-    var demandParameters = NSDictionary()
+    var demand:Demands = Demands()
     
     override func viewDidLoad() {
         //
-    
-        print(demandParameters)
-        
+            
         self.getMatchingOffers()
         
     }
@@ -31,14 +29,7 @@ class MatchingViewController: UIViewController {
     func getMatchingOffers(){
         
         
-        let user = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")
-        let pass = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")
         
-        Alamofire.request(.POST, "\(staticUrl)/matching/demand", parameters: demandParameters as? [String : AnyObject], encoding: .JSON).responseJSON{ response in
-            
-            debugPrint(response)
-    }
-    
     }
 }
 

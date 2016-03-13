@@ -12,37 +12,9 @@ import Alamofire
 import MapKit
 import CoreLocation
 
-class offerPin: NSObject, MKAnnotation {
-    
-    var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
-    
-    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
-        self.coordinate = coordinate
-        self.title = title
-        self.subtitle = subtitle
-    }
-}
-
-class demandPin: NSObject, MKAnnotation {
-    
-    var coordinate: CLLocationCoordinate2D
-    var title: String?
-    var subtitle: String?
-    
-    init(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
-        self.coordinate = coordinate
-        self.title = title
-        self.subtitle = subtitle
-    }
-}
-
-
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var map: MKMapView!
-    
     @IBOutlet var zoomSlider: UISlider!
     @IBOutlet var zoomlabel: UILabel!
     
@@ -63,24 +35,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-       // let uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
-
-       // uilpgr.minimumPressDuration = 2
-        
-       // map.addGestureRecognizer(uilpgr)
-       
         zoom = Double(zoomSlider.value)
-        
         
         relocate(latitude, longitude: longitude)
         
         self.getAnnotations()
         
-        
-        
-        
     }
-    
     
     func action(gestureRecognizer: UIGestureRecognizer){
         
@@ -127,17 +88,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
        
         let identifier = "MyPin"
-        
-        
         
         // Reuse the annotation if possible
         var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
@@ -169,7 +122,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     func placeAnnotation(location:CLLocationCoordinate2D, title: String, subtitle:String, type:String){
         
-
         switch type{
             
             case "offer":
@@ -189,13 +141,63 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
-    @IBAction func showProfile(sender: AnyObject) {
-        self.performSegueWithIdentifier("profile", sender: self)
+    func getAnnotations(){
+        
+        Offers.queryAllOffers { (offers) -> Void in
+           
+            for offer in offers! {
+                
+                if let location = offer["location"] as? NSDictionary{
+                    
+                    
+                    if let lat = location["lat"] as? CLLocationDegrees{
+                        print(lat)
+                        
+                        if let lon = location["lon"] as? CLLocationDegrees{
+                            
+                            print(lon)
+                            
+                            let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                            
+                            self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "offer")
+                            
+                        }
+                    }
+                }
+            }
+        }
+            
+        Demands.queryAllDemands { (demands) -> Void in
+            
+            for demand in demands! {
+                
+                if let location = demand["location"] as? NSDictionary{
+                    
+                    
+                    if let lat = location["lat"] as? CLLocationDegrees{
+                        print(lat)
+                        
+                        if let lon = location["lon"] as? CLLocationDegrees{
+                            
+                            print(lon)
+                            
+                            let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                            
+                            self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "demand")
+                        }
+                    }
+                }
+            }
+        }
     }
     
-    func getAllNearItems(){
+    
+    @IBAction func showProfile(sender: AnyObject) {
         
+        self.performSegueWithIdentifier("profile", sender: self)
+    
     }
+    
     @IBAction func zoom(sender: AnyObject) {
         
         zoom = Double(zoomSlider.value)
@@ -204,81 +206,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         zoomlabel.text = "\(zoom)"
         relocate(latitude, longitude: longitude)
         
-        
     }
-    
-    
-    func getAnnotations(){
-        
-        Alamofire.request(.GET, "\(staticUrl)/offers").responseJSON{ response in
-            
-            if response.result.isSuccess{
-                
-                if let JSON = response.result.value {
-                    
-                    if let offers = JSON["offers"] as? NSArray{
-                        
-                        for offer in offers {
-                            
-                            if let location = offer["location"] as? NSDictionary{
-                                
-                                
-                                if let lat = location["lat"] as? CLLocationDegrees{
-                                    print(lat)
-                                    
-                                    if let lon = location["lon"] as? CLLocationDegrees{
-                                        
-                                        print(lon)
-                                        
-                                        let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
-                                        
-                                        self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "offer")
-                                        
-                                    }
-                                    
-                                }
-                            
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        Alamofire.request(.GET, "\(staticUrl)/demands").responseJSON{ response in
-            
-            if response.result.isSuccess{
-                
-                if let JSON = response.result.value {
-                    
-                    if let demands = JSON["demands"] as? NSArray{
-                        
-                        for demand in demands {
-                            
-                            if let location = demand["location"] as? NSDictionary{
-                                
-                                
-                                if let lat = location["lat"] as? CLLocationDegrees{
-                                    print(lat)
-                                    
-                                    if let lon = location["lon"] as? CLLocationDegrees{
-                                        
-                                        print(lon)
-                                        
-                                        let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
-                                        
-                                        self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "demand")
-                                        
-                                    }
-                                    
-                                }
-                                
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
-    }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }

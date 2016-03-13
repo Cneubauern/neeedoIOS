@@ -48,6 +48,10 @@
 		9D7B7BE41C903521003BCD5A /* userPin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDE1C903521003BCD5A /* userPin@2x.png */; };
 		9D7B7BE51C903521003BCD5A /* userPin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9D7B7BDF1C903521003BCD5A /* userPin@3x.png */; };
 		9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */; };
+		9D7F4AE71C94D79800EFEE22 /* CustomPins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AE61C94D79800EFEE22 /* CustomPins.swift */; };
+		9D7F4AEF1C94E4B900EFEE22 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */; };
+		9D7F4AF11C94EC6000EFEE22 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */; };
+		9D7F4AF31C94F10800EFEE22 /* NeeedoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */; };
 		9D9F75371C91BEC900690DD7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F75361C91BEC900690DD7 /* Users.swift */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
@@ -188,6 +192,10 @@
 		9D7B7BDE1C903521003BCD5A /* userPin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userPin@2x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/userPin@2x.png"; sourceTree = "<group>"; };
 		9D7B7BDF1C903521003BCD5A /* userPin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "userPin@3x.png"; path = "../../../Pictures/masterarbeit/neeedoIOS/userPin@3x.png"; sourceTree = "<group>"; };
 		9D7E94611C8D8FDA00771B4C /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
+		9D7F4AE61C94D79800EFEE22 /* CustomPins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPins.swift; sourceTree = "<group>"; };
+		9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeeedoImage.swift; sourceTree = "<group>"; };
 		9D9F75361C91BEC900690DD7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
@@ -284,6 +292,10 @@
 				9D0F1EAE1C9182D500FBE8F4 /* Offers.swift */,
 				9D9F75361C91BEC900690DD7 /* Users.swift */,
 				9DD48AA41C9466E700E6C32F /* coreData.swift */,
+				9D7F4AE61C94D79800EFEE22 /* CustomPins.swift */,
+				9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */,
+				9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */,
+				9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -550,6 +562,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7F4AEF1C94E4B900EFEE22 /* Messages.swift in Sources */,
+				9D7F4AF31C94F10800EFEE22 /* NeeedoImage.swift in Sources */,
+				9D7F4AE71C94D79800EFEE22 /* CustomPins.swift in Sources */,
 				9D1042991C7B16A200F65E3E /* MapViewCotroller.swift in Sources */,
 				9D0F1EAD1C917FE600FBE8F4 /* Demands.swift in Sources */,
 				9D0010061C7C5EFA0029FE48 /* CreateDemandViewController.swift in Sources */,
@@ -561,6 +576,7 @@
 				9D9F75371C91BEC900690DD7 /* Users.swift in Sources */,
 				9D0F1EA31C91757200FBE8F4 /* MessagesViewController.swift in Sources */,
 				9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */,
+				9D7F4AF11C94EC6000EFEE22 /* Favorites.swift in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
 				9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */,
 				9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */,

@@ -39,21 +39,19 @@ class User{
         }
     }
     
-    class func deleteUser(user:User, completionhander:()->Void){
+    class func deleteUser(user:User, completionhander:(Bool?)->Void){
         
         print("Deleting User")
         
         if user.userVersion != 0 && user.userID != ""{
             
         
-        Alamofire.request(.DELETE, "\(staticUrl)/users/\(user.userID)/\(user.userVersion)").responseJSON{
-            
-            response in
-            
-            debugPrint(response)
-            
-            completionhander()
-            }
+            Alamofire.request(.DELETE, "\(staticUrl)/users/\(user.userID)/\(user.userVersion)").responseJSON(completionHandler: { (Response) -> Void in
+                
+                if Response.result.isSuccess{
+                    completionhander(true)
+                }
+            })
         }
         
     }
