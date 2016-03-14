@@ -24,6 +24,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var button2: UIButton!
     
     @IBOutlet var questionText: UILabel!
+    @IBOutlet var questionLabel: UILabel!
+    
+    @IBOutlet var titleLabel: UILabel!
     
     var signUpActive = true
 
@@ -72,7 +75,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
             button1.setTitle("Log In", forState: UIControlState.Normal)
             
-            questionText.text = "Not yet registered?"
+            titleLabel.text = "Benutzte das Formular um dich zu einzuloggen"
+            questionText.text = "Noch nicht registriert?"
+            questionLabel.text = "Dann registriere dich hier"
             
             button2.setTitle("Sign Up", forState: UIControlState.Normal)
             
@@ -82,8 +87,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             button2.setTitle("Log In", forState: UIControlState.Normal)
             
-            questionText.text = "Already registered"
-            
+            titleLabel.text = "Benutzte das Formular um dich zu registrieren"
+            questionText.text = "Bist du bereits registriert?"
+            questionLabel.text = "Dann Logge dich hier ein"
+
             button1.setTitle("Sign Up", forState: UIControlState.Normal)
             
             username.hidden = false

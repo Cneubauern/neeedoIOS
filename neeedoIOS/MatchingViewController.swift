@@ -9,17 +9,31 @@
 import Foundation
 import UIKit
 import Alamofire
-import CoreData
 
 class MatchingViewController: UIViewController {
     
     var demand:Demands = Demands()
     
+    var myUser = User()
+    
     override func viewDidLoad() {
-        //
+        super.viewDidLoad()
+        
+        self.initUser()
             
         self.getMatchingOffers()
         
+    }
+    
+    func initUser(){
+        
+        self.myUser.userEmail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!
+        self.myUser.userPassword = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!
+        
+        if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
+            
+            self.myUser.userID = id
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,7 +42,14 @@ class MatchingViewController: UIViewController {
     
     func getMatchingOffers(){
         
-        
+        Demands.demandGetMatchingOffers(myUser, demand: demand as! Demand) { (demands) -> Void in
+           
+            for match in demands! {
+                
+                print(match)
+                
+            }
+        }
         
     }
 }

@@ -9,12 +9,8 @@
 import Foundation
 import UIKit
 import Alamofire
-import CoreData
 
 let staticUrl = "https://www.neeedoapi.cneubauern.de"
-let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-let context:NSManagedObjectContext = appDel.managedObjectContext
-
 
 class ConnectingViewController: UIViewController {
     
