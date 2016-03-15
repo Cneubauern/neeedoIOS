@@ -12,7 +12,15 @@ import Alamofire
 
 class MatchingViewController: UIViewController {
     
+    @IBOutlet var tags: UILabel!
+    @IBOutlet var price: UILabel!
+    @IBOutlet var image: UIImageView!
+    
+    @IBOutlet var offerView: UIView!
+    
     var demand:Demands = Demands()
+    
+    var matchingOffers = NSArray()
     
     var myUser = User()
     
@@ -22,6 +30,12 @@ class MatchingViewController: UIViewController {
         self.initUser()
             
         self.getMatchingOffers()
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: Selector("wasDragged:"))
+
+        offerView.addGestureRecognizer(gesture)
+        
+        offerView.userInteractionEnabled = true
         
     }
     
@@ -43,14 +57,58 @@ class MatchingViewController: UIViewController {
     func getMatchingOffers(){
         
         Demands.demandGetMatchingOffers(myUser, demand: demand as! Demand) { (demands) -> Void in
-           
-            for match in demands! {
-                
-                print(match)
-                
-            }
+        
+            self.matchingOffers = demands!
+
         }
         
     }
+    
+    func wasDragged(gesture:UIPanGestureRecognizer){
+        
+        let translation = gesture.translationInView(self.view)
+        
+        let myView = gesture.view!
+        
+        myView.center = CGPoint(x: self.view.bounds.width/2 + translation.x, y: self.view.bounds.height/2 + translation.y)
+        
+        let xFromCenter = myView.center.x - self.view.bounds.width/2
+        
+        let scale = min(100 / abs(xFromCenter),1)
+        
+        var rotation = CGAffineTransformMakeRotation(xFromCenter/200)
+        
+        var stretch = CGAffineTransformScale(rotation, scale, scale)
+        
+        myView.transform = stretch
+        
+        if gesture.state == UIGestureRecognizerState.Ended{
+            
+            if myView.center.x < 100{
+                
+                print("not chosen")
+                
+            } else if myView.center.x > self.view.bounds.width-100{
+                
+                print("chosen")
+            }
+            
+            rotation = CGAffineTransformMakeRotation(0)
+            
+            stretch = CGAffineTransformScale(rotation, 1, 1)
+            
+            myView.transform = stretch
+            
+            myView.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
+        }
+        
+        print(translation)
+    }
+
+    @IBAction func dismissOffer(sender: AnyObject) {
+    }
+    @IBAction func chooseOffer(sender: AnyObject) {
+    }
+    
 }
 
