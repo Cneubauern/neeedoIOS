@@ -18,6 +18,8 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     var myNewOffer = Offers()
     
     var location = CLLocationCoordinate2D()
+    var chosenlocation = CLLocationCoordinate2D()
+
     
     var imageURL = NSURL()
     
@@ -30,6 +32,7 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     var locationManager = CLLocationManager()
     let imagePicker = UIImagePickerController()
+    
     
     
     override func viewDidLoad() {
@@ -72,6 +75,18 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     func createOffer(){
         
+        var coordinate = CLLocationCoordinate2D()
+        
+        if currentLocationSwitch.on {
+            
+            coordinate = location
+            
+        } else{
+            
+            coordinate = chosenlocation
+        }
+        
+        
         if let price = Float32(priceTextField.text!){
             
             if let tagsString = descriptionTextField.text {
@@ -92,44 +107,6 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
         
         }
     }
-
-        
-/*    func saveNewOffer(price:Double, tags:[String]){
-        
-        var newOffer = NSEntityDescription.insertNewObjectForEntityForName("Offers", inManagedObjectContext: context)
-
-        let saveTags = tags.joinWithSeparator(",")
-        
-        print(saveTags)
-        
-        newOffer.setValue(userId, forKey: "id")
-        newOffer.setValue(saveTags, forKey: "tags")
-        newOffer.setValue(lat, forKey: "lat")
-        newOffer.setValue(lon, forKey: "lon")
-        newOffer.setValue(price , forKey: "price")
-        
-        do{
-            try context.save()
-        }catch{
-            print("Error Saving offer")
-        }
-        
-        let requestOffers = NSFetchRequest(entityName: "Offers")
-        
-        requestOffers.returnsObjectsAsFaults = false
-        
-        do{
-            let search = try context.executeFetchRequest(requestOffers)
-        
-                print(search)
-            
-        } catch {
-            
-            
-        }
-
-    }*/
-
     
     //This function is called everytime the user is done picking or taking images
     
@@ -182,8 +159,23 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     @IBAction func chooseLocation(sender: AnyObject) {
         
-        self.performSegueWithIdentifier("chooseLocation", sender: self)
+        self.performSegueWithIdentifier("chooseLocationOffer", sender: self)
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        if let identifier = segue.identifier{
+
+            if identifier == "chooseLocationOffer"{
+            
+                if let clvc =  segue.destinationViewController as? chooseLocationViewController{
+                
+                    clvc.identifier = identifier
+                    clvc.location = chosenlocation
+                }
+            }
+        }
     }
     
     @IBAction func useCurrentLocation(sender: AnyObject) {

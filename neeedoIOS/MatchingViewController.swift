@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
+import CoreLocation
 
 class MatchingViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class MatchingViewController: UIViewController {
     
     var demand:Demands = Demands()
     
-    var matchingOffers = NSArray()
+    var matchingOffers = [Offers]()
     
     var myUser = User()
     
@@ -56,12 +57,63 @@ class MatchingViewController: UIViewController {
     
     func getMatchingOffers(){
         
-        Demands.demandGetMatchingOffers(myUser, demand: demand as! Demand) { (demands) -> Void in
-        
-            self.matchingOffers = demands!
-
+        Demands.demandGetMatchingOffers(myUser, demand: demand as! Demand) { (offers) -> Void in
+            
+            for offer in offers!{
+                
+                let match = Offers()
+                
+                if let id = offer["id"] as? String{
+                    
+                    match.offerID = id
+                }
+                if let version = offer["version"] as? Int{
+                
+                    match.version = version
+                }
+                if let tags = offer["tags"] as? [String]{
+                
+                    match.tags = tags
+                    
+                }
+                if let location = offer["location"] as? NSDictionary{
+                    
+                    var coordinate = CLLocationCoordinate2D()
+                    
+                    if let lat = location["lat"] as? CLLocationDegrees{
+                        coordinate.latitude = lat
+                    }
+                    if let lon = location["lon"] as? CLLocationDegrees{
+                        coordinate.longitude = lon
+                    }
+                    match.latitude = coordinate.latitude
+                    match.longitude = coordinate.longitude
+                }
+                
+                if let price = offer["price"] as? Float32{
+                
+                    match.price = price
+                }
+                
+                if let user = offer["user"] as? NSDictionary{
+                    
+                    if let userID = user["id"] as? String{
+                        match.userID = userID
+                    }
+                    if let name = user["name"] as? String{
+                    
+                        match.userName = name
+                    }
+                }
+                    
+                if let images = offer["images"] as? [String]{
+                    
+                    match.images = images
+                }
+                
+                self.matchingOffers.append(match)
+            }
         }
-        
     }
     
     func wasDragged(gesture:UIPanGestureRecognizer){

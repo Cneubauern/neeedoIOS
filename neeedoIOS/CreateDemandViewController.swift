@@ -37,6 +37,9 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     
     var location = CLLocationCoordinate2D()
     
+    var chosenlocation = CLLocationCoordinate2D()
+
+    
     var radius:Float32 = 0.0
     
     var locationManager = CLLocationManager()
@@ -84,6 +87,17 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     
     func createDemand(){
         
+        var coordinate = CLLocationCoordinate2D()
+
+        if useCurrentLocationSwitch.on {
+            
+            coordinate = location
+            
+        } else{
+            
+            coordinate = chosenlocation
+        }
+        
         if let priceMin = Float32(minPrice.text!){
         
             if let priceMax = Float32(maxPrice.text!){
@@ -96,7 +110,7 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
                         
                         let mustTags = mustHavesString.componentsSeparatedByString(",")
                 
-                        let newDemand = Demand(user: myUser, mustTags: mustTags, shouldTags: shouldTags, location: location, distance: radius, minPrice: priceMin, maxPrice: priceMax)
+                        let newDemand = Demand(user: myUser, mustTags: mustTags, shouldTags: shouldTags, location: coordinate, distance: radius, minPrice: priceMin, maxPrice: priceMax)
                     
                         Demands.createDemand(myUser, demand: newDemand, completionhandler: { (success) -> Void in
                             
@@ -136,49 +150,17 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
                     
                 }
             }
+            if identifier == "chooseLocationDemand"{
+            
+                if let clvc =  segue.destinationViewController as? chooseLocationViewController{
+
+                    clvc.identifier = identifier
+                    clvc.location = chosenlocation
+                }
+            }
         }
     }
-    
-    
-/*    func saveNewDemand(minPrice:Double, maxPrice:Double, mustTags:[String], shouldTags:[String], distance:Float32){
         
-        var newDemand = NSEntityDescription.insertNewObjectForEntityForName("Demands", inManagedObjectContext: context)
-        
-        let saveShouldTags = shouldTags.joinWithSeparator(",")
-        let saveMustTags = mustTags.joinWithSeparator(",")
-        
-        newDemand.setValue(userId, forKey: "id")
-        newDemand.setValue(saveMustTags, forKey: "mustTags")
-        newDemand.setValue(saveShouldTags, forKey: "shouldTags")
-        newDemand.setValue(location.latitude, forKey: "lat")
-        newDemand.setValue(location.longitude, forKey: "lon")
-        newDemand.setValue(distance, forKey: "distance")
-        newDemand.setValue(minPrice , forKey: "price")
-        newDemand.setValue(maxPrice , forKey: "price")
-        
-        do{
-            try context.save()
-        }catch{
-            print("Error Saving offer")
-        }
-        
-        let requestDemands = NSFetchRequest(entityName: "Demands")
-        
-        requestDemands.returnsObjectsAsFaults = false
-        
-        do{
-            let search = try context.executeFetchRequest(requestDemands)
-            
-            print(search)
-            
-        } catch {
-            
-            
-        }
-        
-    }
-    */
-    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         self.view.endEditing(true)
@@ -228,9 +210,11 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     }
     @IBAction func chooseLocation(sender: AnyObject) {
         
-        self.performSegueWithIdentifier("chooseLocation", sender: self)
+        self.performSegueWithIdentifier("chooseLocationDemand", sender: self)
 
     }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

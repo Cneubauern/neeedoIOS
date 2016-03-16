@@ -53,7 +53,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         placeAnnotation(newCoordinate, title: "You Touched Here", subtitle: "Why?", type: "normal" )
         
-        
     }
     
     func relocate(latitude:CLLocationDegrees, longitude:CLLocationDegrees){
