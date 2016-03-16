@@ -94,7 +94,7 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
                 let tags = tagsString.componentsSeparatedByString(",")
                 
                 
-                Offers.createOffer(myUser, offer: Offer(userID: myUser.userID, tags: tags, location: self.location, price: price, images: []), completionhandler: { (success) -> Void in
+                Offers.createOffer(myUser, offer: Offer(userID: myUser.userID, tags: tags, location: coordinate, price: price, images: []), completionhandler: { (success) -> Void in
                    
                     if success == true {
                         print("created")

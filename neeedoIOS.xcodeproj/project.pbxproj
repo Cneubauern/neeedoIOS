@@ -52,6 +52,8 @@
 		9D7F4AEF1C94E4B900EFEE22 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */; };
 		9D7F4AF11C94EC6000EFEE22 /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */; };
 		9D7F4AF31C94F10800EFEE22 /* NeeedoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */; };
+		9D7F9A031C99804600BB7998 /* DemandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F9A021C99804600BB7998 /* DemandViewController.swift */; };
+		9D7F9A051C99805E00BB7998 /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F9A041C99805E00BB7998 /* OfferViewController.swift */; };
 		9D9F75371C91BEC900690DD7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F75361C91BEC900690DD7 /* Users.swift */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DBD6AB41C81F47A00330BB8 /* ConnectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */; };
@@ -196,6 +198,8 @@
 		9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
 		9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeeedoImage.swift; sourceTree = "<group>"; };
+		9D7F9A021C99804600BB7998 /* DemandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemandViewController.swift; sourceTree = "<group>"; };
+		9D7F9A041C99805E00BB7998 /* OfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
 		9D9F75361C91BEC900690DD7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DBD6AB31C81F47A00330BB8 /* ConnectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectingViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 				9D1042981C7B16A200F65E3E /* MapViewCotroller.swift */,
 				9D0010051C7C5EFA0029FE48 /* CreateDemandViewController.swift */,
 				9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */,
+				9D7F9A021C99804600BB7998 /* DemandViewController.swift */,
+				9D7F9A041C99805E00BB7998 /* OfferViewController.swift */,
 				9D40A6B01C7F0A6900F203DA /* chooseLocationViewController.swift */,
 				9D3DE29D1C7F0F10008BD013 /* userAccountViewController.swift */,
 				9D0B89DB1C83986C00E9A3EA /* PersonalElementsViewController.swift */,
@@ -583,6 +589,8 @@
 				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,
 				9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */,
 				9D0F1EAB1C917C9300FBE8F4 /* FavoritesViewController.swift in Sources */,
+				9D7F9A031C99804600BB7998 /* DemandViewController.swift in Sources */,
+				9D7F9A051C99805E00BB7998 /* OfferViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
