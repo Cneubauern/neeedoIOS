@@ -18,9 +18,15 @@ class NeeedoImages{
     class func uploadImage(image:NeeedoImage, completionhandler:()->Void){
         
         
+        
+        
     }
-    
-    class func getImage(image:NeeedoImage, completionhandler:()->Void){
+   
+    func getImageUrl(image:NeeedoImage)->NSURL{
+        
+        let imageUrl = NSURL(string: "\(staticUrl)/images/\(imagename)")!
+        
+        return imageUrl
         
     }
     

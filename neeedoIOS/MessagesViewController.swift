@@ -86,36 +86,13 @@ class MessagesViewController: UIViewController, UITextFieldDelegate{
     override func viewWillAppear(animated:Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func keyboardWillShow(notification: NSNotification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardSize =  (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-                kbHeight = keyboardSize.height
-                self.animateTextField(true)
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification: NSNotification) {
-        self.animateTextField(false)
-    }
-    
-    func animateTextField(up: Bool) {
-        let movement = (up ? -kbHeight : kbHeight)
-        
-        UIView.animateWithDuration(0.1, animations: {
-            self.view.frame = CGRectOffset(self.view.frame, 0, movement)
-        })
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

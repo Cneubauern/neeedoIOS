@@ -30,7 +30,6 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     
     @IBOutlet var sliderValue: UILabel!
     
-    
     var myUser = User()
 
     var myNewDemand = Demands()
@@ -39,7 +38,6 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     
     var chosenlocation = CLLocationCoordinate2D()
 
-    
     var radius:Float32 = 0.0
     
     var locationManager = CLLocationManager()

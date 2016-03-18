@@ -18,7 +18,7 @@ class User{
     var userPassword = String()
     var userVersion = Int()
     
-    class func createUser(user:User, completionhandler:(Bool?)->Void){
+    class func createUser(user:User, completionhandler:(NSDictionary?, Bool?)->Void){
         
         print("Creating new User")
         
@@ -29,19 +29,24 @@ class User{
             "password":user.userPassword
         ]
         
-        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON(completionHandler: { (Response) -> Void in
+        Alamofire.request(.POST, "\(staticUrl)/users", parameters: parameters, encoding: .JSON).responseJSON(completionHandler:{ (Response) -> Void in
             debugPrint(Response)
             
             if Response.result.isSuccess{
                 
-                completionhandler(true)
-                
+                if let JSON = Response.result.value{
+
+                    if let user = JSON["user"] as? NSDictionary{
+                        
+                        completionhandler(user, true)
+                    }
+                }
             } else{
                 
-                completionhandler(false)
+                completionhandler(nil, false)
             }
 
-            })
+        })
     }
     
     class func deleteUser(user:User, completionhander:(Bool?)->Void){
@@ -75,6 +80,8 @@ class User{
         
             if Response.result.isSuccess{
                 
+                debugPrint(Response)
+                
                 if let JSON = Response.result.value{
                     if let user = JSON["user"] as? NSDictionary{
                         if let name = user["name"] as? String{
@@ -92,17 +99,22 @@ class User{
         })
     }
     
-    func checkUser(completionhandler: (Bool?) ->Void){
+    func checkUser(completionhandler: (NSDictionary?, Bool?) ->Void){
     
         Alamofire.request(.GET, "\(staticUrl)/users/mail/\(self.userEmail)").authenticate(user: self.userEmail, password: self.userPassword).responseJSON(completionHandler: { (Response) -> Void in
          
             if Response.result.isSuccess{
             
-                completionhandler(true)
-            
+                if let JSON = Response.result.value{
+                    
+                    if let user = JSON["user"] as? NSDictionary{
+                        
+                        completionhandler(user, true)
+                    }
+                }
             }else{
             
-                completionhandler(false)
+                completionhandler(nil, false)
             }
         })
         
