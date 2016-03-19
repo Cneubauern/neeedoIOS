@@ -57,6 +57,7 @@
 		9D9F75371C91BEC900690DD7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F75361C91BEC900690DD7 /* Users.swift */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
 		9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD48AA41C9466E700E6C32F /* coreData.swift */; };
+		9DEE96431C9D40D10097F7C9 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +203,7 @@
 		9D9F75361C91BEC900690DD7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
 		9DD48AA41C9466E700E6C32F /* coreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coreData.swift; sourceTree = "<group>"; };
+		9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +301,7 @@
 				9D7F4AEE1C94E4B900EFEE22 /* Messages.swift */,
 				9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */,
 				9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */,
+				9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				9D7F4AF11C94EC6000EFEE22 /* Favorites.swift in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
 				9D3DE29E1C7F0F10008BD013 /* userAccountViewController.swift in Sources */,
+				9DEE96431C9D40D10097F7C9 /* ScannerViewController.swift in Sources */,
 				9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */,
 				9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */,
 				9D40A6B11C7F0A6900F203DA /* chooseLocationViewController.swift in Sources */,

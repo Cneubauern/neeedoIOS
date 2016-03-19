@@ -99,7 +99,7 @@ class Offers {
     
     class func queryAllOffersByUser(user:User, completionhandler:(NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/users/\(user.userID)").responseJSON(completionHandler: { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/offers/users/\(user.userID)").authenticate(user: user.userEmail, password: user.userPassword).responseJSON(completionHandler: { (Response) -> Void in
             
             debugPrint(Response)
 

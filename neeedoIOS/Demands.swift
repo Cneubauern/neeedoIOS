@@ -51,7 +51,7 @@ class Demands{
     
     class func queryDemandsByUser(user:User, completionhandler:(NSArray?)->Void){
         
-        Alamofire.request(.GET, "\(staticUrl)/demands/users/\(user.userID)").responseJSON(completionHandler: { (Response) -> Void in
+        Alamofire.request(.GET, "\(staticUrl)/demands/users/\(user.userID)").authenticate(user: user.userEmail, password: user.userPassword).responseJSON(completionHandler: { (Response) -> Void in
             
             if Response.result.isSuccess{
                 

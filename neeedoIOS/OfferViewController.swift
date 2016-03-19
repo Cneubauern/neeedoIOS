@@ -12,7 +12,7 @@ import Alamofire
 
 class OfferViewController:  UIViewController{
     
-    var myDemand = Demands()
+    var myOffer = Offers()
     
     override func viewDidLoad() {
         super.viewDidLoad()
