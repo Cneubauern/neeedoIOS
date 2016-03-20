@@ -26,6 +26,7 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
     var offer = Offers()
     var demand = Demands()
     
+
     override func viewDidLoad() {
         // Stuff
         
@@ -68,21 +69,35 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-    
-        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
+        
+
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
+        
+        let noImage = UIImage(named: "noimage")
+        let offerImage = UIImage(named: "noimage")
+        let demandImage = UIImage(named: "noimage")
+        let favoriteImage = UIImage(named: "218-star-full")
         
         switch self.viewSwitch.selectedSegmentIndex{
             
         case 0:
             
             cell.textLabel?.text = myFavorites[indexPath.row].tags.joinWithSeparator(",")
+            cell.imageView?.image = favoriteImage
+            
         case 1:
+           
             cell.textLabel?.text = myOffers[indexPath.row].tags.joinWithSeparator(",")
+            cell.imageView?.image = offerImage
+
+
         case 2:
             cell.textLabel?.text = myDemands[indexPath.row].mustTags.joinWithSeparator(",")
+            cell.imageView?.image = demandImage
+            
         default:
             cell.textLabel?.text = "bla"
-            
+            cell.imageView?.image = noImage
         }
         
         return cell

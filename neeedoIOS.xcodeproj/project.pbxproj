@@ -56,6 +56,8 @@
 		9D7F9A051C99805E00BB7998 /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F9A041C99805E00BB7998 /* OfferViewController.swift */; };
 		9D9F75371C91BEC900690DD7 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9F75361C91BEC900690DD7 /* Users.swift */; };
 		9DBB35EC1C7CC5D1000AFD65 /* CreateOfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */; };
+		9DCBD9E41C9EC9D2005D9CCD /* demandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCBD9E31C9EC9D2005D9CCD /* demandCell.swift */; };
+		9DCBD9EC1C9EC9DB005D9CCD /* offerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCBD9EB1C9EC9DB005D9CCD /* offerCell.swift */; };
 		9DD48AA51C9466E700E6C32F /* coreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD48AA41C9466E700E6C32F /* coreData.swift */; };
 		9DEE96431C9D40D10097F7C9 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */; };
 /* End PBXBuildFile section */
@@ -202,6 +204,8 @@
 		9D7F9A041C99805E00BB7998 /* OfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
 		9D9F75361C91BEC900690DD7 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		9DBB35EB1C7CC5D1000AFD65 /* CreateOfferViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateOfferViewController.swift; sourceTree = "<group>"; };
+		9DCBD9E31C9EC9D2005D9CCD /* demandCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = demandCell.swift; sourceTree = "<group>"; };
+		9DCBD9EB1C9EC9DB005D9CCD /* offerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = offerCell.swift; sourceTree = "<group>"; };
 		9DD48AA41C9466E700E6C32F /* coreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coreData.swift; sourceTree = "<group>"; };
 		9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -302,6 +306,8 @@
 				9D7F4AF01C94EC6000EFEE22 /* Favorites.swift */,
 				9D7F4AF21C94F10800EFEE22 /* NeeedoImage.swift */,
 				9DEE96421C9D40D10097F7C9 /* ScannerViewController.swift */,
+				9DCBD9E31C9EC9D2005D9CCD /* demandCell.swift */,
+				9DCBD9EB1C9EC9DB005D9CCD /* offerCell.swift */,
 			);
 			path = neeedoIOS;
 			sourceTree = "<group>";
@@ -579,7 +585,9 @@
 				9D57304E1C3B1713001B452C /* neeedoIOS.xcdatamodeld in Sources */,
 				9D0B89DC1C83986C00E9A3EA /* PersonalElementsViewController.swift in Sources */,
 				9D9F75371C91BEC900690DD7 /* Users.swift in Sources */,
+				9DCBD9EC1C9EC9DB005D9CCD /* offerCell.swift in Sources */,
 				9D0F1EA31C91757200FBE8F4 /* MessagesViewController.swift in Sources */,
+				9DCBD9E41C9EC9D2005D9CCD /* demandCell.swift in Sources */,
 				9D7E94621C8D8FDA00771B4C /* MatchingViewController.swift in Sources */,
 				9D7F4AF11C94EC6000EFEE22 /* Favorites.swift in Sources */,
 				9D5730461C3B1713001B452C /* AppDelegate.swift in Sources */,
