@@ -61,7 +61,7 @@ class Offers {
         })
     }
     
-    class func deleteOffer(offer:Offer, completionHandler:(Bool?)->Void){
+    class func deleteOffer(offer:Offers, completionHandler:(Bool?)->Void){
         Alamofire.request(.DELETE, "\(staticUrl)/offers/\(offer.offerID)/\(offer.version)").responseJSON(completionHandler: { (Response) -> Void in
             
             debugPrint(Response)
