@@ -10,11 +10,15 @@ import Foundation
 import Alamofire
 import UIKit
 
-class userAccoutViewController: UIViewController {
+class userAccoutViewController: UITableViewController {
     
     @IBOutlet var account: UILabel!
     
     var myUser = User()
+    
+    var list = String()
+    
+    var names = ["Deine Favoriten", "Deine Angebote", "Deine Gesuche"]
     
     override func viewDidLoad() {
         
@@ -38,6 +42,40 @@ class userAccoutViewController: UIViewController {
         self.performSegueWithIdentifier("logout", sender: self)
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       
+        
+        if indexPath.section == 1{
+            self.performSegueWithIdentifier("messages", sender: self)
+        }
+        
+        if indexPath.section == 2{
+            
+            switch indexPath.row{
+            
+            case 0 :
+                self.list = "Favorites"
+            case 1 :
+                self.list = "Demands"
+            case 2 :
+                self.list = "Offers"
+            default:
+                self.list = ""
+            }
+        
+            performSegueWithIdentifier("showList", sender: self)
+        }
+        if indexPath.section == 3{
+            
+            self.deleteUserAccount()
+        }
+        if indexPath.section == 4{
+            
+            self.logoutUser()
+        }
+    }
+
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
      
         if let identifier = segue.identifier{
@@ -54,39 +92,45 @@ class userAccoutViewController: UIViewController {
                     vc.signUpActive = true
                 }
             }
+            if identifier == "showList"{
+                
+                if let pevc = segue.destinationViewController as? PersonalElementsViewController{
+                    
+                    pevc.list = self.list
+                    
+                }
+            }
         }
     }
     
     func deleteUserAccount(){
         
-        NSLog("Delete Pressed")
-        
-        User.deleteUser(myUser) { (success) -> Void in
-            
-            if success == true {
-                
-                self.logoutUser()
-            }
-        }
-    }
-    
-    @IBAction func deleteAccount(sender: AnyObject) {
-        
         let alert = UIAlertController(title: "Warning", message: "This can not be undone", preferredStyle: UIAlertControllerStyle.Alert)
         
         let okAction = UIAlertAction(title: "DELETE ACCOUNT", style: UIAlertActionStyle.Default) {
+        
             UIAlertAction in
-            self.deleteUserAccount()
+            
+            NSLog("Delete Pressed")
+            
+            User.deleteUser(self.myUser) { (success) -> Void in
+                
+                if success == true {
+                    
+                    self.logoutUser()
+                }
+            }
         }
         alert.addAction(okAction)
         
         self.presentViewController(alert, animated: true, completion: nil)
+        
     }
     
-    @IBAction func logOut(sender: AnyObject) {
+    
+    @IBAction func deleteAccount(sender: AnyObject) {
         
-        self.logoutUser()
-        
+   
     }
     
     

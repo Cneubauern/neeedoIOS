@@ -19,6 +19,8 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
    
     var myUser = User()
     
+    var list = String()
+    
     var myFavorites = [Offers]()
     var myDemands = [Demands]()
     var myOffers = [Offers]()
@@ -26,7 +28,6 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
     var offer = Offers()
     var demand = Demands()
     
-
     override func viewDidLoad() {
         // Stuff
         
@@ -50,13 +51,14 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
         
         var numberOfRows = Int()
         
-      switch self.viewSwitch.selectedSegmentIndex{
+        switch self.list{
+
             
-        case 0:
+        case "Favorites":
             numberOfRows = myFavorites.count
-        case 1:
+        case "Offers":
             numberOfRows = myOffers.count
-        case 2:
+        case "Demands":
             numberOfRows = myDemands.count
         default:
             numberOfRows = 0
@@ -78,20 +80,20 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
         let demandImage = UIImage(named: "noimage")
         let favoriteImage = UIImage(named: "218-star-full")
         
-        switch self.viewSwitch.selectedSegmentIndex{
+        switch self.list{
             
-        case 0:
+        case "Favorites":
             
             cell.textLabel?.text = myFavorites[indexPath.row].tags.joinWithSeparator(",")
             cell.imageView?.image = favoriteImage
             
-        case 1:
+        case "Offers":
            
             cell.textLabel?.text = myOffers[indexPath.row].tags.joinWithSeparator(",")
             cell.imageView?.image = offerImage
 
 
-        case 2:
+        case "Demands":
             cell.textLabel?.text = myDemands[indexPath.row].mustTags.joinWithSeparator(",")
             cell.imageView?.image = demandImage
             
@@ -130,15 +132,15 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        switch self.viewSwitch.selectedSegmentIndex{
+        switch self.list{
      
-        case 0:
+        case "Favorites":
             self.offer = self.myFavorites[indexPath.row]
             self.performSegueWithIdentifier("showOffer", sender: self)
-        case 1:
+        case "Offers":
             self.offer = self.myOffers[indexPath.row]
             self.performSegueWithIdentifier("showOffer", sender: self)
-        case 2:
+        case "Demands":
             self.demand = self.myDemands[indexPath.row]
             self.performSegueWithIdentifier("showDemand", sender: self)
         default:
@@ -146,9 +148,6 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
             self.performSegueWithIdentifier("showOffer", sender: self)
         }
     }
-    
-    
-
     
     func getUser(){
         
