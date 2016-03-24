@@ -10,15 +10,16 @@ import Foundation
 import Alamofire
 import UIKit
 import CoreLocation
-import CoreData 
+import CoreData
 
 class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocationManagerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
    
     var myUser:User = User()
     var myNewOffer = Offers()
+    var name = String()
     
-    
-    var location = CLLocationCoordinate2D()
+    var locationManager = CLLocationManager()
+
     var chosenlocation = CLLocationCoordinate2D()
 
     var images = [UIImage]()
@@ -33,7 +34,6 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     @IBOutlet var imageView: UIImageView!
     
     
-    var locationManager = CLLocationManager()
     let imagePicker = UIImagePickerController()
     
     
@@ -42,37 +42,56 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
         
         self.initUser()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
         chooseLocationBtn.enabled = false
         
         imagePicker.delegate = self
 
         descriptionTextField.delegate = self
         priceTextField.delegate = self
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+
+
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        navigationController?.navigationBarHidden = true
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+    
+
+        self.setName()
+    }
+    
+    func setName(){
+        print("set name")
+        print(self.name)
+        self.descriptionTextField.text = name
+        
+    }
+
     func initUser(){
         
         self.myUser.userEmail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!
         self.myUser.userPassword = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!
-        
+
         if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
             
             self.myUser.userID = id
         }
     }
     
-    
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let userLocation:CLLocation = locations[0]
         
-        location = userLocation.coordinate
+        self.myUser.userLocation = userLocation.coordinate
         
     }
     
@@ -88,8 +107,7 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
         
             if self.currentLocationSwitch.on {
             
-                coordinate = self.location
-                
+                coordinate = self.myUser.userLocation
             } else{
             
                 coordinate = self.chosenlocation
@@ -120,45 +138,80 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     //This function is called everytime the user is done picking or taking images
     
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
        
-        print("Image Selected")
-        
-        //getting details of image
-        let uploadFileURL = info[UIImagePickerControllerReferenceURL] as! NSURL
-        
-        if let imageName = uploadFileURL.lastPathComponent {
-        
-        imageNames.append(imageName)
-        print(imageName)
-        
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
-        
-        // getting local path
-        let localPath = (documentDirectory as NSString).stringByAppendingPathComponent(imageName)
-        
-        //getting actual image
-        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        
-        self.imageView.contentMode = .ScaleAspectFit
-        self.imageView.image = image
-        
-        let data = UIImageJPEGRepresentation(image, 0.2)
-        data!.writeToFile(localPath, atomically: true)
-    
-        let imageData = NSData(contentsOfFile: localPath)!
-        
+        if picker.sourceType == UIImagePickerControllerSourceType.Camera{
+            
+            let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+            self.imageView.contentMode = .ScaleAspectFit
+            self.imageView.image = image
+            
+            let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
+            
+            // getting local path
+            let date = NSDate()
+            let localPath = (documentDirectory as NSString).stringByAppendingPathComponent("\(date).jpg")
+            
+            let data = UIImageJPEGRepresentation(image, 0.2)
+            data!.writeToFile(localPath, atomically: true)
+            
+            let imageData = NSData(contentsOfFile: localPath)!
+            
             self.imagesData.append(imageData)
             
-      //  print(imageData)
-        
-        let imageURL = NSURL(fileURLWithPath: localPath)
-        print(imageURL)
+            //  print(imageData)
+            
+            let imageURL = NSURL(fileURLWithPath: localPath)
+            print(imageURL)
             self.imageUrls.append(imageURL)
+            
+            
         }
-        picker.dismissViewControllerAnimated(true, completion: nil)
         
-        //self.dismissViewControllerAnimated(true, completion: nil)
+        if picker.sourceType == UIImagePickerControllerSourceType.PhotoLibrary{
+            
+            print("Image Selected")
+            
+            //getting details of image
+            let uploadFileURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+            
+            if let imageName = uploadFileURL.lastPathComponent {
+                
+                imageNames.append(imageName)
+                print(imageName)
+                
+                let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
+                
+                // getting local path
+                let localPath = (documentDirectory as NSString).stringByAppendingPathComponent(imageName)
+                
+                //getting actual image
+                let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+                
+                self.imageView.contentMode = .ScaleAspectFit
+                self.imageView.image = image
+                
+                let data = UIImageJPEGRepresentation(image, 0.2)
+                data!.writeToFile(localPath, atomically: true)
+                
+                let imageData = NSData(contentsOfFile: localPath)!
+                
+                self.imagesData.append(imageData)
+                
+                //  print(imageData)
+                
+                let imageURL = NSURL(fileURLWithPath: localPath)
+                print(imageURL)
+                self.imageUrls.append(imageURL)
+            }
+
+            
+        }
+        
+        //picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
 
     }
     
@@ -213,7 +266,7 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
                 if let clvc =  segue.destinationViewController as? chooseLocationViewController{
                 
                     clvc.identifier = identifier
-                    clvc.location = chosenlocation
+                    clvc.location = self.myUser.userLocation
                 }
             }
         }
@@ -239,20 +292,18 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     @IBAction func takePhoto(sender: AnyObject) {
         
-        let image = UIImagePickerController()
+        self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
+        self.imagePicker.allowsEditing = false
         
-        image.delegate = self
-        image.sourceType = UIImagePickerControllerSourceType.Camera
-        image.allowsEditing = false
-        
-        self.presentViewController(image, animated: true, completion: nil)
+        self.presentViewController(self.imagePicker, animated: true) {
+        }
     }
     
     //Opens the Gallery and allows the User to choose an Image to upload
     @IBAction func chooseImage(sender: AnyObject) {
         
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        self.imagePicker.allowsEditing = false
         
         
         self.presentViewController(imagePicker, animated: true, completion: nil)
@@ -285,7 +336,6 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
         priceTextField.text = ""
         currentLocationSwitch.on = true
         chooseLocationBtn.enabled = false
-        
         
     }
 

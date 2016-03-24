@@ -56,9 +56,9 @@ class userAccoutViewController: UITableViewController {
             case 0 :
                 self.list = "Favorites"
             case 1 :
-                self.list = "Demands"
-            case 2 :
                 self.list = "Offers"
+            case 2 :
+                self.list = "Demands"
             default:
                 self.list = ""
             }

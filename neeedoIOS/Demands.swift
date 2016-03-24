@@ -158,7 +158,7 @@ class Demands{
         })
     }
 
-    class func demandGetMatchingOffers(user:User, demand:Demand, completionhandler:(NSArray?)->Void){
+    class func demandGetMatchingOffers(user:User, demand:Demands, completionhandler:(NSArray?)->Void){
         
         let parameters = demand.generateParameters()
         

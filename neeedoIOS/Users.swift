@@ -8,7 +8,7 @@
 
 import Foundation
 import Alamofire
-
+import MapKit
 
 class User{
     
@@ -17,6 +17,7 @@ class User{
     var userEmail = String()
     var userPassword = String()
     var userVersion = Int()
+    var userLocation = CLLocationCoordinate2D()
     
     class func createUser(user:User, completionhandler:(NSDictionary?, Bool?)->Void){
         

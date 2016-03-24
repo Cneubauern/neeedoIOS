@@ -41,7 +41,7 @@ class MessagesViewController: UIViewController, UITextFieldDelegate{
         var  lines:Int = length/24
         
         if length % 24 != 0 {
-            lines++
+            lines += 1
         }
         
         let height:CGFloat = CGFloat( lines * 20)

@@ -15,58 +15,79 @@ import CoreData
 class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocationManagerDelegate {
     
     @IBOutlet var mustHaves: UITextField!
-    
     @IBOutlet var shouldHaves: UITextField!
-    
     @IBOutlet var minPrice: UITextField!
-    
     @IBOutlet var maxPrice: UITextField!
-    
     @IBOutlet var useCurrentLocationSwitch: UISwitch!
-    
     @IBOutlet var chooseLocationBtn: UIButton!
-    
     @IBOutlet var radiusSlider: UISlider!
-    
     @IBOutlet var sliderValue: UILabel!
     
     var myUser = User()
-
     var myNewDemand = Demands()
     
     var location = CLLocationCoordinate2D()
-    
     var chosenlocation = CLLocationCoordinate2D()
 
     var radius:Float32 = 0.0
     
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+   
     var locationManager = CLLocationManager()
+
     
     override func viewDidLoad() {
         
         self.initUser()
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
+    
         chooseLocationBtn.enabled = false
         
         radius = radiusSlider.value
         sliderValue.text = "\(radius)"
 
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        
         self.mustHaves.delegate = self
         self.shouldHaves.delegate = self
         self.minPrice.delegate = self
         self.maxPrice.delegate = self
         
+        activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,50,50))
+        activityIndicator.center = self.view.center
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        
+        view.addSubview(activityIndicator)
+
+        
     }
     
+    // get user loaction
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let userLocation:CLLocation = locations[0]
+        
+        self.myUser.userLocation = userLocation.coordinate
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+
+        navigationController?.navigationBarHidden = true
+
+    }
+    
+    // create user element
     func initUser(){
         
         self.myUser.userEmail = NSUserDefaults.standardUserDefaults().stringForKey("UserEmail")!
         self.myUser.userPassword = NSUserDefaults.standardUserDefaults().stringForKey("UserPassword")!
+        
+        print(self.myUser.userLocation)
         
         if let id = NSUserDefaults.standardUserDefaults().stringForKey("UserID"){
             
@@ -74,22 +95,14 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
         }
     }
     
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let userLocation:CLLocation = locations[0]
-        
-        location = userLocation.coordinate
-        }
-
-    
+    // create a new demand
     func createDemand(){
         
         var coordinate = CLLocationCoordinate2D()
 
         if useCurrentLocationSwitch.on {
             
-            coordinate = location
+            coordinate = myUser.userLocation
             
         } else{
             
@@ -145,15 +158,15 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
                     
                     print("I am matching")
                     matchingViewController.demand = self.myNewDemand
-                    
                 }
             }
+            
             if identifier == "chooseLocationDemand"{
             
                 if let clvc =  segue.destinationViewController as? chooseLocationViewController{
 
                     clvc.identifier = identifier
-                    clvc.location = chosenlocation
+                    clvc.location = self.myUser.userLocation
                 }
             }
         }
@@ -203,7 +216,7 @@ class CreateDemandViewController: UIViewController,UITextFieldDelegate, CLLocati
     @IBAction func valueChanged(sender: AnyObject) {
         
         radius = radiusSlider.value
-        sliderValue.text = "\(radius)"
+        sliderValue.text = "\(radius) km"
     
     }
     @IBAction func chooseLocation(sender: AnyObject) {

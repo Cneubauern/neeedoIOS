@@ -25,6 +25,8 @@ class MatchingViewController: UIViewController {
     
     var myUser = User()
     
+    var currentOffer = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,12 +34,11 @@ class MatchingViewController: UIViewController {
             
         self.getMatchingOffers()
         
-        let gesture = UIPanGestureRecognizer(target: self, action: Selector("wasDragged:"))
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(MatchingViewController.wasDragged(_:)))
 
         offerView.addGestureRecognizer(gesture)
         
         offerView.userInteractionEnabled = true
-        
     }
     
     func initUser(){
@@ -57,7 +58,7 @@ class MatchingViewController: UIViewController {
     
     func getMatchingOffers(){
         
-        Demands.demandGetMatchingOffers(myUser, demand: demand as! Demand) { (offers) -> Void in
+        Demands.demandGetMatchingOffers(myUser, demand: demand) { (offers) -> Void in
             
             for offer in offers!{
                 
@@ -116,6 +117,34 @@ class MatchingViewController: UIViewController {
         }
     }
     
+    func fillView(){
+        
+        if currentOffer < matchingOffers.count{
+            
+            tags.text = matchingOffers[currentOffer].tags.joinWithSeparator(", ")
+            price.text = "\(matchingOffers[currentOffer].price)"
+            
+            
+            if matchingOffers[currentOffer].images.count > 0 {
+                let url = NeeedoImages.getImageUrl(matchingOffers[currentOffer].images.first!)
+                let data:NSData = NSData(contentsOfURL: url)!
+                
+                image.image = UIImage(data: data)
+            } else {
+                image.image = UIImage(named:"noImage.png")
+            }
+        } else {
+            
+            let alert = UIAlertController(title: "Keine weiteren Matches", message: "Du hast alle Angebote durchgesehen die auf deine Suche passen", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(action)-> Void in alert.dismissViewControllerAnimated(true, completion: nil)}))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+        
+
+    }
+    
     func wasDragged(gesture:UIPanGestureRecognizer){
         
         let translation = gesture.translationInView(self.view)
@@ -139,10 +168,14 @@ class MatchingViewController: UIViewController {
             if myView.center.x < 100{
                 
                 print("not chosen")
+                self.dissmiss()
+
                 
             } else if myView.center.x > self.view.bounds.width-100{
                 
                 print("chosen")
+                self.choose()
+
             }
             
             rotation = CGAffineTransformMakeRotation(0)
@@ -157,10 +190,39 @@ class MatchingViewController: UIViewController {
         print(translation)
     }
 
+    
+    func dissmiss(){
+        
+        matchingOffers.removeAtIndex(currentOffer)
+        
+        currentOffer += 1
+        
+        self.fillView()
+        
+    }
+    
+    func choose(){
+        
+        Favorites.addFavorite(myUser, offer: matchingOffers[currentOffer] as! Offer) { (success) in
+            
+            self.currentOffer += 1
+            self.fillView()
+
+        }
+    }
+    
+    
     @IBAction func dismissOffer(sender: AnyObject) {
+        
+        self.dissmiss()
+        
     }
     @IBAction func chooseOffer(sender: AnyObject) {
+        
+        self.choose()
     }
+    
+    
     
 }
 

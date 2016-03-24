@@ -27,17 +27,26 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
     override func viewDidLoad() {
         //fill in the blank
     
+        self.mapView.delegate = self
+        
         addressInput.delegate = self
         
+        print(location)
         relocate(location)
         placeAnnotation(location)
         
-        uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
+        uilpgr = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocationViewController.action(_:)))
         
-        uilpgr.minimumPressDuration = 2
+        uilpgr.minimumPressDuration = 1
         
         mapView.addGestureRecognizer(uilpgr)
         
+        navigationController?.navigationBarHidden = false
+
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        navigationController?.navigationBarHidden = true
     }
     
     func action(gestureRecognizer: UIGestureRecognizer){
@@ -51,7 +60,7 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
         placeAnnotation(newCoordinate)
         
     }
- 
+
     
     @IBAction func findLocation(sender: AnyObject) {
         
@@ -95,13 +104,13 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if identifier == "chooseLocationDemand"{
+        if identifier == "chooseLocationOffer"{
             
             let covc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreateOffer") as! CreateOfferViewController
             
             covc.chosenlocation = location
             
-        }else if identifier == "chooseLoactionOffer" {
+        }else if identifier == "chooseLocationDemand" {
             
             let cdvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreateDemand") as! CreateDemandViewController
             
@@ -120,11 +129,12 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
         
         if identifier == "chooseLocationDemand"{
         
-            type = "offer"
-            
-        }else if identifier == "chooseLoactionOffer" {
-            
             type = "demand"
+
+            
+        }else if identifier == "chooseLocationOffer" {
+            
+            type = "offer"
 
         }
 

@@ -22,9 +22,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     var zoom:CLLocationDegrees = CLLocationDegrees()
     
-    var latitude:CLLocationDegrees = 52.496877
-    var longitude:CLLocationDegrees = 13.509821
-    
+    var location = CLLocationCoordinate2D()
     
     override func viewDidLoad() {
         
@@ -37,47 +35,42 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
         zoom = Double(zoomSlider.value)
         
-        relocate(latitude, longitude: longitude)
+        relocate()
         
         self.getAnnotations()
         
     }
     
+    // Get current User Location
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-    func relocate(latitude:CLLocationDegrees, longitude:CLLocationDegrees){
+        let userLocation:CLLocation = locations[0]
+        
+        self.location = userLocation.coordinate
+        
+        relocate()
+    }
+
+        
+    //Move and adjust MapView according to userlocation and zoomfactor
+
+    func relocate(){
         
         print(zoom)
         
         let span:MKCoordinateSpan = MKCoordinateSpanMake(zoom, zoom)
         
-        let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude, longitude)
-        
-        let region:MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+        let region:MKCoordinateRegion = MKCoordinateRegionMake(self.location, span)
         
         self.map.setRegion(region, animated: true)
 
         
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        let userLocation:CLLocation = locations[0]
-        
-         latitude = userLocation.coordinate.latitude
-        
-        NSUserDefaults.standardUserDefaults().setObject(latitude, forKey: "UserLat")
-        
-         longitude = userLocation.coordinate.longitude
-        
-        NSUserDefaults.standardUserDefaults().setObject(longitude, forKey: "UserLon")
-        
-        relocate(latitude, longitude: longitude)
-    
-        
-    }
-    
+    // Assign custom View to Annotations
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
        
+    
         let identifier = "MyPin"
         
         // Reuse the annotation if possible
@@ -108,8 +101,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return annotationView
     }
     
+    // Place the annotations on th mapview
+    // The annotations are created as custom classes to asign custompins to them
     func placeAnnotation(location:CLLocationCoordinate2D, title: String, subtitle:String, type:String){
-        
+       
         switch type{
             
             case "offer":
@@ -129,26 +124,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         }
     }
     
+    
+    // Get all offers and demands and create an annotation on the map.
+    // Normally this would be relative to the current position or paginated,
+    // but the current implementation of the API does not yet provide this functions
+    
     func getAnnotations(){
         
         Offers.queryAllOffers { (offers) -> Void in
            
             for offer in offers! {
                 
-                if let location = offer["location"] as? NSDictionary{
+                if let title = offer["tags"] as? [String]{
                     
+                    if let location = offer["location"] as? NSDictionary{
                     
-                    if let lat = location["lat"] as? CLLocationDegrees{
-                        print(lat)
+                        if let lat = location["lat"] as? CLLocationDegrees{
+                            print(lat)
                         
-                        if let lon = location["lon"] as? CLLocationDegrees{
+                            if let lon = location["lon"] as? CLLocationDegrees{
                             
-                            print(lon)
+                                print(lon)
                             
-                            let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                                let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
                             
-                            self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "offer")
-                            
+                                self.placeAnnotation(newlocation, title: title.joinWithSeparator(", "), subtitle: "", type: "offer")
+                            }
                         }
                     }
                 }
@@ -159,19 +160,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             
             for demand in demands! {
                 
-                if let location = demand["location"] as? NSDictionary{
-                    
-                    
-                    if let lat = location["lat"] as? CLLocationDegrees{
-                        print(lat)
+                if let title = demand["mustTags"] as? [String]{
+                    if let subtitle = demand["shouldTags"] as? [String]{
                         
-                        if let lon = location["lon"] as? CLLocationDegrees{
+                        if let location = demand["location"] as? NSDictionary{
                             
-                            print(lon)
                             
-                            let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
-                            
-                            self.placeAnnotation(newlocation, title: "Offer", subtitle: "Something", type: "demand")
+                            if let lat = location["lat"] as? CLLocationDegrees{
+                                print(lat)
+                                
+                                if let lon = location["lon"] as? CLLocationDegrees{
+                                    
+                                    print(lon)
+                                    
+                                    let newlocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat, lon)
+                                    
+                                    self.placeAnnotation(newlocation, title: title.joinWithSeparator(", "), subtitle: subtitle.joinWithSeparator(", "), type: "demand")
+                                }
+                            }
                         }
                     }
                 }
@@ -180,19 +186,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     
-    @IBAction func showProfile(sender: AnyObject) {
-        
-        self.performSegueWithIdentifier("profile", sender: self)
-    
-    }
-    
     @IBAction func zoom(sender: AnyObject) {
         
         zoom = Double(zoomSlider.value)
         
-        
         zoomlabel.text = "\(zoom)"
-        relocate(latitude, longitude: longitude)
+        relocate()
         
     }
 

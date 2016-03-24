@@ -51,9 +51,9 @@ class NeeedoImages{
         )
     }
    
-    func getImageUrl(image:NeeedoImage)->NSURL{
+    class func getImageUrl(name:String)->NSURL{
         
-        let URL = NSURL(string: "\(staticUrl)/images/\(imageName)")!
+        let URL = NSURL(string: "\(staticUrl)/images/\(name)")!
         
         return URL
         

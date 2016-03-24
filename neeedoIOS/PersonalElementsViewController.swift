@@ -32,10 +32,27 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
         // Stuff
         
         self.getUser()
-        self.getFavorites()
-        self.getOffers()
-        self.getDemands()
+        
+        print(list)
+        
+        switch self.list{
+            
+        case "Favorites":
+            self.getFavorites()
+        case "Offers":
+            self.getOffers()
+        case "Demands":
+            self.getDemands()
+        default:
+            self.getFavorites()
+        }
+        
     }
+    
+    override func viewDidAppear(animated: Bool) {
+       
+        
+            }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -43,7 +60,6 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
     
     @IBAction func changeView(sender: AnyObject) {
         
-        tableView.reloadData()
 
     }
     
@@ -206,6 +222,9 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
                 
                 self.myFavorites.append(newFav)
             }
+
+            self.tableView.reloadData()
+
         }
     }
     func getOffers(){
@@ -254,6 +273,8 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
                 
                 self.myOffers.append(newOffer)
             }
+            self.tableView.reloadData()
+
         })
     }
 
@@ -309,6 +330,8 @@ class PersonalElementsViewController: UIViewController, UITableViewDelegate {
                 }
                 self.myDemands.append(newDemand)
             }
+            self.tableView.reloadData()
+
         }
     }
 

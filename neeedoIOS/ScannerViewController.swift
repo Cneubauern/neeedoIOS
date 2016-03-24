@@ -12,9 +12,12 @@ import UIKit
 import Alamofire
 
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+  
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
+    var name = String()
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -58,6 +61,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
     
     func failed() {
+        
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .Alert)
         ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         presentViewController(ac, animated: true, completion: nil)
@@ -89,8 +93,6 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             foundCode(readableObject.stringValue);
         }
-        
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func foundCode(code: String) {
@@ -99,8 +101,34 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         Alamofire.request(.GET, "https://api.outpan.com/v2/products/\(code)?apikey=5c5ce4d162d31bcf5c45d40bdbad2228").responseJSON { (Response) -> Void in
             debugPrint(Response)
             
+            if let JSON = Response.result.value{
+                if let name = JSON["name"] as? String{
+                    
+                    print(name)
+            
+                    self.name = name
+                    
+                }
+
+            }
+            self.performSegueWithIdentifier("goback", sender: self)
+
         }
         
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let identifier = segue.identifier{
+            
+            if identifier == "goback"{
+                
+                if let covc =  segue.destinationViewController as? CreateOfferViewController{
+                    
+                    covc.name = name
+                }
+            }
+        }
     }
     
     override func prefersStatusBarHidden() -> Bool {
