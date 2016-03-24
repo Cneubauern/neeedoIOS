@@ -17,11 +17,14 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     var myUser:User = User()
     var myNewOffer = Offers()
     
+    
     var location = CLLocationCoordinate2D()
     var chosenlocation = CLLocationCoordinate2D()
 
-    
-    var imageURL = NSURL()
+    var images = [UIImage]()
+    var imagesData = [NSData]()
+    var imageNames = [String]()
+    var imageUrls = [NSURL]()
     
     @IBOutlet var descriptionTextField: UITextField!
     @IBOutlet var priceTextField: UITextField!
@@ -75,36 +78,43 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     
     func createOffer(){
         
-        var coordinate = CLLocationCoordinate2D()
+        self.uploadImages { (name) -> Void in
+            
+            var imagesNamed = [String]()
+            imagesNamed.append(name!)
         
-        if currentLocationSwitch.on {
-            
-            coordinate = location
-            
-        } else{
-            
-            coordinate = chosenlocation
-        }
+    
+            var coordinate = CLLocationCoordinate2D()
         
-        
-        if let price = Float32(priceTextField.text!){
+            if self.currentLocationSwitch.on {
             
-            if let tagsString = descriptionTextField.text {
+                coordinate = self.location
                 
-                let tags = tagsString.componentsSeparatedByString(",")
-                
-                
-                Offers.createOffer(myUser, offer: Offer(userID: myUser.userID, tags: tags, location: coordinate, price: price, images: []), completionhandler: { (success) -> Void in
-                   
-                    if success == true {
-                        print("created")
-                    }
-                })
+            } else{
+            
+                coordinate = self.chosenlocation
             }
-        }else{
-            
-            print("Missing Elements")
         
+        
+            if let price = Float32(self.priceTextField.text!){
+            
+                if let tagsString = self.descriptionTextField.text {
+                
+                    let tags = tagsString.componentsSeparatedByString(",")
+                
+                    Offers.createOffer(self.myUser, offer: Offer(userID: self.myUser.userID, tags: tags, location: coordinate, price: price, images: imagesNamed), completionhandler: { (success) -> Void in
+                   
+                        if success == true {
+                            print("created")
+                            self.clearForm()
+                        }
+                    })
+                }
+            }else{
+            
+                print("Missing Elements")
+        
+            }
         }
     }
     
@@ -114,35 +124,66 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
        
         print("Image Selected")
         
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            imageView.contentMode = .ScaleAspectFit
-            imageView.image = pickedImage
-        }
-        if let pickedImageURL = info[UIImagePickerControllerReferenceURL] as? NSURL{
-            
-            if let pickedImageName = pickedImageURL.lastPathComponent{
-                
-                print(pickedImageURL.path)
-
-                print(pickedImageName)
-                
-                imageURL = pickedImageURL
-                
-            }
-            
-        }
+        //getting details of image
+        let uploadFileURL = info[UIImagePickerControllerReferenceURL] as! NSURL
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if let imageName = uploadFileURL.lastPathComponent {
+        
+        imageNames.append(imageName)
+        print(imageName)
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first! as String
+        
+        // getting local path
+        let localPath = (documentDirectory as NSString).stringByAppendingPathComponent(imageName)
+        
+        //getting actual image
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        self.imageView.contentMode = .ScaleAspectFit
+        self.imageView.image = image
+        
+        let data = UIImageJPEGRepresentation(image, 0.2)
+        data!.writeToFile(localPath, atomically: true)
+    
+        let imageData = NSData(contentsOfFile: localPath)!
+        
+            self.imagesData.append(imageData)
+            
+      //  print(imageData)
+        
+        let imageURL = NSURL(fileURLWithPath: localPath)
+        print(imageURL)
+            self.imageUrls.append(imageURL)
+        }
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        
+        //self.dismissViewControllerAnimated(true, completion: nil)
 
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+     
         dismissViewControllerAnimated(true, completion: nil)
+    
     }
     
     //This funtion sends the image to the needo API and makes sure they can be accessed in the createOffer - Method
-    func uploadImage(image:[UIImage]){
+    func uploadImages(completionHandler:(String?)->Void){
+        
+        let newImage = NeeedoImages()
+        
+        newImage.imageName = imageNames.last!
+        newImage.imageUrl = imageUrls.last!
+        newImage.data = imagesData.last!
+        
+        print(newImage.imageUrl,newImage.imageName)
+        
+        NeeedoImages.uploadImage( myUser, image: newImage) { (name) -> Void in
             
+            completionHandler(name)
+            
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -190,6 +231,8 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
     }
     
     @IBAction func openScanner(sender: AnyObject) {
+        
+        performSegueWithIdentifier("barcode", sender: self)
     }
     
     // Opens the Camera and allows the User to take a Photo
@@ -231,8 +274,21 @@ class CreateOfferViewController: UIViewController, UITextFieldDelegate,  CLLocat
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-
     
+    func clearForm(){
+        
+        images.removeAll()
+        imageNames.removeAll()
+        imageUrls.removeAll()
+        
+        descriptionTextField.text = ""
+        priceTextField.text = ""
+        currentLocationSwitch.on = true
+        chooseLocationBtn.enabled = false
+        
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -43,18 +43,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         
     }
     
-    func action(gestureRecognizer: UIGestureRecognizer){
         
-        print("gesture recognized")
-        
-        let touchPoint = gestureRecognizer.locationInView(self.map)
-        
-        let newCoordinate:CLLocationCoordinate2D = map.convertPoint(touchPoint, toCoordinateFromView: self.map)
-        
-        placeAnnotation(newCoordinate, title: "You Touched Here", subtitle: "Why?", type: "normal" )
-        
-    }
-    
     func relocate(latitude:CLLocationDegrees, longitude:CLLocationDegrees){
         
         print(zoom)

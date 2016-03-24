@@ -22,6 +22,7 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
     
     let geocoder = CLGeocoder()
 
+    var uilpgr = UILongPressGestureRecognizer()
     
     override func viewDidLoad() {
         //fill in the blank
@@ -30,7 +31,27 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
         
         relocate(location)
         placeAnnotation(location)
+        
+        uilpgr = UILongPressGestureRecognizer(target: self, action: "action:")
+        
+        uilpgr.minimumPressDuration = 2
+        
+        mapView.addGestureRecognizer(uilpgr)
+        
     }
+    
+    func action(gestureRecognizer: UIGestureRecognizer){
+        
+        print("gesture recognized")
+        
+        let touchPoint = gestureRecognizer.locationInView(self.mapView)
+        
+        let newCoordinate:CLLocationCoordinate2D = mapView.convertPoint(touchPoint, toCoordinateFromView: self.mapView)
+        
+        placeAnnotation(newCoordinate)
+        
+    }
+ 
     
     @IBAction func findLocation(sender: AnyObject) {
         
@@ -72,40 +93,20 @@ class chooseLocationViewController: UIViewController, MKMapViewDelegate, UITextF
         
     }
     
-   @IBAction func chooseLocation(sender: AnyObject) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if identifier == "chooseLocationDemand"{
             
-            performSegueWithIdentifier("goBackDemand", sender: self)
+            let covc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreateOffer") as! CreateOfferViewController
+            
+            covc.chosenlocation = location
             
         }else if identifier == "chooseLoactionOffer" {
             
-            performSegueWithIdentifier("goBackOffer", sender: self)
-
-        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if let identifier = segue.identifier{
+            let cdvc = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CreateDemand") as! CreateDemandViewController
             
-            print("Seque:", identifier)
+            cdvc.chosenlocation = location
             
-            if identifier == "goBackDemand"{
-                
-                if let cdvc =  segue.destinationViewController as? CreateDemandViewController{
-
-                    cdvc.chosenlocation = location
-                }
-            }
-            
-            if identifier == "goBackOffer"{
-                
-                if let covc =  segue.destinationViewController as? CreateOfferViewController{
-
-                    covc.chosenlocation = location
-                }
-            }
         }
     }
     

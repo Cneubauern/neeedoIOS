@@ -12,21 +12,50 @@ import UIKit
 
 class NeeedoImages{
     
-    var imagename = String()
+    var imageName = String()
+    var imageUrl = NSURL()
     var image = UIImage()
+    var data = NSData()
     
-    class func uploadImage(image:NeeedoImage, completionhandler:()->Void){
+    class func uploadImage(user:User, image:NeeedoImages, completionhandler:(String?)->Void){
         
+        let credentialData = "\(user.userEmail):\(user.userPassword)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
         
+        let headers = ["Authorization": "Basic \(base64Credentials)"]
         
-        
+        Alamofire.upload(
+            .POST,
+            "\(staticUrl)/images",
+            headers: headers,
+            multipartFormData: { multipartFormData in
+            
+                    multipartFormData.appendBodyPart(fileURL: image.imageUrl, name: "image", fileName: image.imageName, mimeType: "image/.JPG")
+
+            },
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .Success(let upload, _, _):
+                    upload.responseJSON { response in
+                        debugPrint(response)
+                        if let JSON = response.result.value{
+                            if let image = JSON["image"] as? String{
+                                completionhandler(image)
+                            }
+                        }
+                    }
+                case .Failure(let encodingError):
+                    print(encodingError)
+                }
+            }
+        )
     }
    
     func getImageUrl(image:NeeedoImage)->NSURL{
         
-        let imageUrl = NSURL(string: "\(staticUrl)/images/\(imagename)")!
+        let URL = NSURL(string: "\(staticUrl)/images/\(imageName)")!
         
-        return imageUrl
+        return URL
         
     }
     
@@ -34,9 +63,9 @@ class NeeedoImages{
 
 class NeeedoImage: NeeedoImages{
     
-    init(imagename:String, image:UIImage) {
+    init(imagename:String, url :NSURL) {
         super.init()
-        self.image = image
-        self.imagename = imagename
+        self.imageUrl = url
+        self.imageName = imagename
     }
 }

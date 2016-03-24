@@ -98,6 +98,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         Alamofire.request(.GET, "https://api.outpan.com/v2/products/\(code)?apikey=5c5ce4d162d31bcf5c45d40bdbad2228").responseJSON { (Response) -> Void in
             debugPrint(Response)
+            
         }
         
     }

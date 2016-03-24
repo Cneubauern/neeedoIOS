@@ -21,7 +21,7 @@ class ConversationsViewController: UITableViewController {
     
     func getConversations(){
         
-        Messages.getAllConversationsByUser(myUser, read: <#T##Bool#>) { (users) -> Void in
+        Messages.getAllConversationsByUser(myUser, read: false) { (users) -> Void in
             
             for user in users!{
                 let newUser = User()
@@ -51,6 +51,8 @@ class ConversationsViewController: UITableViewController {
         let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
 
         cell.textLabel?.text = conversations[indexPath.row].userName
+        
+        return cell
     }
 
 }
